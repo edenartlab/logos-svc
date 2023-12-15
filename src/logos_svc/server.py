@@ -1,3 +1,4 @@
+from typing import Optional
 from fastapi import FastAPI
 from pydantic import BaseModel
 from logos.scenarios.eden_assistant import EdenAssistant
@@ -18,8 +19,8 @@ class EdenAssistantInput(BaseModel):
 
 class InteractionInput(BaseModel):
     prompt: str
-    attachments: list
     author_id: str
+    attachments: Optional[list]
 
 
 @app.post("/interact")
