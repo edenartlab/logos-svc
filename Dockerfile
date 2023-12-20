@@ -13,4 +13,4 @@ RUN apt-get update \
     && apt-get install -y git \
     && pip install -r requirements.txt
 
-ENTRYPOINT ["uvicorn", "src.logos_svc.server:app", "--host", "0.0.0.0"]
+ENTRYPOINT ["uvicorn", "src.server:app", "--host", "0.0.0.0"]
