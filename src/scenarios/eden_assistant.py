@@ -21,6 +21,7 @@ class GeneratorMode(Enum):
     interpolate = 'interpolate'
     real2real = 'real2real'
     remix = 'remix'
+    blend = 'blend'
     upscale = 'upscale'
 
 class Config(BaseModel):
@@ -31,6 +32,9 @@ class Config(BaseModel):
     text_input: Optional[str] = Field(description="Text prompt that describes image")
     seed: Optional[int] = Field(description="Seed for random number generator")
     init_image: Optional[str] = Field(description="Path to image file for create, remix, or upscale")
+    init_image_strength: Optional[float] = Field(description="Strength of init image, default 0.15")
+    control_image: Optional[str] = Field(description="Path to image file for controlnet")
+    control_image_strength: Optional[float] = Field(description="Strength of control image for controlnet, default 0.6")
     interpolation_init_images: Optional[List[str]] = Field(description="List of paths to image files for real2real or blend")
     interpolation_texts: Optional[List[str]] = Field(description="List of text prompts for interpolate")
     interpolation_seeds: Optional[List[int]] = Field(description="List of seeds for interpolation texts")
