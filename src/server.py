@@ -5,7 +5,6 @@ from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 from pydantic import BaseModel, Field
-import pymongo
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from dotenv import load_dotenv
@@ -14,13 +13,8 @@ from .scenarios.eden_assistant import EdenAssistant
 
 load_dotenv()
 
-print("SECRETS")
-print(os.getenv("MONGO_URI"), os.getenv("MONGO_DB_NAME"))
 MONGO_URI = os.getenv("MONGO_URI")
 MONGO_DB_NAME = os.getenv("MONGO_DB_NAME")
-print("SECRETS")
-print(MONGO_URI, MONGO_DB_NAME)
-print("SECRETS")
 
 app = FastAPI()
 client = MongoClient(MONGO_URI)
@@ -86,6 +80,19 @@ async def interact(assistant: EdenAssistantInput, interaction: InteractionInput)
 
     return response
 
-# @app.post("/test")
-# async def test(assistant: EdenAssistantInput, interaction: InteractionInput):
-    
+
+@app.post("/test")
+async def test(assistant: EdenAssistantInput, interaction: InteractionInput):
+    character = EdenAssistant(
+        name=assistant.name,
+        identity=assistant.identity,
+        knowledge=assistant.knowledge,
+        knowledge_summary=assistant.knowledge_summary,
+    )
+    message = {
+        "prompt": interaction.prompt,
+        "attachments": interaction.attachments,
+    }
+    response = character(message, session_id=interaction.author_id)
+    print(response)
+    return response
