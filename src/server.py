@@ -11,9 +11,17 @@ from .scenarios.eden_assistant import EdenAssistant
 
 load_dotenv()
 
+print("SECRETS")
+print(os.getenv("MONGO_URI"), os.getenv("MONGO_DB_NAME"))
+MONGO_URI = os.getenv("MONGO_URI")
+MONGO_DB_NAME = os.getenv("MONGO_DB_NAME")
+print("SECRETS")
+priot(MONGO_URI, MONGO_DB_NAME)
+print("SECRETS")
+
 app = FastAPI()
-client = MongoClient(os.getenv("MONGO_URI"))
-db = client[os.getenv("MONGO_DB_NAME")]
+client = MongoClient(MONGO_URI)
+db = client[MONGO_DB_NAME]
 characters = {}
 
 
