@@ -11,9 +11,17 @@ from .scenarios.eden_assistant import EdenAssistant
 
 load_dotenv()
 
+print("SECRETS")
+print(os.getenv("MONGO_URI"), os.getenv("MONGO_DB_NAME"))
+MONGO_URI = os.getenv("MONGO_URI")
+MONGO_DB_NAME = os.getenv("MONGO_DB_NAME")
+print("SECRETS")
+print(MONGO_URI, MONGO_DB_NAME)
+print("SECRETS")
+
 app = FastAPI()
-client = MongoClient(os.getenv("MONGO_URI"))
-db = client[os.getenv("MONGO_DB_NAME")]
+client = MongoClient(MONGO_URI)
+db = client[MONGO_DB_NAME]
 characters = {}
 
 
@@ -33,6 +41,16 @@ def get_character_data(character_id: str):
     return name, identity, knowledge, knowledge_summary
 
 
+
+
+class EdenAssistantInput(BaseModel):
+    name: str
+    identity: str
+    knowledge_summary: str
+    knowledge: str
+
+
+
 class InteractionInput(BaseModel):
     character_id: str
     session_id: str
@@ -40,7 +58,7 @@ class InteractionInput(BaseModel):
     attachments: Optional[list]
 
 @app.post("/interact")
-async def interact(interaction: InteractionInput):
+async def interact(assistant: EdenAssistantInput, interaction: InteractionInput):
 
     if interaction.character_id not in characters:
         characters[interaction.character_id] = EdenAssistant()
