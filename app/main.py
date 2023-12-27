@@ -1,15 +1,18 @@
 from fastapi import FastAPI
-from .routers import scenario#, another  # Import routers from the routers module
-
+from .routers import scenario, chat, story
 app = FastAPI()
 
-# Include routers from the routers package
 app.include_router(scenario.router)
-#app.include_router(another.router)
+app.include_router(chat.router)
+app.include_router(story.router)
 
-# Define a simple route for the root of the service
+
 @app.get("/")
-async def read_root():
-    return {"msg": "Hello, World"}
+async def main():
+    return {"status": "running"}
 
-# You can add additional routes here or in separate modules within the routers package.
+# monologue
+# dialogue
+# story w/ creations (stub)
+# comic book w/ creations
+# eden assistant, chat monitor

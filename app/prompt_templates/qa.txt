@@ -1,5 +1,0 @@
-Please memorize the following documentation carefully. You will be asked questions about it.
-
----
-
-${docs_content}

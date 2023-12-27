@@ -1,3 +1,4 @@
 # logos-svc
 
-Describe your project here.
+
+`rye run uvicorn app.main:app --reload`

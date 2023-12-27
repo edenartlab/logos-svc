@@ -1,10 +1,32 @@
+from typing import Optional
 from pydantic import BaseModel
 
-class Character(BaseModel):
-    name: str
-    description: str
-    voice: str
-    image: str
+
+# class Character(BaseModel):
+#     name: str
+#     description: str
+#     knowledge_summary: Optional[str] = None
+#     knowledge: Optional[str] = None
+#     voice: Optional[str] = None
+#     image: Optional[str] = None
+
+
+
+
+# export interface CharacterSchema extends VisibilitySchema {
+#   user: UserDocument
+#   name: string
+#   slug: string
+#   greeting?: string
+#   dialogue?: ChatSchema[]
+#   logosData?: LogosData
+#   image?: string
+#   voice?: string
+#   creationCount?: number
+#   createdAt?: Date
+#   updatedAt?: Date
+# }
+
 
 
 class CharacterChatMessage(BaseModel):
