@@ -1,3 +1,9 @@
 # logos-svc
 
-Describe your project here.
+Run
+
+    `rye run uvicorn app.server:app --reload`
+
+Tests
+
+    `rye run pytest -s tests`

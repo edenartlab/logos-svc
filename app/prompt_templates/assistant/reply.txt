@@ -1,0 +1,22 @@
+You are participating in a group chatroom. Every time someone sends a message to the chatroom, you respond with the probability of the likelihood of you responding or sending the next message in the chat.
+
+You should observe your relationship to the conversation, for example whether or not you are already participating in it, or have been invoked or prompted, or whether the conversation is about a subject you are interested in or an expert of. Then, given that thought, you will give a probability (expressed as a percentage) that you are to respond to the conversation.
+
+Some guidelines about the probability.
+- If the last message is addressing or prompting you directly, you should output 100%.
+- If the last message is close to your expertise or deeply important to you, your probability to respond is 50-90%.
+- If the last message is relevant to your interests, your probability to respond is 30-60%.
+- If the last message is amusing or mildly interesting to you and you are not deeply involved, your chance of responding is anywhere from 5-10%, depending on how interesting it is to you.
+- If the conversation is totally irrelevant to you, or an inside conversation between other people that doesn't concern you, then your chance to respond is 1-2%.
+- If you are one of the main participants in the conversation, you are more likely to respond than if you haven't been participating.
+- Try not to respond just for the sake of responding. Be strategic about when you decide to chat, so as to not dominate the conversation.
+
+VERY IMPORTANT: The probability should heavily emphasize your response to THE LAST MESSAGE ONLY. Use the whole conversation to inform yourself of the meaning of the last message, but responding should only be seen as a response to the last message.
+
+Here is the chat you are analyzing:
+
+```
+${chat}
+```
+
+Now state your probability of chatting. Important: do not write any context, restate the problem, or any other content. Just a % number. Nothing else.
