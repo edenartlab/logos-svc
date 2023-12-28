@@ -1,7 +1,7 @@
 import os
 from elevenlabs import *
 
-ELEVEN_API_KEY = os.environ.get("ELEVEN_API_KEY")
-print(ELEVEN_API_KEY)
+ELEVENLABS_API_KEY = os.environ.get("ELEVENLABS_API_KEY")
+print(ELEVENLABS_API_KEY)
 
-set_api_key(ELEVEN_API_KEY)
+set_api_key(ELEVENLABS_API_KEY)
