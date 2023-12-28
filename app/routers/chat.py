@@ -12,7 +12,6 @@ def get_character(character_id: str):
     if character_id not in characters:
         characters[character_id] = EdenCharacter(character_id)
     character = characters[character_id]
-    character.sync()
     return character
 
 
@@ -58,6 +57,7 @@ class ChatRequest(BaseModel):
 async def think(request: ChatRequest):
     try:
         character = get_character(request.character_id)
+        character.sync()
         message = {
             "prompt": request.prompt,
             "attachments": request.attachments,
