@@ -4,7 +4,7 @@ FROM python:3.11-slim-bullseye AS python
 ENV PYTHONUNBUFFERED 1
 WORKDIR /app
 
-COPY src src
+COPY app app
 COPY pyproject.toml pyproject.toml
 COPY README.md README.md
 COPY requirements.lock requirements.txt
