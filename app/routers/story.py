@@ -13,13 +13,13 @@ from ..prompt_templates.cinema import (
 router = APIRouter()
 
 
-class StoryRequest(BaseModel):
+class CinemaRequest(BaseModel):
     prompt: str
     model: str = "gpt-4-1106-preview" 
     params: dict = {}
 
-@router.post("/story")
-async def story(request: StoryRequest):
+@router.post("/story/cinema")
+async def cinema(request: CinemaRequest):
     try:
         params = {"temperature": 1.0, "max_tokens": 1000, **request.params}
 
@@ -42,5 +42,19 @@ async def story(request: StoryRequest):
         print(stills)
         return stills
 
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+
+class ComicRequest(BaseModel):
+    prompt: str
+    model: str = "gpt-4-1106-preview" 
+    params: dict = {}
+
+@router.post("/story/comic")
+async def comic(request: ComicRequest):
+    try:
+        print("TBD comic")
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))

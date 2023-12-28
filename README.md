@@ -1,4 +1,9 @@
 # logos-svc
 
+Run
 
-`rye run uvicorn app.main:app --reload`
+    `rye run uvicorn app.server:app --reload`
+
+Tests
+
+    `rye run pytest -s tests`

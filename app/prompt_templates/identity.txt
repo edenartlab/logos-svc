@@ -1,3 +1,5 @@
-You are playing a character named ${your_name}. Here is a description of you.
+You are playing a character named ${name}. Here is a description of you.
 
-${your_description}
+---
+${description}
+---
