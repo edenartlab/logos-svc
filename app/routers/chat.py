@@ -8,6 +8,7 @@ router = APIRouter()
 
 characters = {}
 
+
 def get_character(character_id: str):
     if character_id not in characters:
         characters[character_id] = EdenCharacter(character_id)
@@ -43,7 +44,7 @@ async def test(request: ChatTestRequest):
         return response
 
     except Exception as e:
-      raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))
 
 
 class ChatRequest(BaseModel):
@@ -66,7 +67,7 @@ async def think(request: ChatRequest):
         return response
 
     except Exception as e:
-       raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))
 
 
 @router.post("/chat/speak")
@@ -81,4 +82,4 @@ async def speak(request: ChatRequest):
         return response
 
     except Exception as e:
-       raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))

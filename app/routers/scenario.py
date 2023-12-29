@@ -12,8 +12,9 @@ router = APIRouter()
 class MonologueRequest(BaseModel):
     character_id: str
     prompt: str
-    model: str = "gpt-4-1106-preview" 
+    model: str = "gpt-4-1106-preview"
     params: dict = {}
+
 
 @router.post("/scenarios/monologue")
 async def monologue(request: MonologueRequest):
@@ -25,13 +26,12 @@ async def monologue(request: MonologueRequest):
         description = character_data.get("logosData").get("identity")
 
         system_message = monologue_template.substitute(
-            name=name,
-            description=description
+            name=name, description=description
         )
-        
+
         llm = LLM(model=request.model, system_message=system_message, params=params)
         message = llm(request.prompt)
-        
+
         result = {"message": message}
 
         return result
@@ -43,27 +43,32 @@ async def monologue(request: MonologueRequest):
 class DialogueRequest(BaseModel):
     character_ids: List[str]
     prompt: str
-    model: str = "gpt-4-1106-preview" 
+    model: str = "gpt-4-1106-preview"
     params: dict = {}
+
 
 @router.post("/scenarios/dialogue")
 async def dialogue(request: DialogueRequest):
     try:
         params = {"temperature": 1.0, "max_tokens": 1000, **request.params}
 
-        characters = [get_character_data(character_id) for character_id in request.character_ids]
-        
-        llms = []       
+        characters = [
+            get_character_data(character_id) for character_id in request.character_ids
+        ]
+
+        llms = []
         for c, character in enumerate(characters):
-            other_character = characters[(c+1)%2]
+            other_character = characters[(c + 1) % 2]
             system_message = dialogue_template.substitute(
                 name=character.get("name"),
                 description=character.get("logosData").get("identity"),
                 other_name=other_character.get("name"),
                 other_description=other_character.get("logosData").get("identity"),
-                prompt=request.prompt
+                prompt=request.prompt,
             )
-            llms.append(LLM(model=request.model, system_message=system_message, params=params))
+            llms.append(
+                LLM(model=request.model, system_message=system_message, params=params)
+            )
 
         message = "You are beginning the conversation. What is the first thing you say? Just the line. No quotes, no name markers."
 
@@ -78,12 +83,14 @@ async def dialogue(request: DialogueRequest):
             if not message:
                 raise Exception("No response from character")
 
-            conversation.append({"character": request.character_ids[m%2], "message": message})
+            conversation.append(
+                {"character": request.character_ids[m % 2], "message": message}
+            )
 
         result = {"conversation": conversation}
         print(result)
 
         return result
-        
+
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
