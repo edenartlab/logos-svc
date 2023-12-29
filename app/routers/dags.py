@@ -1,6 +1,6 @@
 import os
 import uuid
-import elevenlabs 
+import elevenlabs
 from io import BytesIO
 from botocore.exceptions import NoCredentialsError
 from typing import Optional, List
@@ -16,16 +16,14 @@ router = APIRouter()
 class MonologueRequest(BaseModel):
     character_id: str
     prompt: str
-    model: str = "gpt-4-1106-preview" 
+    model: str = "gpt-4-1106-preview"
     params: dict = {}
+
 
 @router.post("/dags/monologue")
 async def monologue_dag(request: MonologueRequest):
-    #result = await monologue(request)
-    result = {
-        "prompt": "lucy is a dog",
-        "voice": "Adam"
-    }
+    # result = await monologue(request)
+    result = {"prompt": "lucy is a dog", "voice": "Adam"}
     print(result)
 
     prompt = result["prompt"]
@@ -39,7 +37,7 @@ async def monologue_dag(request: MonologueRequest):
         "face_url": image,
         "speech_url": audio_url,
         "gfpgan": False,
-        "gfpgan_upscale": 1
+        "gfpgan_upscale": 1,
     }
 
     # output = run_replicate_task(w2l_config, model_name=CHARACTER_GENERATOR)
@@ -52,21 +50,18 @@ async def monologue_dag(request: MonologueRequest):
     output = replicate.wav2lip(config)
     print(output)
 
-    
-    
-    
     output_url = s3.upload(output, "test.mp4")
     print(output_url)
-
 
 
 class DialogueRequest(BaseModel):
     character_ids: List[str]
     prompt: str
-    model: str = "gpt-4-1106-preview" 
+    model: str = "gpt-4-1106-preview"
     params: dict = {}
+
 
 @router.post("/dags/dialogue")
 async def dialogue_dag(request: DialogueRequest):
-   print("DIA")
-   print(request)
+    print("DIA")
+    print(request)

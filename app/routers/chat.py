@@ -8,6 +8,7 @@ router = APIRouter()
 
 characters = {}
 
+
 def get_character(character_id: str):
     if character_id not in characters:
         characters[character_id] = EdenCharacter(character_id)
@@ -23,27 +24,24 @@ class ChatTestRequest(BaseModel):
     prompt: str
     attachments: Optional[List[str]] = Field(None)
 
+
 @router.post("/chat/test")
 async def test(request: ChatTestRequest):
-    try:
-        character = Character(
-            name=request.name,
-            identity=request.identity,
-            knowledge_summary=request.knowledge_summary,
-            knowledge=request.knowledge,
-            creation_enabled=False,
-            concept=None,
-            smart_reply=False,
-        )
-        message = {
-            "prompt": request.prompt,
-            "attachments": request.attachments,
-        }
-        response = character(message, session_id="test")
-        return response
-
-    except Exception as e:
-      raise HTTPException(status_code=400, detail=str(e))
+    character = Character(
+        name=request.name,
+        identity=request.identity,
+        knowledge_summary=request.knowledge_summary,
+        knowledge=request.knowledge,
+        creation_enabled=False,
+        concept=None,
+        smart_reply=False,
+    )
+    message = {
+        "prompt": request.prompt,
+        "attachments": request.attachments,
+    }
+    response = character(message, session_id="test")
+    return response
 
 
 class ChatRequest(BaseModel):
@@ -55,30 +53,22 @@ class ChatRequest(BaseModel):
 
 @router.post("/chat/think")
 async def think(request: ChatRequest):
-    try:
-        character = get_character(request.character_id)
-        character.sync()
-        message = {
-            "prompt": request.prompt,
-            "attachments": request.attachments,
-        }
-        response = character.think(message)
-        return response
-
-    except Exception as e:
-       raise HTTPException(status_code=400, detail=str(e))
+    character = get_character(request.character_id)
+    character.sync()
+    message = {
+        "prompt": request.prompt,
+        "attachments": request.attachments,
+    }
+    response = character.think(message)
+    return response
 
 
 @router.post("/chat/speak")
 async def speak(request: ChatRequest):
-    try:
-        character = get_character(request.character_id)
-        message = {
-            "prompt": request.prompt,
-            "attachments": request.attachments,
-        }
-        response = character(message, session_id=request.session_id)
-        return response
-
-    except Exception as e:
-       raise HTTPException(status_code=400, detail=str(e))
+    character = get_character(request.character_id)
+    message = {
+        "prompt": request.prompt,
+        "attachments": request.attachments,
+    }
+    response = character(message, session_id=request.session_id)
+    return response
