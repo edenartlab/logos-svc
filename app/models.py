@@ -1,5 +1,86 @@
-from typing import Optional
-from pydantic import BaseModel
+from typing import Optional, List
+from pydantic import BaseModel, Field
+
+from .character import Character
+
+
+
+class TaskRequest(BaseModel):
+    generatorName: str
+    config: dict = {}
+    webhookUrl: str
+
+class TaskOutput(BaseModel):
+    files: List[str]
+    thumbnails: List[str]
+    name: str
+    attributes: dict
+    progress: int
+    isFinal: bool
+
+class TaskUpdate(BaseModel):
+    id: str
+    status: str
+    output: TaskOutput
+    error: Optional[str] = None
+
+
+
+
+class MonologueRequest(BaseModel):
+    character_id: str
+    prompt: str
+    model: str = "gpt-4-1106-preview"
+    params: dict = {}
+
+class MonologueOutput(BaseModel):
+    monologue: str
+
+class DialogueRequest(BaseModel):
+    character_ids: List[str]
+    prompt: str
+    model: str = "gpt-4-1106-preview"
+    params: dict = {}
+        
+class DialogueOutput(BaseModel):
+    dialogue: List[dict]
+
+
+
+
+
+
+class ChatRequest(BaseModel):
+    """
+    A chat request to an EdenCharacter
+    """
+    character_id: str
+    session_id: str
+    message: str
+    attachments: Optional[List[str]] = Field(None)
+
+class ChatTestRequest(BaseModel):
+    """
+    A chat request to a Character
+    """
+    name: str
+    identity: str
+    knowledge_summary: Optional[str] = Field(None)
+    knowledge: Optional[str] = Field(None)
+    message: str
+    attachments: Optional[List[str]] = Field(None)
+
+class CharacterOutput(BaseModel):
+    """
+    Output of chat message from a Character
+    """
+    message: str = Field(description="Text response from Eden")
+    config: Optional[dict] = Field(description="Config for Eden generator")
+
+
+
+
+
 
 
 # class Character(BaseModel):
@@ -29,9 +110,9 @@ from pydantic import BaseModel
 
 
 
-class CharacterChatMessage(BaseModel):
-    character: Character
-    message: str
+# class CharacterChatMessage(BaseModel):
+#     character: Character
+#     message: str
 
-    def __str__(self):
-        return f"{self.character.name}: {self.message}"
+#     def __str__(self):
+#         return f"{self.character.name}: {self.message}"

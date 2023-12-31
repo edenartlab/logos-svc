@@ -1,0 +1,7 @@
+Read the following text.
+
+---
+${text}
+---
+
+Please create a concise summary, in 3-5 sentences, of the text above. In particular, focus on breadth, capturing a wide overview of *all* the important points of the text, rather than going into much detail.

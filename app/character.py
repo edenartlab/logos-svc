@@ -60,7 +60,7 @@ class CreatorInput(BaseModel):
     """
     Input to creator LLM containing a prompt, and optionally a list of attachments
     """
-    prompt: str = Field(description="Message to LLM")
+    message: str = Field(description="Message to LLM")
     attachments: Optional[List[str]] = Field(default_factory=list, description="List of file paths to attachments")
 
 
@@ -76,6 +76,8 @@ class Character:
         creation_enabled=False,
         concept=None,
         smart_reply=False,
+        image=None,
+        voice=None,
     ):
         self.reply_params = {"temperature": 0.0, "max_tokens": 10}
         self.router_params = {"temperature": 0.0, "max_tokens": 10}
@@ -97,6 +99,8 @@ class Character:
             creation_enabled=creation_enabled,
             concept=concept,
             smart_reply=smart_reply,
+            image=image,
+            voice=voice,
         )
 
     def update(
@@ -108,9 +112,19 @@ class Character:
         creation_enabled=False,
         concept=None,
         smart_reply=False,
+        image=None,
+        voice=None,
     ):
+        self.name = name
+        self.identity = identity
+        self.knowledge_summary = knowledge_summary
+        self.knowledge = knowledge
+        self.creation_enabled = creation_enabled
         self.concept = concept
         self.smart_reply = smart_reply
+        self.image = image
+        self.voice = voice
+
         self.function_map = {"1": self._chat_}
         options = ["Regular conversation, chat, humor, or small talk"]
 
@@ -159,6 +173,21 @@ class Character:
         self.chat.update(system_message=self.chat_prompt)
         self.reply.update(system_message=self.identity_prompt)
 
+    def __str__(self):
+        def truncate(s):
+            return (s[:47] + '...') if len(s) > 50 else s
+        return (
+            f"Name: {truncate(self.name)}\n"
+            f"Identity: {truncate(self.identity)}\n"
+            f"Knowledge Summary: {truncate(str(self.knowledge_summary))}\n"
+            f"Knowledge: {truncate(str(self.knowledge))}\n"
+            f"Creation Enabled: {truncate(str(self.creation_enabled))}\n"
+            f"Concept: {truncate(str(self.concept))}\n"
+            f"Smart Reply: {truncate(str(self.smart_reply))}\n"
+            f"Image: {truncate(str(self.image))}\n"
+            f"Voice: {truncate(str(self.voice))}"
+        )
+
     def think(
         self,
         message,
@@ -187,7 +216,7 @@ class Character:
         for msg in conversation:
             role = "Eden" if msg.role == "assistant" else "Me"
             router_prompt += f"{role}: {msg.content}\n"
-        router_prompt += f"Me: {message.prompt}\n"
+        router_prompt += f"Me: {message.message}\n"
         index = self.router(router_prompt, save_messages=False)
         match = re.match(r'-?\d+', index)
         if match:
@@ -201,8 +230,8 @@ class Character:
         message,
         session_id=None,
     ) -> dict:
-        response = self.chat(message.prompt, id=session_id, save_messages=False)
-        user_message = ChatMessage(role="user", content=message.prompt)
+        response = self.chat(message.message, id=session_id, save_messages=False)
+        user_message = ChatMessage(role="user", content=message.message)
         assistant_message = ChatMessage(role="assistant", content=response)
         output = {
             "message": response,
@@ -215,8 +244,8 @@ class Character:
         message,
         session_id=None
     ) -> dict:
-        response = self.qa(message.prompt, id=session_id, save_messages=False)    
-        user_message = ChatMessage(role="user", content=message.prompt)
+        response = self.qa(message.message, id=session_id, save_messages=False)    
+        user_message = ChatMessage(role="user", content=message.message)
         assistant_message = ChatMessage(role="assistant", content=response)
         output = {
             "message": response,
@@ -256,7 +285,7 @@ class Character:
         if config:
             message_out += f"\nConfig: {config}"
         
-        message_in = message.prompt
+        message_in = message.message
         if message.attachments:
             message_in += f"\n\nAttachments: {message.attachments}"
 
@@ -329,7 +358,9 @@ class EdenCharacter(Character):
         knowledge = logos_data.get("knowledge")
         creation_enabled = True
         concept = logos_data.get("concept")
-        smart_reply = False
+        smart_reply = character_data.get("smartReply", False)
+        image = character_data.get("image")
+        voice = character_data.get("voice")
 
         self.update(
             name=name,
@@ -339,5 +370,7 @@ class EdenCharacter(Character):
             creation_enabled=creation_enabled,
             concept=concept,
             smart_reply=smart_reply,
+            image=image,
+            voice=voice,
         )
     
