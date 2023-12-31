@@ -165,6 +165,7 @@ class Character:
 
         self.creator_prompt = creator_template.substitute(
             name=name,
+            identity=identity,
         )
         
         self.router.update(system_message=self.router_prompt)
