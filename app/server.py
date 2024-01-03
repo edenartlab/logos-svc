@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request, BackgroundTasks
 from fastapi.responses import JSONResponse
 import traceback
 import logging
-from .routers import scenario, chat, story, dags, generator, summary
+from .routers import scenario, chat, story, dags, generator, tasks
 
 app = FastAPI()
 
@@ -20,7 +20,7 @@ app.include_router(scenario.router)
 app.include_router(chat.router)
 app.include_router(story.router)
 app.include_router(dags.router)
-app.include_router(summary.router)
+app.include_router(tasks.router)
 app.include_router(generator.router)
 
 
