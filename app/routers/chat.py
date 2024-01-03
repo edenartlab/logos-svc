@@ -9,11 +9,13 @@ router = APIRouter()
 
 characters = {}
 
+
 def get_character(character_id: str):
     if character_id not in characters:
         characters[character_id] = EdenCharacter(character_id)
     character = characters[character_id]
     return character
+
 
 @router.post("/chat/think")
 async def think(request: ChatRequest) -> bool:
@@ -26,6 +28,7 @@ async def think(request: ChatRequest) -> bool:
     response = character.think(message)
     return response
 
+
 @router.post("/chat/speak")
 async def speak(request: ChatRequest) -> CharacterOutput:
     character = get_character(request.character_id)
@@ -35,6 +38,7 @@ async def speak(request: ChatRequest) -> CharacterOutput:
     }
     response = character(message, session_id=request.session_id)
     return response
+
 
 @router.post("/chat/test")
 async def test(request: ChatTestRequest):
