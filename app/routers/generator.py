@@ -19,10 +19,11 @@ from ..models import TaskRequest, TaskUpdate, TaskOutput
 
 router = APIRouter()
 
+
 def process_task(task_id: str, request: TaskRequest, task_type: str):
-    webhook_url = request.webhookUrl 
+    webhook_url = request.webhookUrl
     print("config", request.config)
-    
+
     prompt = request.config.get("prompt")
 
     try:
@@ -33,7 +34,7 @@ def process_task(task_id: str, request: TaskRequest, task_type: str):
                 prompt=prompt,
             )
             output_url, thumbnail_url = monologue_dag(task_req)
-        
+
         elif task_type == "dialogue":
             character_ids = request.config.get("characterIds")
             task_req = DialogueRequest(
@@ -41,7 +42,7 @@ def process_task(task_id: str, request: TaskRequest, task_type: str):
                 prompt=prompt,
             )
             output_url, thumbnail_url = dialogue_dag(task_req)
-        
+
         output = TaskOutput(
             files=[output_url],
             thumbnails=[thumbnail_url],
