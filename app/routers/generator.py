@@ -4,8 +4,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import uuid
 import traceback
-import logging
-import time
+
 import requests
 
 from .dags import monologue_dag, dialogue_dag
