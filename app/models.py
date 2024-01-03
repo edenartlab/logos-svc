@@ -11,8 +11,6 @@ from pydantic import BaseModel
 #     image: Optional[str] = None
 
 
-
-
 # export interface CharacterSchema extends VisibilitySchema {
 #   user: UserDocument
 #   name: string
@@ -26,7 +24,6 @@ from pydantic import BaseModel
 #   createdAt?: Date
 #   updatedAt?: Date
 # }
-
 
 
 class CharacterChatMessage(BaseModel):
