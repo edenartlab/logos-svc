@@ -11,12 +11,12 @@ class TaskRequest(BaseModel):
 
 
 class TaskOutput(BaseModel):
-    files: List[str]
-    thumbnails: List[str]
-    name: str
-    attributes: dict
-    progress: int
-    isFinal: bool
+    files: List[str] = []
+    thumbnails: List[str] = []
+    name: str = ""
+    attributes: dict = {}
+    progress: int = 0
+    isFinal: bool = False
 
 
 class TaskUpdate(BaseModel):

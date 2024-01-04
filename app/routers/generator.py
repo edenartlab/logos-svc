@@ -20,14 +20,23 @@ router = APIRouter()
 
 
 def process_task(task_id: str, request: TaskRequest, task_type: str):
-    webhook_url = request.webhookUrl
     print("config", request.config)
 
-    prompt = request.config.get("prompt")
+    webhook_url = request.webhookUrl
+
+    update = TaskUpdate(
+        id=task_id,
+        output=TaskOutput(progress=0),
+        status="processing",
+        error=None,
+    )
+
+    requests.post(webhook_url, json=update.dict())
 
     try:
         if task_type == "monologue":
             character_id = request.config.get("characterId")
+            prompt = request.config.get("prompt")
             task_req = MonologueRequest(
                 character_id=character_id,
                 prompt=prompt,
@@ -36,6 +45,7 @@ def process_task(task_id: str, request: TaskRequest, task_type: str):
 
         elif task_type == "dialogue":
             character_ids = request.config.get("characterIds")
+            prompt = request.config.get("prompt")
             task_req = DialogueRequest(
                 character_ids=character_ids,
                 prompt=prompt,
