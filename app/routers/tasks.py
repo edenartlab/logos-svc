@@ -15,7 +15,7 @@ class SummaryResult(BaseModel):
     summary: str
 
 @router.post("/tasks/summary")
-async def summary(request: SummaryRequest) -> SummaryResult:
+def summary(request: SummaryRequest) -> SummaryResult:
     params = {"temperature": 0.0, "max_tokens": 1000}
 
     summary_message = summary_template.substitute(text=request.text)
@@ -41,7 +41,7 @@ class ModerationResult(BaseModel):
     hate: int = Field(description="Hate, abusive or toxic speech")
 
 @router.post("/tasks/moderation")
-async def moderation(request: ModerationRequest) -> ModerationResult:
+def moderation(request: ModerationRequest) -> ModerationResult:
     params = {"temperature": 0.0, "max_tokens": 1000}
 
     system_message = moderation_template.template

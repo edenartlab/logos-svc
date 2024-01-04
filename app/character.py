@@ -7,6 +7,7 @@ from typing import List, Optional
 from pydantic import Field, BaseModel, ValidationError
 
 from .mongo import get_character_data
+from .routers.tasks import summary, SummaryRequest
 from .llm import LLM
 from .llm.models import ChatMessage
 from .prompt_templates.assistant import (
@@ -91,6 +92,8 @@ class Character:
         self.qa = LLM(model="gpt-4-1106-preview", params=self.qa_params)
         self.chat = LLM(model="gpt-4-1106-preview", params=self.chat_params)
 
+        self.knowledge_summary = ""
+
         self.update(
             name=name,
             identity=identity,
@@ -117,20 +120,22 @@ class Character:
     ):
         self.name = name
         self.identity = identity
-        self.knowledge_summary = knowledge_summary
+        if knowledge_summary:
+            self.knowledge_summary = knowledge_summary
         self.knowledge = knowledge
         self.creation_enabled = creation_enabled
         self.concept = concept
         self.smart_reply = smart_reply
         self.image = image
         self.voice = voice
-
         self.function_map = {"1": self._chat_}
         options = ["Regular conversation, chat, humor, or small talk"]
 
-        if knowledge_summary:
+        if knowledge:
+            if not self.knowledge_summary.strip():
+                self.knowledge_summary = summary(SummaryRequest(text=self.knowledge)).summary
             options.append("A question about or reference to your knowledge")
-            knowledge_summary = f"You have the following knowledge: {knowledge_summary}"
+            knowledge_summary = f"You have the following knowledge: {self.knowledge_summary}"
             self.function_map[str(len(options))] = self._qa_
         if creation_enabled:
             options.append("A request for an image or video creation")
