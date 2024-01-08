@@ -125,9 +125,68 @@ def create_dialogue_thumbnail(image1_url, image2_url, width, height, ext="WEBP")
     return img_byte_arr.getvalue()
 
 
+# def concatenate_videos(video_files, output_file):
+#     with tempfile.NamedTemporaryFile(delete=False, mode='w', suffix=".txt") as f:
+#         for video_file in video_files:
+#             f.write(f"file '{video_file}'\n")
+#         f.flush()        
+#         subprocess.run(["ffmpeg", "-f", "concat", "-safe", "0", "-i", f.name, "-c", "copy", output_file])
+
+# def concatenate_videos(video_files, output_file):
+#     print("--1-0-21-23012")
+#     with tempfile.NamedTemporaryFile(delete=False, mode='w', suffix=".txt") as f:
+#         for video_file in video_files:
+#             f.write(f"file '{video_file}'\n")
+#         f.flush()        
+#         subprocess.run(["ffmpeg", "-f", "concat", "-safe", "0", "-i", f.name, "-c:v", "libx264", "-c:a", "aac", output_file])
+#     print("--1-0-21-23012asdsdds")
+
+def concatenate_videos2(video_files, output_file):
+    # with tempfile.NamedTemporaryFile(delete=False, mode='w', suffix=".txt") as f:
+    #     for video_file in video_files:
+    #         f.write(f"file '{video_file}'\n")
+    #     f.flush()        
+    #     subprocess.run(["ffmpeg", "-f", "concat", "-safe", "0", "-i", f.name, "-c:v", "libx264", "-c:a", "aac", "-map", "0", output_file])
+
+
+    with open('videos.txt', 'w') as f:
+        for video in video_files:
+            f.write(f"file '{video}'\n")
+
+    command = ['ffmpeg', '-f', 'concat', '-safe', '0', '-i', 'videos.txt', '-c', 'copy', 'myoutput.mp4']
+    subprocess.run(command)
+
+
+import tempfile
+import os
+
 def concatenate_videos(video_files, output_file):
-    with tempfile.NamedTemporaryFile(delete=False, mode='w', suffix=".txt") as f:
-        for video_file in video_files:
-            f.write(f"file '{video_file}'\n")
-        f.flush()        
-        subprocess.run(["ffmpeg", "-f", "concat", "-safe", "0", "-i", f.name, "-c", "copy", output_file])
+    videos = video_files
+
+    standard_fps = "30"  # Target frame rate
+
+    # Step 1: Convert all videos to the same frame rate
+    converted_videos = []
+    for i, video in enumerate(video_files):
+        with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as temp:
+            output_video = temp.name
+            convert_command = ['ffmpeg','-y', '-i', video, '-r', standard_fps, '-c:a', 'copy', output_video]
+            subprocess.run(convert_command)
+            converted_videos.append(output_video)
+    print("videos", converted_videos)
+    # Step 2: Create the filter_complex string
+    filter_complex = "".join([f"[{i}:v] [{i}:a] " for i in range(len(converted_videos))])
+    filter_complex += f"concat=n={len(converted_videos)}:v=1:a=1 [v] [a]"
+
+    # Step 3: Concatenate videos
+    concat_command = ['ffmpeg']
+    for video in converted_videos:
+        concat_command.extend(['-i', video])
+    concat_command.extend(['-filter_complex', filter_complex, '-map', '[v]', '-map', '[a]', output_file])
+    subprocess.run(concat_command)
+
+    # Step 4: Delete temporary files
+    for video in converted_videos:
+        os.remove(video)
+
+
