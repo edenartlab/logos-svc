@@ -1,3 +1,5 @@
+import tempfile
+import os
 import re
 import traceback
 import requests
@@ -125,41 +127,6 @@ def create_dialogue_thumbnail(image1_url, image2_url, width, height, ext="WEBP")
     return img_byte_arr.getvalue()
 
 
-# def concatenate_videos(video_files, output_file):
-#     with tempfile.NamedTemporaryFile(delete=False, mode='w', suffix=".txt") as f:
-#         for video_file in video_files:
-#             f.write(f"file '{video_file}'\n")
-#         f.flush()        
-#         subprocess.run(["ffmpeg", "-f", "concat", "-safe", "0", "-i", f.name, "-c", "copy", output_file])
-
-# def concatenate_videos(video_files, output_file):
-#     print("--1-0-21-23012")
-#     with tempfile.NamedTemporaryFile(delete=False, mode='w', suffix=".txt") as f:
-#         for video_file in video_files:
-#             f.write(f"file '{video_file}'\n")
-#         f.flush()        
-#         subprocess.run(["ffmpeg", "-f", "concat", "-safe", "0", "-i", f.name, "-c:v", "libx264", "-c:a", "aac", output_file])
-#     print("--1-0-21-23012asdsdds")
-
-def concatenate_videos2(video_files, output_file):
-    # with tempfile.NamedTemporaryFile(delete=False, mode='w', suffix=".txt") as f:
-    #     for video_file in video_files:
-    #         f.write(f"file '{video_file}'\n")
-    #     f.flush()        
-    #     subprocess.run(["ffmpeg", "-f", "concat", "-safe", "0", "-i", f.name, "-c:v", "libx264", "-c:a", "aac", "-map", "0", output_file])
-
-
-    with open('videos.txt', 'w') as f:
-        for video in video_files:
-            f.write(f"file '{video}'\n")
-
-    command = ['ffmpeg', '-f', 'concat', '-safe', '0', '-i', 'videos.txt', '-c', 'copy', 'myoutput.mp4']
-    subprocess.run(command)
-
-
-import tempfile
-import os
-
 def concatenate_videos(video_files, output_file):
     videos = video_files
 
@@ -170,19 +137,21 @@ def concatenate_videos(video_files, output_file):
     for i, video in enumerate(video_files):
         with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as temp:
             output_video = temp.name
-            convert_command = ['ffmpeg','-y', '-i', video, '-r', standard_fps, '-c:a', 'copy', output_video]
+            convert_command = ['ffmpeg', '-y', '-i', video, '-r', standard_fps, '-c:a', 'copy', output_video]
             subprocess.run(convert_command)
             converted_videos.append(output_video)
+    
     print("videos", converted_videos)
-    # Step 2: Create the filter_complex string
+    
+    # Create the filter_complex string
     filter_complex = "".join([f"[{i}:v] [{i}:a] " for i in range(len(converted_videos))])
     filter_complex += f"concat=n={len(converted_videos)}:v=1:a=1 [v] [a]"
 
-    # Step 3: Concatenate videos
+    # Concatenate videos
     concat_command = ['ffmpeg']
     for video in converted_videos:
         concat_command.extend(['-i', video])
-    concat_command.extend(['-filter_complex', filter_complex, '-map', '[v]', '-map', '[a]', output_file])
+    concat_command.extend(['-y', '-filter_complex', filter_complex, '-map', '[v]', '-map', '[a]', output_file])
     subprocess.run(concat_command)
 
     # Step 4: Delete temporary files
@@ -190,3 +159,30 @@ def concatenate_videos(video_files, output_file):
         os.remove(video)
 
 
+def combine_speech_video(audio_url: str, video_url: str):
+    audio_file = tempfile.NamedTemporaryFile(suffix=".mp3", delete=True)
+    video_file = tempfile.NamedTemporaryFile(suffix=".mp4", delete=True)
+    output_file = tempfile.NamedTemporaryFile(suffix=".mp4", delete=False)
+
+    os.system(f"wget -O {audio_file.name} {audio_url}")
+    os.system(f"wget -O {video_file.name} {video_url}")
+
+    # Get the duration of the audio file
+    cmd = f"ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 {audio_file.name}"
+    audio_duration = subprocess.check_output(cmd, shell=True).decode().strip()
+
+    # Loop the video
+    looped_video = tempfile.NamedTemporaryFile(suffix=".mp4", delete=True)
+    cmd = f"ffmpeg -y -stream_loop -1 -i {video_file.name} -c copy -t {audio_duration} {looped_video.name}"
+    subprocess.run(cmd, shell=True)
+
+    # Merge the audio and the looped video
+    cmd = f"ffmpeg -y -i {looped_video.name} -i {audio_file.name} -c:v copy -c:a aac -strict experimental -shortest {output_file.name}"
+    subprocess.run(cmd, shell=True)
+
+    os.remove(audio_file.name)
+    os.remove(video_file.name)
+    os.remove(looped_video.name)
+
+    # Return the name of the output file
+    return output_file.name
