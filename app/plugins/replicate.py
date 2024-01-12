@@ -6,8 +6,6 @@ from typing import Optional
 from pydantic import BaseModel, Field
 
 REPLICATE_API_KEY = os.environ.get("REPLICATE_API_KEY")
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 
 
 def get_version(replicate_client, model_name: str):
@@ -16,7 +14,7 @@ def get_version(replicate_client, model_name: str):
 
 
 def run_task(
-    input: dict[any], 
+    config: dict[any], 
     model_name: str = None, 
     model_version: str = None
 ):
@@ -26,13 +24,13 @@ def run_task(
         version = get_version(r, model_name)
         model_version = f"{model_name}:{version}"
 
-    output = r.run(ref=model_version, input=input)
+    output = r.run(ref=model_version, input=config)
 
     return output
 
 
 def submit_task(
-    input: dict[any],
+    config: dict[any],
     model_name: str = None,
     model_version: str = None,
     webhook: str = None,
@@ -45,26 +43,38 @@ def submit_task(
 
     prediction = r.predictions.create(
         version=model_version,
-        input=input,
+        input=config,
         webhook=webhook,
         webhook_events_filter=webhook_events_filter,
     )
     return prediction
 
-
-class Wav2LipConfig(BaseModel):
-    face_url: str
-    speech_url: str
-    gfpgan: Optional[bool] = Field(False)
-    gfpgan_upscale: Optional[int] = Field(1)
-    
-
 def wav2lip(
-    config: Wav2LipConfig
+    face_url: str,
+    speech_url: str,
+    gfpgan: Optional[bool] = Field(False),
+    gfpgan_upscale: Optional[int] = Field(1),
+    width: Optional[int] = None,
+    height: Optional[int] = None,
 ):
-    output = run_task(config, model_name="abraham-ai/character")
+    config = {
+        "face_url": face_url,
+        "speech_url": speech_url,
+        "gfpgan": gfpgan,
+        "gfpgan_upscale": gfpgan_upscale
+    }
+
+    if width:
+        config["width"] = width
+    if height:
+        config["height"] = height
+
+    output = run_task(
+        config, 
+        model_name="abraham-ai/character"
+    )
+    
     output = list(output)
     output_url = output[0]["files"][0]
-    response = requests.get(output_url)
-    response.raise_for_status()
-    return response.content
+    print("output_url", output_url)
+    return output_url

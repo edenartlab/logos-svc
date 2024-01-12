@@ -14,3 +14,9 @@ with open(dir_path / 'dialogue.txt', 'r') as file:
 
 with open(dir_path / 'identity.txt', 'r') as file:
     identity_template = Template(file.read())
+
+with open(dir_path / 'summary.txt', 'r') as file:
+    summary_template = Template(file.read())
+
+with open(dir_path / 'moderation.txt', 'r') as file:
+    moderation_template = Template(file.read())

@@ -10,7 +10,7 @@ COPY README.md README.md
 COPY requirements.lock requirements.txt
 
 RUN apt-get update \
-    && apt-get install -y git \
+    && apt-get install -y git ffmpeg \
     && pip install -r requirements.txt
 
 ENTRYPOINT ["uvicorn", "app.server:app", "--host", "0.0.0.0"]

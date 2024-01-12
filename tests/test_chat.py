@@ -4,14 +4,15 @@ from app.server import app
 client = TestClient(app)
 
 
-def test_chat():
+def test_edencharacter_chat():
     """
     Test chat function on static character and prompt
     """
     request = {
-        "character_id": "657926f90a0f725740a93b77",
+        "character_id": "6577e5d5c77b37642c252423",
         "session_id": "default",
-        "prompt": "I want to make a video which morphs between these two picture ideas I have. I want the video to start like a lush tropical forest with birds and nature and fireflies and stuff. And then it should evolve into a sketchy mountain scene with two moons."
+        "message": "I want to make a video which morphs between these two picture ideas I have. I want the video to start like a lush tropical forest with birds and nature and fireflies and stuff. And then it should evolve into a sketchy mountain scene with two moons.",
+        "attachments": [],
     }
 
     response = client.post("/chat/speak", json=request)
@@ -20,14 +21,15 @@ def test_chat():
     assert response.status_code == 200
 
 
-def test_testchat():
+def test_character_chat():
     """
     Test frontend testing chat function on in-progress character and prompt
     """
     request = {
         "name": "Abraham",
         "identity": "Abraham is an autonomous artificial artist",
-        "prompt": "Who are you?",
+        "message": "Who are you?",
+        "attachments": None,
         "knowledge_summary": None,
         "knowledge": None
     }

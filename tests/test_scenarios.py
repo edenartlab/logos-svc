@@ -9,7 +9,7 @@ def test_monologue():
     Test monologue on static character and prompt
     """
     request = {
-        "character_id": "657926f90a0f725740a93b77", 
+        "character_id": "6577e5d5c77b37642c252423", 
         "prompt": "Tell me a story about pizza"
     }
 
@@ -24,7 +24,7 @@ def test_dialogue():
     Test dialogue function on static characters and prompt
     """
     request = {
-        "character_ids": ["657926f90a0f725740a93b77", "657a68580a0f7257408cc55b"],
+        "character_ids": ["6577e5d5c77b37642c252423", "658fddadf0e5f5c4a0638a37"],
         "prompt": "Debate whether or not pizza is a vegetable"
     }
 
@@ -32,4 +32,3 @@ def test_dialogue():
     print(response.json())
 
     assert response.status_code == 200
-
