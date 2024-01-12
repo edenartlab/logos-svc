@@ -128,8 +128,6 @@ def create_dialogue_thumbnail(image1_url, image2_url, width, height, ext="WEBP")
 
 
 def concatenate_videos(video_files, output_file):
-    videos = video_files
-
     standard_fps = "30"  # Target frame rate
 
     # Step 1: Convert all videos to the same frame rate
