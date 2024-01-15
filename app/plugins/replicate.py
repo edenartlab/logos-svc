@@ -113,8 +113,8 @@ def txt2vid(
     config = {
         "mode": "txt2vid",
         "interpolation_texts": interpolation_texts,
-        "width": width/2,
-        "height": height/2,
+        "width": width,
+        "height": height,
         "n_frames": 100,
     }
 
