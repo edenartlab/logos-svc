@@ -199,7 +199,7 @@ def cinema(request: CinemaRequest):
             )
             audio_url = s3.upload(audio_bytes, "mp3")
             video_url = replicate.txt2vid(
-                interpolation_texts=[clip['image_description']],                
+                interpolation_texts=[clip['image_description']],
                 width=width,
                 height=height,
             )
@@ -219,7 +219,7 @@ def cinema(request: CinemaRequest):
 
         else:
             output = replicate.txt2vid(
-                text_input=clip['image_description'],                
+                interpolation_texts=[clip['image_description']],
                 width=width,
                 height=height,
             )

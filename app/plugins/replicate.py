@@ -111,7 +111,7 @@ def txt2vid(
     interpolation_texts = "|".join(interpolation_texts)
 
     config = {
-        "mode": "comfy_txt2vid",
+        "mode": "txt2vid",
         "interpolation_texts": interpolation_texts,
         "width": width/2,
         "height": height/2,
