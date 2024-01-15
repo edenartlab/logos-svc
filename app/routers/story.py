@@ -112,6 +112,11 @@ def cinema(request: CinemaRequest):
         character_id: EdenCharacter(character_id) 
         for character_id in request.character_ids
     }
+
+    # hack: add narrator
+    characters["657926f90a0f725740a93b77"] = EdenCharacter("657926f90a0f725740a93b77")
+
+
     character_name_lookup = {
         character.name: character_id
         for character_id, character in characters.items()
