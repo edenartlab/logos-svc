@@ -177,7 +177,7 @@ def cinema(request: CinemaRequest):
             all_clips.append(temp_file.name)
             
         elif clip['voiceover'] == 'narrator':
-            character_id = character_name_lookup['Orion Blackwood']
+            character_id = "657926f90a0f725740a93b77" #character_name_lookup['Orion Blackwood']
             character = characters[character_id]
             # output = talking_head(
             #     character, 
