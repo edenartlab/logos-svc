@@ -1,0 +1,5 @@
+Characters:
+$character_details
+
+The premise of the story is:
+$story

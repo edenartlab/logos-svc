@@ -2,7 +2,7 @@ import os
 from io import BytesIO
 import requests
 import replicate
-from typing import Optional
+from typing import Optional, List
 from pydantic import BaseModel, Field
 
 REPLICATE_API_KEY = os.environ.get("REPLICATE_API_KEY")
@@ -76,5 +76,56 @@ def wav2lip(
     
     output = list(output)
     output_url = output[0]["files"][0]
-    print("output_url", output_url)
+
+    return output_url
+
+
+def sdxl(
+    text_input: str,
+    width: int,
+    height: int,
+):
+    config = {
+        "text_input": text_input,
+        "width": width,
+        "height": height,
+        "n_samples": 1,
+    }
+
+    output = run_task(
+        config, 
+        model_name="abraham-ai/eden-sd-pipelines-sdxl"
+    )
+    
+    output = list(output)
+    output_url = output[0]["files"][0]
+    
+    return output_url
+
+
+def txt2vid(
+    interpolation_texts: List[str],
+    width: int,
+    height: int,
+):
+    interpolation_texts = "|".join(interpolation_texts)
+
+    config = {
+        "mode": "comfy_txt2vid",
+        "interpolation_texts": interpolation_texts,
+        "width": width/2,
+        "height": height/2,
+        "n_frames": 100,
+    }
+
+    print("LETS RUN!!!", config)
+
+    output = run_task(
+        config, 
+        model_name="abraham-ai/eden-comfyui"
+    )
+    
+    output = list(output)
+    output_url = output[0]["files"][0]
+    
     return output_url

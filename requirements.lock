@@ -17,6 +17,7 @@ charset-normalizer==3.3.2
 click==8.1.7
 decorator==4.4.2
 dnspython==2.4.2
+eden-sdk @ git+https://github.com/edenartlab/eden-sdk-py.git
 elevenlabs==0.2.27
 executing==2.0.1
 fastapi==0.104.1

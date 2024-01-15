@@ -48,6 +48,16 @@ class DialogueOutput(BaseModel):
     dialogue: List[dict]
 
 
+class CinemaRequest(BaseModel):
+    character_ids: List[str]
+    prompt: str
+    model: str = "gpt-4-1106-preview"
+    params: dict = {}
+
+class CinemaResult(BaseModel):
+    stills: List[str]
+
+
 class ChatRequest(BaseModel):
     """
     A chat request to an EdenCharacter
