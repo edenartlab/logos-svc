@@ -60,7 +60,8 @@ def process_task(task_id: str, request: TaskRequest, task_type: str):
                 character_ids=character_ids,
                 prompt=prompt,
             )
-            output_url, thumbnail_url = cinema(task_req)
+            output_url = cinema(task_req)
+            thumbnail_url = "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/e745b8c200bb10efe744caa800c7c7f89c3ae05c39fa4aa0595bdd138117c592.png"
 
         output = TaskOutput(
             files=[output_url],
