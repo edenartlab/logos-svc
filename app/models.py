@@ -115,9 +115,9 @@ class CharacterOutput(BaseModel):
 # }
 
 
-# class CharacterChatMessage(BaseModel):
-#     character: Character
-#     message: str
+class CharacterChatMessage(BaseModel):
+    character: Character
+    message: str
 
-#     def __str__(self):
-#         return f"{self.character.name}: {self.message}"
+    def __str__(self):
+        return f"{self.character.name}: {self.message}"
