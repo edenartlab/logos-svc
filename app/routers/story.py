@@ -285,7 +285,8 @@ def cinema(request: CinemaRequest):
     
     # result = CinemaResult(stills=stills)
 
-    return CinemaResult(stills=["TBD"])
+    #return CinemaResult(stills=["TBD"])
+    return output_url
 
 
 class ComicRequest(BaseModel):
