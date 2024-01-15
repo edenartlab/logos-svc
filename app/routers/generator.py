@@ -8,12 +8,13 @@ import traceback
 import requests
 
 from .dags import monologue_dag, dialogue_dag
+from .story import cinema
 from ..mongo import get_character_data
 from ..llm import LLM
 from ..prompt_templates import monologue_template, dialogue_template
 
 from ..models import MonologueRequest, MonologueOutput
-from ..models import DialogueRequest, DialogueOutput
+from ..models import DialogueRequest, DialogueOutput, CinemaRequest
 from ..models import TaskRequest, TaskUpdate, TaskOutput
 
 router = APIRouter()
@@ -52,6 +53,15 @@ def process_task(task_id: str, request: TaskRequest, task_type: str):
             )
             output_url, thumbnail_url = dialogue_dag(task_req)
 
+        elif task_type == "story":
+            character_ids = request.config.get("characterIds")
+            prompt = request.config.get("prompt")
+            task_req = CinemaRequest(
+                character_ids=character_ids,
+                prompt=prompt,
+            )
+            output_url, thumbnail_url = cinema(task_req)
+
         output = TaskOutput(
             files=[output_url],
             thumbnails=[thumbnail_url],
@@ -89,6 +99,6 @@ def process_task(task_id: str, request: TaskRequest, task_type: str):
 @router.post("/tasks/create")
 async def generate_task(background_tasks: BackgroundTasks, request: TaskRequest):
     task_id = str(uuid.uuid4())
-    if request.generatorName in ["monologue", "dialogue"]:
+    if request.generatorName in ["monologue", "dialogue", "story"]:
         background_tasks.add_task(process_task, task_id, request, request.generatorName)
     return {"id": task_id}
