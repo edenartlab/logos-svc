@@ -3,7 +3,6 @@ from ..models import ChatRequest, ChatTestRequest, CharacterOutput
 
 characters = {}
 
-print("do chat")
 
 def get_character(character_id: str):
     if character_id not in characters:

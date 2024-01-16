@@ -9,8 +9,8 @@ from ..models import MonologueRequest
 
 def animated_monologue(request: MonologueRequest):
     character = EdenCharacter(request.character_id)
-    #thumbnail_url = character.image
     result = monologue(request)
+    print(result)
     output, thumbnail_url = talking_head(character, result.monologue)
     output_bytes = requests.get(output).content
     output_url = s3.upload(output_bytes, "mp4")

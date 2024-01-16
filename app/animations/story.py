@@ -15,6 +15,7 @@ MAX_WORKERS = 3
 
 def animated_story(request: StoryRequest):
     screenplay = story(request)
+    print(screenplay)
 
     characters = {
         character_id: EdenCharacter(character_id) 

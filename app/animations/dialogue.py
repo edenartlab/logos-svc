@@ -16,6 +16,8 @@ MAX_WORKERS = 3
 
 def animated_dialogue(request: DialogueRequest):
     result = dialogue(request)
+    print(result)
+    
     characters = {
         character_id: EdenCharacter(character_id) 
         for character_id in request.character_ids
