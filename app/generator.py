@@ -1,38 +1,28 @@
-from typing import Optional, List
-from fastapi import APIRouter, Request, BackgroundTasks
-from fastapi.responses import JSONResponse
-from pydantic import BaseModel
+from fastapi import BackgroundTasks
 import uuid
-import traceback
-
 import requests
 
-from .dags import monologue_dag, dialogue_dag
-from .story import cinema
-from ..mongo import get_character_data
-from ..llm import LLM
-from ..prompt_templates import monologue_template, dialogue_template
-
-from ..models import MonologueRequest, MonologueOutput
-from ..models import DialogueRequest, DialogueOutput, CinemaRequest
-from ..models import TaskRequest, TaskUpdate, TaskOutput
-
-router = APIRouter()
+from .animations import animated_monologue, animated_dialogue, animated_story
+from .models import MonologueRequest, MonologueResult
+from .models import DialogueRequest, DialogueResult, StoryRequest
+from .models import TaskRequest, TaskUpdate, TaskResult
 
 
-def process_task(task_id: str, request: TaskRequest, task_type: str):
+def process_task(task_id: str, request: TaskRequest):
     print("config", request.config)
 
+    task_type = request.generatorName
     webhook_url = request.webhookUrl
 
     update = TaskUpdate(
         id=task_id,
-        output=TaskOutput(progress=0),
+        output=TaskResult(progress=0),
         status="processing",
         error=None,
     )
 
-    requests.post(webhook_url, json=update.dict())
+    if webhook_url:
+        requests.post(webhook_url, json=update.dict())
 
     try:
         if task_type == "monologue":
@@ -42,7 +32,7 @@ def process_task(task_id: str, request: TaskRequest, task_type: str):
                 character_id=character_id,
                 prompt=prompt,
             )
-            output_url, thumbnail_url = monologue_dag(task_req)
+            output_url, thumbnail_url = animated_monologue(task_req)
 
         elif task_type == "dialogue":
             character_ids = request.config.get("characterIds")
@@ -51,19 +41,18 @@ def process_task(task_id: str, request: TaskRequest, task_type: str):
                 character_ids=character_ids,
                 prompt=prompt,
             )
-            output_url, thumbnail_url = dialogue_dag(task_req)
+            output_url, thumbnail_url = animated_dialogue(task_req)
 
         elif task_type == "story":
             character_ids = request.config.get("characterIds")
             prompt = request.config.get("prompt")
-            task_req = CinemaRequest(
+            task_req = StoryRequest(
                 character_ids=character_ids,
                 prompt=prompt,
             )
-            output_url = cinema(task_req)
-            thumbnail_url = "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/e745b8c200bb10efe744caa800c7c7f89c3ae05c39fa4aa0595bdd138117c592.png"
+            output_url, thumbnail_url = animated_story(task_req)
 
-        output = TaskOutput(
+        output = TaskResult(
             files=[output_url],
             thumbnails=[thumbnail_url],
             name=prompt,
@@ -75,7 +64,7 @@ def process_task(task_id: str, request: TaskRequest, task_type: str):
         error = None
 
     except Exception as e:
-        output = TaskOutput(
+        output = TaskResult(
             files=[],
             thumbnails=[],
             name=prompt,
@@ -94,12 +83,12 @@ def process_task(task_id: str, request: TaskRequest, task_type: str):
     )
     print("update", update.dict())
 
-    requests.post(webhook_url, json=update.dict())
+    if webhook_url:
+        requests.post(webhook_url, json=update.dict())
 
 
-@router.post("/tasks/create")
 async def generate_task(background_tasks: BackgroundTasks, request: TaskRequest):
     task_id = str(uuid.uuid4())
     if request.generatorName in ["monologue", "dialogue", "story"]:
-        background_tasks.add_task(process_task, task_id, request, request.generatorName)
+        background_tasks.add_task(process_task, task_id, request)
     return {"id": task_id}

@@ -9,7 +9,7 @@ def test_edencharacter_chat():
     Test chat function on static character and prompt
     """
     request = {
-        "character_id": "6577e5d5c77b37642c252423",
+        "character_id": "6596129023f1c4b471dbb94a",
         "session_id": "default",
         "message": "I want to make a video which morphs between these two picture ideas I have. I want the video to start like a lush tropical forest with birds and nature and fireflies and stuff. And then it should evolve into a sketchy mountain scene with two moons.",
         "attachments": [],

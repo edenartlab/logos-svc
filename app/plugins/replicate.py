@@ -49,6 +49,7 @@ def submit_task(
     )
     return prediction
 
+
 def wav2lip(
     face_url: str,
     speech_url: str,
@@ -76,8 +77,9 @@ def wav2lip(
     
     output = list(output)
     output_url = output[0]["files"][0]
+    thumbnail_url = output[0]["thumbnails"][0]
 
-    return output_url
+    return output_url, thumbnail_url
 
 
 def sdxl(
@@ -99,8 +101,9 @@ def sdxl(
     
     output = list(output)
     output_url = output[0]["files"][0]
+    thumbnail_url = output[0]["thumbnails"][0]
     
-    return output_url
+    return output_url, thumbnail_url
 
 
 def txt2vid(
@@ -118,8 +121,6 @@ def txt2vid(
         "n_frames": 100,
     }
 
-    print("LETS RUN!!!", config)
-
     output = run_task(
         config, 
         model_name="abraham-ai/eden-comfyui"
@@ -127,5 +128,6 @@ def txt2vid(
     
     output = list(output)
     output_url = output[0]["files"][0]
+    thumbnail_url = output[0]["thumbnails"][0]
     
-    return output_url
+    return output_url, thumbnail_url
