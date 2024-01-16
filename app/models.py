@@ -64,12 +64,6 @@ class StoryClip(BaseModel):
     speech: str = Field(description="Spoken text for clip")
     image_description: str = Field(description="Image content for clip")
 
-class StoryResult(BaseModel):
-    """
-    A screenplay consisting of a sequence of clips
-    """
-    clips: List[StoryClip] = Field(description="Clips in the sequence")
-
 
 class ChatRequest(BaseModel):
     """

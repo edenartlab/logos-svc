@@ -1,5 +1,8 @@
 Characters:
 $character_details
 
+Character names (only use these for character field in each clip):
+$character_names
+
 The premise of the story is:
 $story

@@ -6,7 +6,7 @@ from .. import utils
 from ..plugins import replicate, elevenlabs, s3
 from ..character import EdenCharacter
 from ..scenarios import story
-from ..models import StoryRequest, StoryResult
+from ..models import StoryRequest
 from .animation import screenplay_clip
 
 MAX_PIXELS = 1024 * 1024
@@ -16,7 +16,7 @@ MAX_WORKERS = 3
 def animated_story(request: StoryRequest):
     screenplay = story(request)
     print(screenplay)
-
+    
     characters = {
         character_id: EdenCharacter(character_id) 
         for character_id in request.character_ids + [request.narrator_id]
