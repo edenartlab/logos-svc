@@ -3,18 +3,14 @@ from pydantic import BaseModel, Field
 
 from ..llm import LLM
 from ..prompt_templates import summary_template, moderation_template
+from ..models import (
+    SummaryRequest, 
+    SummaryResult, 
+    ModerationRequest, 
+    ModerationResult
+)
 
-router = APIRouter()
 
-
-class SummaryRequest(BaseModel):
-    text: str
-    model: str = "gpt-4-1106-preview"
-
-class SummaryResult(BaseModel):
-    summary: str
-
-@router.post("/tasks/summary")
 def summary(request: SummaryRequest) -> SummaryResult:
     params = {"temperature": 0.0, "max_tokens": 1000}
 
@@ -28,19 +24,6 @@ def summary(request: SummaryRequest) -> SummaryResult:
     return result
 
 
-class ModerationRequest(BaseModel):
-    text: str
-    model: str = "gpt-3.5-turbo"
-
-class ModerationResult(BaseModel):
-    """
-    Moderation scores for each category
-    """
-    nsfw: int = Field(description="Sexually explicit or nudity")
-    gore: int = Field(description="Violence or gore")
-    hate: int = Field(description="Hate, abusive or toxic speech")
-
-@router.post("/tasks/moderation")
 def moderation(request: ModerationRequest) -> ModerationResult:
     params = {"temperature": 0.0, "max_tokens": 1000}
 

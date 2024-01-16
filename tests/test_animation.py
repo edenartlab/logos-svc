@@ -4,31 +4,31 @@ from app.server import app
 client = TestClient(app)
 
 
-def test_monologue_dag():
+def test_monologue_animation():
     """
     Test monologue on static character and prompt
     """
     request = {
-        "character_id": "6577e5d5c77b37642c252423", 
+        "character_id": "6596129023f1c4b471dbb94a", 
         "prompt": "Tell me a story about pizza"
     }
 
-    response = client.post("/dags/monologue", json=request)
+    response = client.post("/animation/monologue", json=request)
     print(response.json())
 
     assert response.status_code == 200
 
 
-def test_dialogue_dag():
+def test_dialogue_animation():
     """
     Test monologue on static character and prompt
     """
     request = {
-        "character_ids": ["658fddadf0e5f5c4a0638a37", "6577e5d5c77b37642c252423"],
+        "character_ids": ["6596129023f1c4b471dbb94a", "6598e117dd06d165264f2277"],
         "prompt": "Debate panspermia vs. abiogenesis"
     }
 
-    response = client.post("/dags/dialogue", json=request)
+    response = client.post("/animation/dialogue", json=request)
     print(response.json())
 
     assert response.status_code == 200
