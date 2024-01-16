@@ -1,4 +1,5 @@
 import tempfile
+import time
 import os
 import re
 import traceback
@@ -9,15 +10,7 @@ import subprocess
 from PIL import Image
 from io import BytesIO
 from fastapi import HTTPException
-
-
-def handle_error(e):
-    error_detail = {
-        "error_type": type(e).__name__,
-        "error_message": str(e),
-        "traceback": traceback.format_exc(),
-    }
-    raise HTTPException(status_code=400, detail=error_detail)
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 def clean_text(text):
@@ -135,7 +128,7 @@ def concatenate_videos(video_files, output_file):
     for i, video in enumerate(video_files):
         with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as temp:
             output_video = temp.name
-            convert_command = ['ffmpeg', '-y', '-i', video, '-r', standard_fps, '-c:a', 'copy', output_video]
+            convert_command = ['ffmpeg', '-y', '-loglevel', 'panic', '-i', video, '-r', standard_fps, '-c:a', 'copy', output_video]
             subprocess.run(convert_command)
             converted_videos.append(output_video)
     
@@ -149,7 +142,7 @@ def concatenate_videos(video_files, output_file):
     concat_command = ['ffmpeg']
     for video in converted_videos:
         concat_command.extend(['-i', video])
-    concat_command.extend(['-y', '-filter_complex', filter_complex, '-map', '[v]', '-map', '[a]', output_file])
+    concat_command.extend(['-y', '-loglevel', 'panic','-filter_complex', filter_complex, '-map', '[v]', '-map', '[a]', output_file])
     subprocess.run(concat_command)
 
     # Step 4: Delete temporary files
@@ -162,25 +155,66 @@ def combine_speech_video(audio_url: str, video_url: str):
     video_file = tempfile.NamedTemporaryFile(suffix=".mp4", delete=True)
     output_file = tempfile.NamedTemporaryFile(suffix=".mp4", delete=False)
 
-    os.system(f"wget -O {audio_file.name} {audio_url}")
-    os.system(f"wget -O {video_file.name} {video_url}")
+    subprocess.run(['wget', '-nv', '-O', audio_file.name, audio_url])
+    subprocess.run(['wget', '-nv', '-O', video_file.name, video_url])
 
-    # Get the duration of the audio file
-    cmd = f"ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 {audio_file.name}"
-    audio_duration = subprocess.check_output(cmd, shell=True).decode().strip()
+    # get the duration of the audio file
+    cmd = ['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'default=noprint_wrappers=1:nokey=1', audio_file.name]
+    audio_duration = subprocess.check_output(cmd).decode().strip()
 
-    # Loop the video
+    # loop the video
     looped_video = tempfile.NamedTemporaryFile(suffix=".mp4", delete=True)
-    cmd = f"ffmpeg -y -stream_loop -1 -i {video_file.name} -c copy -t {audio_duration} {looped_video.name}"
-    subprocess.run(cmd, shell=True)
+    cmd = ['ffmpeg', '-y', '-loglevel', 'panic', '-stream_loop', '-1', '-i', video_file.name, '-c', 'copy', '-t', audio_duration, looped_video.name]
+    subprocess.run(cmd)
 
-    # Merge the audio and the looped video
-    cmd = f"ffmpeg -y -i {looped_video.name} -i {audio_file.name} -c:v copy -c:a aac -strict experimental -shortest {output_file.name}"
-    subprocess.run(cmd, shell=True)
+    # merge the audio and the looped video
+    cmd = ['ffmpeg', '-y', '-loglevel', 'panic', '-i', looped_video.name, '-i', audio_file.name, '-c:v', 'copy', '-c:a', 'aac', '-strict', 'experimental', '-shortest', output_file.name]
+    subprocess.run(cmd)
 
-    os.remove(audio_file.name)
-    os.remove(video_file.name)
-    os.remove(looped_video.name)
-
-    # Return the name of the output file
     return output_file.name
+
+
+def exponential_backoff(
+    func, 
+    max_attempts=5, 
+    initial_delay=1, 
+):
+    delay = initial_delay
+    for attempt in range(1, max_attempts + 1):
+        try:
+            return func()
+        except Exception as e:
+            if attempt == max_attempts:
+                raise e
+            print(f"Attempt {attempt} failed. Retrying in {delay} seconds...")
+            time.sleep(delay)
+            delay = delay * 2
+
+
+def process_in_parallel(
+    array, 
+    func, 
+    max_workers=3
+):
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = {executor.submit(func, item): index for index, item in enumerate(array)}
+        results = [None] * len(array)
+        for future in as_completed(futures):
+            try:
+                index = futures[future]
+                results[index] = future.result()
+            except Exception as e:
+                print(f"Task error: {e}")
+                for f in futures:
+                    f.cancel()
+                raise e
+    return results
+
+
+def handle_error(e):
+    error_detail = {
+        "error_type": type(e).__name__,
+        "error_message": str(e),
+        "traceback": traceback.format_exc(),
+    }
+    raise HTTPException(status_code=400, detail=error_detail)

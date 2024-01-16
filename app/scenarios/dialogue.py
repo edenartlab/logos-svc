@@ -1,58 +1,15 @@
-from typing import Optional, List
-from fastapi import APIRouter
-from pydantic import BaseModel
-
 from ..mongo import get_character_data
 from ..llm import LLM
 from ..prompt_templates import monologue_template, dialogue_template
-
-router = APIRouter()
-
-class MonologueRequest(BaseModel):
-    character_id: str
-    prompt: str
-    model: str = "gpt-4-1106-preview"
-    params: dict = {}
-
-class MonologueResult(BaseModel):
-    monologue: str
-
-@router.post("/scenarios/monologue")
-def monologue(request: MonologueRequest):
-    params = {"temperature": 1.0, "max_tokens": 1000, **request.params}
-
-    character_data = get_character_data(request.character_id)
-    name = character_data.get("name")
-    description = character_data.get("logosData").get("identity")
-    
-    system_message = monologue_template.substitute(
-        name=name,
-        description=description
-    )
-
-    llm = LLM(model=request.model, system_message=system_message, params=params)
-    monologue_text = llm(request.prompt)
-
-    result = MonologueResult(monologue=monologue_text)
-
-    return result
+from ..models import DialogueRequest, DialogueResult
 
 
-class DialogueRequest(BaseModel):
-    character_ids: List[str]
-    prompt: str
-    model: str = "gpt-4-1106-preview"
-    params: dict = {}
-
-class DialogueResult(BaseModel):
-    dialogue: List[dict]
-
-@router.post("/scenarios/dialogue")
 def dialogue(request: DialogueRequest):
     params = {"temperature": 1.0, "max_tokens": 1000, **request.params}
 
     characters = [
-        get_character_data(character_id) for character_id in request.character_ids
+        get_character_data(character_id) 
+        for character_id in request.character_ids
     ]
 
     llms = []

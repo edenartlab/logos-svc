@@ -7,9 +7,10 @@ from typing import List, Optional
 from pydantic import Field, BaseModel, ValidationError
 
 from .mongo import get_character_data
-from .routers.tasks import summary, SummaryRequest
+from .scenarios.tasks import summary
 from .llm import LLM
 from .llm.models import ChatMessage
+from .models import SummaryRequest
 from .prompt_templates.assistant import (
     identity_template,
     reply_template,
