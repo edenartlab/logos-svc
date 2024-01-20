@@ -12,11 +12,17 @@ db = client[MONGO_DB_NAME]
 
 
 def get_character_data(character_id: str):
+    print("--get character data", character_id)
+
     character = db["characters"].find_one({
         "_id": ObjectId(character_id)
     })
 
     if not character:
+        print(f"---Character not found: {character_id}")
         raise Exception("Character not found")
+    else:
+        print(f"---Character found: {character_id}")
+        print(character)
     
     return character
