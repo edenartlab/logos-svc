@@ -1,11 +1,14 @@
-from fastapi import BackgroundTasks
+import os
 import uuid
 import requests
+from fastapi import BackgroundTasks
 
 from .animations import animated_monologue, animated_dialogue, animated_story
 from .models import MonologueRequest, MonologueResult
 from .models import DialogueRequest, DialogueResult, StoryRequest
 from .models import TaskRequest, TaskUpdate, TaskResult
+
+NARRATOR_CHARACTER_ID = os.getenv("NARRATOR_CHARACTER_ID")
 
 
 def process_task(task_id: str, request: TaskRequest):
@@ -49,6 +52,7 @@ def process_task(task_id: str, request: TaskRequest):
             task_req = StoryRequest(
                 character_ids=character_ids,
                 prompt=prompt,
+                narrator_id=NARRATOR_CHARACTER_ID,
             )
             output_url, thumbnail_url = animated_story(task_req)
 

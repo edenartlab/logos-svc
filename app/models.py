@@ -1,6 +1,9 @@
+import os
 from enum import Enum
 from typing import Optional, List
 from pydantic import BaseModel, Field
+
+NARRATOR_CHARACTER_ID = os.getenv("NARRATOR_CHARACTER_ID")
 
 
 class TaskRequest(BaseModel):
@@ -46,7 +49,7 @@ class DialogueResult(BaseModel):
 class StoryRequest(BaseModel):
     character_ids: List[str]
     prompt: str
-    narrator_id: str = "6596129023f1c4b471dbb94a"
+    narrator_id: str = NARRATOR_CHARACTER_ID
     model: str = "gpt-4-1106-preview"
     params: dict = {}
 
