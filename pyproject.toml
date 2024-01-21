@@ -21,7 +21,6 @@ dependencies = [
     "replicate>=0.22.0",
     "moviepy>=1.0.3",
     "eden_sdk @ git+https://github.com/edenartlab/eden-sdk-py.git",
-    "Pillow>=10.2.0",
 ]
 
 readme = "README.md"
