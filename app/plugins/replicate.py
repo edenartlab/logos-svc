@@ -49,7 +49,7 @@ def submit_task(
     )
     return prediction
 
-
+# config:dict?
 def wav2lip(
     face_url: str,
     speech_url: str,
@@ -82,18 +82,7 @@ def wav2lip(
     return output_url, thumbnail_url
 
 
-def sdxl(
-    text_input: str,
-    width: int,
-    height: int,
-):
-    config = {
-        "text_input": text_input,
-        "width": width,
-        "height": height,
-        "n_samples": 1,
-    }
-
+def sdxl(config: dict[any]):
     output = run_task(
         config, 
         model_name="abraham-ai/eden-sd-pipelines-sdxl"

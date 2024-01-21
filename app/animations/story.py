@@ -27,12 +27,13 @@ def animated_story(request: StoryRequest):
         for character_id, character in characters.items()
     }
 
-    images = [
-        characters[character_id].image 
-        for character_id in request.character_ids
-    ]
+    # images = [
+    #     characters[character_id].image 
+    #     for character_id in request.character_ids
+    # ]
 
-    width, height = utils.calculate_target_dimensions(images, MAX_PIXELS)
+    # width, height = utils.calculate_target_dimensions(images, MAX_PIXELS)
+    width, height = 1024, 1024
 
     def run_story_segment(clip):
         if clip['voiceover'] == 'character':

@@ -7,10 +7,16 @@ import requests
 import math
 import tempfile
 import subprocess
-from PIL import Image
+from PIL import Image, ImageFont
 from io import BytesIO
 from fastapi import HTTPException
 from concurrent.futures import ThreadPoolExecutor, as_completed
+
+
+def get_font(font_name, font_size):
+    font_path = os.path.join(os.path.dirname(__file__), "fonts", font_name)
+    font = ImageFont.truetype(font_path, font_size)
+    return font
 
 
 def clean_text(text):
@@ -39,6 +45,12 @@ def download_image(url):
     image = Image.open(BytesIO(response.content))
     return image
     
+
+def PIL_to_bytes(image, ext="JPEG", quality=95):
+    img_byte_arr = BytesIO()
+    image.save(img_byte_arr, format=ext, quality=quality)
+    return img_byte_arr.getvalue()
+
 
 def calculate_target_dimensions(images, max_pixels):
     min_w = float('inf')
@@ -218,3 +230,16 @@ def handle_error(e):
         "traceback": traceback.format_exc(),
     }
     raise HTTPException(status_code=400, detail=error_detail)
+
+
+def wrap_text(draw, text, font, max_width):
+    lines = []
+    words = text.split()
+
+    while words:
+        line = ''
+        while words and draw.textlength(line + words[0], font=font) <= max_width:
+            line += (words.pop(0) + ' ')
+        lines.append(line)
+    
+    return lines
