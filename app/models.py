@@ -68,6 +68,26 @@ class StoryClip(BaseModel):
     image_description: str = Field(description="Image content for clip")
 
 
+class ComicRequest(BaseModel):
+    character_id: str
+    prompt: str
+    model: str = "gpt-4-1106-preview"
+    params: dict = {}
+
+class ComicPanel(BaseModel):
+    """
+    A single panel in a comic book sequence
+    """
+    image: str = Field(description="Literal description of image content for panel")
+    caption: str = Field(description="Creative caption of panel")
+
+class ComicResult(BaseModel):
+    """
+    A screenplay consisting of a sequence of clips
+    """
+    panels: List[ComicPanel] = Field(description="Comic Book panels")
+
+
 class ChatRequest(BaseModel):
     """
     A chat request to an EdenCharacter
@@ -115,10 +135,3 @@ class ModerationResult(BaseModel):
     gore: int = Field(description="Violence or gore")
     hate: int = Field(description="Hate, abusive or toxic speech")
     spam: int = Field(description="Spam, scam, or deceptive content")
-
-# class CharacterChatMessage(BaseModel):
-#     character: Character
-#     message: str
-
-#     def __str__(self):
-#         return f"{self.character.name}: {self.message}"

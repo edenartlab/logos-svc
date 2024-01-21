@@ -3,7 +3,12 @@ import uuid
 import requests
 from fastapi import BackgroundTasks
 
-from .animations import animated_monologue, animated_dialogue, animated_story
+from .animations import (
+    animated_monologue, 
+    animated_dialogue, 
+    animated_story, 
+    illustrated_comic
+)
 from .models import MonologueRequest, MonologueResult
 from .models import DialogueRequest, DialogueResult, StoryRequest
 from .models import TaskRequest, TaskUpdate, TaskResult
@@ -55,6 +60,15 @@ def process_task(task_id: str, request: TaskRequest):
                 narrator_id=NARRATOR_CHARACTER_ID,
             )
             output_url, thumbnail_url = animated_story(task_req)
+
+        elif task_type == "comic":
+            character_id = request.config.get("characterId")
+            prompt = request.config.get("prompt")
+            task_req = ComicRequest(
+                character_id=character_id,
+                prompt=prompt,
+            )
+            output_url, thumbnail_url = illustrated_comic(task_req)
 
         output = TaskResult(
             files=[output_url],

@@ -4,7 +4,12 @@ import traceback
 import logging
 
 from .scenarios import monologue, dialogue, story, chat, tasks
-from .animations import animated_monologue, animated_dialogue, animated_story
+from .animations import (
+    animated_monologue, 
+    animated_dialogue, 
+    animated_story,
+    illustrated_comic
+)
 from .generator import generate_task
 
 
@@ -28,6 +33,7 @@ router.add_api_route(path="/scenarios/story", endpoint=story, methods=["POST"])
 router.add_api_route(path="/animation/monologue", endpoint=animated_monologue, methods=["POST"])
 router.add_api_route(path="/animation/dialogue", endpoint=animated_dialogue, methods=["POST"])
 router.add_api_route(path="/animation/story", endpoint=animated_story, methods=["POST"])
+router.add_api_route(path="/animation/comic", endpoint=illustrated_comic, methods=["POST"])
 
 # Chat
 router.add_api_route(path="/chat/test", endpoint=chat.test, methods=["POST"])
