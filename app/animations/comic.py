@@ -25,15 +25,14 @@ def illustrated_comic(request: ComicRequest):
 
     comic_book = comicwriter(request.prompt, output_schema=ComicResult)
     
-    def run_panel(panel):
-
+    def run_panel(panel, idx):
         # pick lora of character
         # pick init image character x genre
 
         return replicate.sdxl({
             "text_input": panel['image'],
             "lora": loras["Verdelis"],
-            "width": 1024,
+            "width": 512 if idx == 0 else 1024,
             "height": 1024,
             "n_samples": 1,
         })

@@ -209,7 +209,7 @@ def process_in_parallel(
     max_workers=3
 ):
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        futures = {executor.submit(func, item): index for index, item in enumerate(array)}
+        futures = {executor.submit(func, item, index): index for index, item in enumerate(array)}
         results = [None] * len(array)
         for future in as_completed(futures):
             try:

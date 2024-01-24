@@ -35,7 +35,7 @@ def animated_story(request: StoryRequest):
     # width, height = utils.calculate_target_dimensions(images, MAX_PIXELS)
     width, height = 1024, 1024
 
-    def run_story_segment(clip):
+    def run_story_segment(clip, idx):
         if clip['voiceover'] == 'character':
             character_id = character_name_lookup[clip['character']]
             character = characters[character_id]
