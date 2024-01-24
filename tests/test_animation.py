@@ -57,8 +57,8 @@ def test_comic_illustration():
     prompt = """
     - Little Martians: Verdelis
     - Setting: Simulation
-    - Genre: Comedy
-    - Premise: Verdelis comes upon a genie lamp
+    - Genre: Drama
+    - Premise: Verdelis goes to outer space cosmos
     - Number of panels: 4
     """
 
