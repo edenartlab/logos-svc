@@ -15,7 +15,7 @@ from ..prompt_templates.cinema import (
 
 
 def story(request: StoryRequest):    
-    params = {"temperature": 1.0, "max_tokens": 1000, **request.params}
+    params = {"temperature": 1.0, "max_tokens": 10000, **request.params}
     
     character_details = ""
     character_names = []
