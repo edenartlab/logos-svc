@@ -363,7 +363,7 @@ class EdenCharacter(Character):
         identity = logos_data.get("identity")
         knowledge_summary = logos_data.get("knowledgeSummary")
         knowledge = logos_data.get("knowledge")
-        creation_enabled = True
+        creation_enabled = character_data.get("creationEnabled", True)
         concept = logos_data.get("concept")
         smart_reply = character_data.get("smartReply", False)
         image = character_data.get("image")
