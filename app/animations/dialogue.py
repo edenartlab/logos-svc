@@ -28,7 +28,7 @@ def animated_dialogue(request: DialogueRequest):
     ]
     width, height = utils.calculate_target_dimensions(images, MAX_PIXELS)
 
-    def run_talking_head_segment(message):
+    def run_talking_head_segment(message, idx):
         character = characters[message["character_id"]]
         output, _ = talking_head(
             character, 

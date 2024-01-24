@@ -60,9 +60,10 @@ def comic_strip(
     font_ttf: str = 'Roboto-Regular.ttf'
 ):
     font = get_font(font_ttf, font_size)
+    num_panels = len(images)
     caption_box_height = 3 * int(1.5 * font.size)
 
-    width, height = images[0].size
+    width, height = 1024, 1024 #images[0].size
     total_width = width * 2 + margin
     total_height = height * 2 + caption_box_height * 2 + margin
 
@@ -73,29 +74,43 @@ def comic_strip(
 
     caption_box_height = 3 * int(1.5 * font.size) + 2 * caption_padding_top
 
-    first_pane_image = None
-
     for i, image in enumerate(images):
 
-        x = (i % 2) * (width + margin) if i % 2 == 0 else (i % 2) * width + margin
-        y = (i // 2) * (height + caption_box_height) if i // 2 == 0 else (i // 2) * (height + caption_box_height + margin)
+        if num_panels == 3 and i == 0:
+            x = 0
+            y = 0
+            new_height = height * 2 + caption_box_height * 2 + margin
+            new_width = width
+        else:
+            if num_panels == 3:
+                x = width + margin
+                y = ((i - 1) * (height + caption_box_height + margin)) if i == 1 else ((i - 1) * (height + caption_box_height))
+                new_height = height
+                new_width = width
+            else:
+                x = (i % 2) * (width + margin) if i % 2 == 0 else (i % 2) * width + margin
+                y = (i // 2) * (height + caption_box_height) if i // 2 == 0 else (i // 2) * (height + caption_box_height + margin)
+                new_height = height
+                new_width = width
 
-        composite_image.paste(image, (x, y))
+        resized_image = image.resize((new_width, new_height))
 
-        caption_box = Image.new('RGB', (width, caption_box_height), color='black')
+        composite_image.paste(resized_image, (x, y))
+
+        caption_box = Image.new('RGB', (new_width, caption_box_height), color='black')
         draw = ImageDraw.Draw(caption_box)
 
-        wrapped_caption = wrap_text(draw, captions[i], font, width - 2 * padding)
+        wrapped_caption = wrap_text(draw, captions[i], font, new_width - 2 * padding)
         caption_y = caption_padding_top
         for line in wrapped_caption:
             draw.text((padding, caption_y), line, fill='white', font=font)
             caption_y += int(line_spacing * font.size)
 
-        composite_image.paste(caption_box, (x, y + height))
+        composite_image.paste(caption_box, (x, y + new_height))
 
-        if i == 0:
-            thumbnail = Image.new('RGB', (width, height + caption_box_height), color='white')
-            thumbnail.paste(image, (0, 0))
-            thumbnail.paste(caption_box, (0, height))
+        if (num_panels == 4 and i == 0) or (num_panels == 3 and i == 1):
+            thumbnail = Image.new('RGB', (new_width, new_height + caption_box_height), color='white')
+            thumbnail.paste(resized_image, (0, 0))
+            thumbnail.paste(caption_box, (0, new_height))
 
     return composite_image, thumbnail

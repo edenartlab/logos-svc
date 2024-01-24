@@ -59,7 +59,7 @@ def test_comic_illustration():
     - Setting: Simulation
     - Genre: Drama
     - Premise: Verdelis goes to outer space cosmos
-    - Number of panels: 4
+    - Number of panels: 3
     """
 
     request = {
