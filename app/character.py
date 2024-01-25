@@ -17,58 +17,83 @@ from .prompt_templates.assistant import (
     chat_template,
     creator_template,
     qa_template,
-    router_template
+    router_template,
 )
+
 
 class Thought(BaseModel):
     """
     Probability percentage that the character responds to the conversation
     """
-    probability: str = Field(description="A percentage chance that the character will respond to the conversation")
+
+    probability: str = Field(
+        description="A percentage chance that the character will respond to the conversation"
+    )
+
 
 class GeneratorMode(Enum):
-    create = 'create'
-    controlnet = 'controlnet'
-    interpolate = 'interpolate'
-    real2real = 'real2real'
-    remix = 'remix'
-    blend = 'blend'
-    upscale = 'upscale'
+    create = "create"
+    controlnet = "controlnet"
+    interpolate = "interpolate"
+    real2real = "real2real"
+    remix = "remix"
+    blend = "blend"
+    upscale = "upscale"
+
 
 class Config(BaseModel):
     """
     JSON config for Eden generator request
     """
+
     generator: GeneratorMode = Field(description="Which generator to use")
     text_input: Optional[str] = Field(description="Text prompt that describes image")
     seed: Optional[int] = Field(description="Seed for random number generator")
-    init_image: Optional[str] = Field(description="Path to image file for create, remix, or upscale")
-    init_image_strength: Optional[float] = Field(description="Strength of init image, default 0.15")
-    control_image: Optional[str] = Field(description="Path to image file for controlnet")
-    control_image_strength: Optional[float] = Field(description="Strength of control image for controlnet, default 0.6")
-    interpolation_init_images: Optional[List[str]] = Field(description="List of paths to image files for real2real or blend")
-    interpolation_texts: Optional[List[str]] = Field(description="List of text prompts for interpolate")
-    interpolation_seeds: Optional[List[int]] = Field(description="List of seeds for interpolation texts")
+    init_image: Optional[str] = Field(
+        description="Path to image file for create, remix, or upscale"
+    )
+    init_image_strength: Optional[float] = Field(
+        description="Strength of init image, default 0.15"
+    )
+    control_image: Optional[str] = Field(
+        description="Path to image file for controlnet"
+    )
+    control_image_strength: Optional[float] = Field(
+        description="Strength of control image for controlnet, default 0.6"
+    )
+    interpolation_init_images: Optional[List[str]] = Field(
+        description="List of paths to image files for real2real or blend"
+    )
+    interpolation_texts: Optional[List[str]] = Field(
+        description="List of text prompts for interpolate"
+    )
+    interpolation_seeds: Optional[List[int]] = Field(
+        description="List of seeds for interpolation texts"
+    )
     n_frames: Optional[int] = Field(description="Number of frames in output video")
+
 
 class CreatorOutput(BaseModel):
     """
     Output of creator LLM containing a JSON config and a message to the user
     """
+
     config: Config = Field(description="Config for Eden generator")
     message: str = Field(description="Message to user")
+
 
 class CreatorInput(BaseModel):
     """
     Input to creator LLM containing a prompt, and optionally a list of attachments
     """
-    message: str = Field(description="Message to LLM")
-    attachments: Optional[List[str]] = Field(default_factory=list, description="List of file paths to attachments")
 
+    message: str = Field(description="Message to LLM")
+    attachments: Optional[List[str]] = Field(
+        default_factory=list, description="List of file paths to attachments"
+    )
 
 
 class Character:
-    
     def __init__(
         self,
         name="AI",
@@ -134,9 +159,13 @@ class Character:
 
         if knowledge:
             if not self.knowledge_summary.strip():
-                self.knowledge_summary = summary(SummaryRequest(text=self.knowledge)).summary
+                self.knowledge_summary = summary(
+                    SummaryRequest(text=self.knowledge)
+                ).summary
             options.append("A question about or reference to your knowledge")
-            knowledge_summary = f"You have the following knowledge: {self.knowledge_summary}"
+            knowledge_summary = (
+                f"You have the following knowledge: {self.knowledge_summary}"
+            )
             self.function_map[str(len(options))] = self._qa_
         if creation_enabled:
             options.append("A request for an image or video creation")
@@ -147,10 +176,9 @@ class Character:
         else:
             options_prompt = ""
             for i, option in enumerate(options):
-                options_prompt += f"{i+1}. {option}\n"                
+                options_prompt += f"{i+1}. {option}\n"
             self.router_prompt = router_template.substitute(
-                knowledge_summary=knowledge_summary or "",
-                options=options_prompt
+                knowledge_summary=knowledge_summary or "", options=options_prompt
             )
 
         self.identity_prompt = identity_template.substitute(
@@ -173,7 +201,7 @@ class Character:
             name=name,
             identity=identity,
         )
-        
+
         self.router.update(system_message=self.router_prompt)
         self.creator.update(system_message=self.creator_prompt)
         self.qa.update(system_message=self.qa_prompt)
@@ -182,7 +210,8 @@ class Character:
 
     def __str__(self):
         def truncate(s):
-            return (s[:47] + '...') if len(s) > 50 else s
+            return (s[:47] + "...") if len(s) > 50 else s
+
         return (
             f"Name: {truncate(self.name)}\n"
             f"Identity: {truncate(self.identity)}\n"
@@ -204,18 +233,18 @@ class Character:
 
         user_message = reply_template.substitute(
             chat=message,
-        )        
+        )
         result = self.reply(user_message, output_schema=Thought, save_messages=False)
 
-        probability = result['probability']
+        probability = result["probability"]
         probability = float(probability.replace("%", "").strip()) / 100
         R = random.random()
-        
+
         return R < probability
 
     def _route_(
-        self, 
-        message, 
+        self,
+        message,
         session_id=None,
     ) -> dict:
         conversation = self.chat.get_messages(id=session_id)
@@ -225,7 +254,7 @@ class Character:
             router_prompt += f"{role}: {msg.content}\n"
         router_prompt += f"Me: {message.message}\n"
         index = self.router(router_prompt, save_messages=False)
-        match = re.match(r'-?\d+', index)
+        match = re.match(r"-?\d+", index)
         if match:
             index = match.group()
             return index
@@ -240,24 +269,14 @@ class Character:
         response = self.chat(message.message, id=session_id, save_messages=False)
         user_message = ChatMessage(role="user", content=message.message)
         assistant_message = ChatMessage(role="assistant", content=response)
-        output = {
-            "message": response,
-            "config": None
-        }
+        output = {"message": response, "config": None}
         return output, user_message, assistant_message
 
-    def _qa_(
-        self,
-        message,
-        session_id=None
-    ) -> dict:
-        response = self.qa(message.message, id=session_id, save_messages=False)    
+    def _qa_(self, message, session_id=None) -> dict:
+        response = self.qa(message.message, id=session_id, save_messages=False)
         user_message = ChatMessage(role="user", content=message.message)
         assistant_message = ChatMessage(role="assistant", content=response)
-        output = {
-            "message": response,
-            "config": None
-        }
+        output = {"message": response, "config": None}
         return output, user_message, assistant_message
 
     def _create_(
@@ -266,15 +285,13 @@ class Character:
         session_id=None,
     ) -> dict:
         response = self.creator(
-            message, 
+            message,
             id=session_id,
-            input_schema=CreatorInput, 
-            output_schema=CreatorOutput
+            input_schema=CreatorInput,
+            output_schema=CreatorOutput,
         )
-        
-        config = {
-            k: v for k, v in response["config"].items() if v
-        }
+
+        config = {k: v for k, v in response["config"].items() if v}
 
         # add concept if set
         if self.concept:
@@ -284,14 +301,16 @@ class Character:
         # insert seeds if not provided
         if config.get("interpolation_texts"):
             if not config.get("interpolation_seeds"):
-                config["interpolation_seeds"] = [random.randint(0, 1000000) for _ in config["interpolation_texts"]]
+                config["interpolation_seeds"] = [
+                    random.randint(0, 1000000) for _ in config["interpolation_texts"]
+                ]
         elif not config.get("seed"):
-            config["seed"] = random.randint(0, 1000000)            
-        
+            config["seed"] = random.randint(0, 1000000)
+
         message_out = response["message"]
         if config:
             message_out += f"\nConfig: {config}"
-        
+
         message_in = message.message
         if message.attachments:
             message_in += f"\n\nAttachments: {message.attachments}"
@@ -299,50 +318,65 @@ class Character:
         user_message = ChatMessage(role="user", content=message_in)
         assistant_message = ChatMessage(role="assistant", content=message_out)
 
-        output = {
-            "message": response.get("message"),
-            "config": config
-        }
-        
+        output = {"message": response.get("message"), "config": config}
+
         return output, user_message, assistant_message
 
     def __call__(
-        self, 
-        message, 
+        self,
+        message,
         session_id=None,
     ) -> dict:
-
         message = CreatorInput.model_validate(message)
 
         if session_id:
             if session_id not in self.router.sessions:
-                self.router.new_session(id=session_id, model="gpt-4-1106-preview", system=self.router_prompt, params=self.router_params)
-                self.creator.new_session(id=session_id, model="gpt-4-1106-preview", system=self.creator_prompt, params=self.creator_params)
-                self.qa.new_session(id=session_id, model="gpt-4-1106-preview", system=self.qa_prompt, params=self.qa_params)
-                self.chat.new_session(id=session_id, model="gpt-4-1106-preview", system=self.chat_prompt, params=self.chat_params)
-        
+                self.router.new_session(
+                    id=session_id,
+                    model="gpt-4-1106-preview",
+                    system=self.router_prompt,
+                    params=self.router_params,
+                )
+                self.creator.new_session(
+                    id=session_id,
+                    model="gpt-4-1106-preview",
+                    system=self.creator_prompt,
+                    params=self.creator_params,
+                )
+                self.qa.new_session(
+                    id=session_id,
+                    model="gpt-4-1106-preview",
+                    system=self.qa_prompt,
+                    params=self.qa_params,
+                )
+                self.chat.new_session(
+                    id=session_id,
+                    model="gpt-4-1106-preview",
+                    system=self.chat_prompt,
+                    params=self.chat_params,
+                )
+
         if self.router_prompt:
             index = self._route_(message, session_id=session_id)
             function = self.function_map.get(index)
         else:
             function = self.function_map.get("1")
 
-        if not function:     
+        if not function:
             return {
                 "message": "I don't know how to respond to that.",
-                "attachment": None
+                "attachment": None,
             }
 
         output, user_message, assistant_message = function(
-            message, 
-            session_id=session_id
+            message, session_id=session_id
         )
 
         self.router.add_messages(user_message, assistant_message, id=session_id)
         self.creator.add_messages(user_message, assistant_message, id=session_id)
         self.qa.add_messages(user_message, assistant_message, id=session_id)
         self.chat.add_messages(user_message, assistant_message, id=session_id)
-        
+
         return output
 
 
@@ -351,7 +385,7 @@ class EdenCharacter(Character):
         self,
         character_id,
     ):
-        super().__init__()        
+        super().__init__()
         self.character_id = character_id
         self.sync()
 
@@ -363,9 +397,10 @@ class EdenCharacter(Character):
         identity = logos_data.get("identity")
         knowledge_summary = logos_data.get("knowledgeSummary")
         knowledge = logos_data.get("knowledge")
-        creation_enabled = character_data.get("creationEnabled", True)
         concept = logos_data.get("concept")
-        smart_reply = character_data.get("smartReply", False)
+        abilities = logos_data.get("abilities")
+        creation_enabled = abilities.get("creations", True) if abilities else True
+        smart_reply = abilities.get("smart_reply", False) if abilities else False
         image = character_data.get("image")
         voice = character_data.get("voice")
 
@@ -380,4 +415,3 @@ class EdenCharacter(Character):
             image=image,
             voice=voice,
         )
-    
