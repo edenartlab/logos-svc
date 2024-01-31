@@ -7,10 +7,24 @@ import requests
 import math
 import tempfile
 import subprocess
+import datetime
+import orjson
 from PIL import Image, ImageFont
 from io import BytesIO
 from fastapi import HTTPException
 from concurrent.futures import ThreadPoolExecutor, as_completed
+
+
+
+def orjson_dumps(v, *, default, **kwargs):
+    # orjson.dumps returns bytes, to match standard json.dumps we need to decode
+    return orjson.dumps(v, default=default, **kwargs).decode()
+
+
+def now_tz():
+    # Need datetime w/ timezone for cleanliness
+    # https://stackoverflow.com/a/24666683
+    return datetime.datetime.now(datetime.timezone.utc)
 
 
 def get_font(font_name, font_size):

@@ -114,3 +114,55 @@ def comic_strip(
             thumbnail.paste(caption_box, (0, new_height))
 
     return composite_image, thumbnail
+
+
+def poster(
+    image: Image.Image,
+    caption: str,
+    margin: int = 10,
+    caption_padding_top: int = 10,
+    line_spacing: int = 1.3,
+    font_size: int = 48,
+    font_ttf: str = 'Roboto-Regular.ttf',
+    shadow_offset: tuple = (1, 1.4),
+    font_color: str = '#e7e7e7',
+    shadow_color: str = '#d3d3d3'
+):
+    font = get_font(font_ttf, font_size)
+    width, height = image.size
+
+    draw = ImageDraw.Draw(Image.new('RGB', (width, height)))  # Temporary image for wrapping text
+    wrapped_caption = wrap_text(draw, caption, font, width - 2 * margin)
+    num_lines = len(wrapped_caption)
+
+    caption_box_height = num_lines * int(line_spacing * font.size) + 2 * caption_padding_top
+
+    total_width = width + margin
+    total_height = height + caption_box_height + margin
+
+    composite_image = Image.new('RGB', (total_width, total_height), color='white')
+
+    draw = ImageDraw.Draw(composite_image)
+    draw.rectangle([(0, 0), (total_width, total_height)], fill='black')
+
+    resized_image = image.resize((width, height))
+
+    composite_image.paste(resized_image, (int(margin/2), int(margin/2)))
+
+    caption_box = Image.new('RGB', (width, caption_box_height), color='black')
+    draw = ImageDraw.Draw(caption_box)
+
+    caption_y = caption_padding_top + int(margin/2)
+    for line in wrapped_caption:
+        draw.text((margin + shadow_offset[0], caption_y + shadow_offset[1]), line, fill=shadow_color, font=font)
+        draw.text((margin, caption_y), line, fill=font_color, font=font)
+        caption_y += int(line_spacing * font.size)
+
+    composite_image.paste(caption_box, (0, height))
+
+    thumbnail = Image.new('RGB', (width, height + caption_box_height), color='white')
+
+    thumbnail.paste(resized_image, (0, 0))
+    thumbnail.paste(caption_box, (0, height))
+
+    return composite_image, thumbnail

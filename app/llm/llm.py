@@ -12,8 +12,8 @@ import orjson
 from dotenv import load_dotenv
 from rich.console import Console
 
-from .models import ChatMessage, ChatSession
-from .chatgpt import ChatGPTSession
+from ..models import ChatMessage
+from .session import ChatSession
 
 load_dotenv()
 
@@ -33,7 +33,6 @@ class LLM(BaseModel):
         console: bool = True,
         **kwargs,
     ):
-
         client = Client(proxies=os.getenv("https_proxy"))
 
         if not name:
@@ -79,21 +78,8 @@ class LLM(BaseModel):
         self,
         return_session: bool = False,
         **kwargs,
-    ) -> Optional[ChatGPTSession]:
-
-        if "model" not in kwargs:  # set default
-            kwargs["model"] = "gpt-3.5-turbo"
-        # TODO: USE OPENROUTER
-        if "gpt-" in kwargs["model"]:
-            gpt_api_key = kwargs.get("api_key") or os.getenv("OPENAI_API_KEY")
-            assert gpt_api_key, f"An API key for {kwargs['model'] } was not defined."
-            sess = ChatGPTSession(
-                auth={
-                    "api_key": gpt_api_key,
-                },
-                **kwargs,
-            )
-
+    ) -> Optional[ChatSession]:
+        sess = ChatSession(**kwargs)
         if return_session:
             return sess
         else:
@@ -155,6 +141,7 @@ class LLM(BaseModel):
         tools: List[Any] = None,
         input_schema: Any = None,
         output_schema: Any = None,
+        model: str = "gpt-4-1106-preview"
     ) -> str:
         sess = self.get_session(id)
         if tools:
@@ -162,6 +149,7 @@ class LLM(BaseModel):
                 assert tool.__doc__, f"Tool {tool} does not have a docstring."
             assert len(tools) <= 9, "You can only have a maximum of 9 tools."
             return sess.gen_with_tools(
+                model,
                 prompt,
                 tools,
                 client=self.client,
@@ -171,6 +159,7 @@ class LLM(BaseModel):
             )
         else:
             return sess.gen(
+                model,
                 prompt,
                 client=self.client,
                 system=system,
@@ -341,6 +330,7 @@ class LLM(BaseModel):
 class AsyncLLM(LLM):
     async def __call__(
         self,
+        model: str,
         prompt: str,
         id: Union[str, UUID] = None,
         system: str = None,
@@ -359,6 +349,7 @@ class AsyncLLM(LLM):
                 assert tool.__doc__, f"Tool {tool} does not have a docstring."
             assert len(tools) <= 9, "You can only have a maximum of 9 tools."
             return await sess.gen_with_tools_async(
+                model,
                 prompt,
                 tools,
                 client=self.client,
@@ -368,6 +359,7 @@ class AsyncLLM(LLM):
             )
         else:
             return await sess.gen_async(
+                model,
                 prompt,
                 client=self.client,
                 system=system,

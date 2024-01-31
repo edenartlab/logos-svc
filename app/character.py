@@ -9,8 +9,7 @@ from pydantic import Field, BaseModel, ValidationError
 from .mongo import get_character_data
 from .scenarios.tasks import summary
 from .llm import LLM
-from .llm.models import ChatMessage
-from .models import SummaryRequest
+from .models import SummaryRequest, ChatMessage
 from .prompt_templates.assistant import (
     identity_template,
     reply_template,
@@ -103,6 +102,7 @@ class Character:
         creation_enabled=False,
         concept=None,
         smart_reply=False,
+        chat_model="gpt-3.5-turbo",
         image=None,
         voice=None,
     ):
@@ -112,14 +112,14 @@ class Character:
         self.qa_params = {"temperature": 0.2, "max_tokens": 1000}
         self.chat_params = {"temperature": 0.9, "max_tokens": 1000}
 
-        self.reply = LLM(model="gpt-4-1106-preview", params=self.reply_params)
-        self.router = LLM(model="gpt-4-1106-preview", params=self.router_params)
-        self.creator = LLM(model="gpt-4-1106-preview", params=self.creator_params)
-        self.qa = LLM(model="gpt-4-1106-preview", params=self.qa_params)
-        self.chat = LLM(model="gpt-4-1106-preview", params=self.chat_params)
+        self.reply = LLM(params=self.reply_params)
+        self.router = LLM(params=self.router_params)
+        self.creator = LLM(params=self.creator_params)
+        self.qa = LLM(params=self.qa_params)
+        self.chat = LLM(params=self.chat_params)
 
         self.knowledge_summary = ""
-
+        
         self.update(
             name=name,
             identity=identity,
@@ -128,6 +128,7 @@ class Character:
             creation_enabled=creation_enabled,
             concept=concept,
             smart_reply=smart_reply,
+            chat_model=chat_model,
             image=image,
             voice=voice,
         )
@@ -141,6 +142,7 @@ class Character:
         creation_enabled=False,
         concept=None,
         smart_reply=False,
+        chat_model="gpt-3.5-turbo",
         image=None,
         voice=None,
     ):
@@ -152,6 +154,7 @@ class Character:
         self.creation_enabled = creation_enabled
         self.concept = concept
         self.smart_reply = smart_reply
+        self.chat_model = chat_model
         self.image = image
         self.voice = voice
         self.function_map = {"1": self._chat_}
@@ -167,6 +170,7 @@ class Character:
                 f"You have the following knowledge: {self.knowledge_summary}"
             )
             self.function_map[str(len(options))] = self._qa_
+        
         if creation_enabled:
             options.append("A request for an image or video creation")
             self.function_map[str(len(options))] = self._create_
@@ -234,7 +238,12 @@ class Character:
         user_message = reply_template.substitute(
             chat=message,
         )
-        result = self.reply(user_message, output_schema=Thought, save_messages=False)
+        result = self.reply(
+            prompt=user_message, 
+            output_schema=Thought, 
+            save_messages=False,
+            model="gpt-4-1106-preview",
+        )
 
         probability = result["probability"]
         probability = float(probability.replace("%", "").strip()) / 100
@@ -253,7 +262,11 @@ class Character:
             role = "Eden" if msg.role == "assistant" else "Me"
             router_prompt += f"{role}: {msg.content}\n"
         router_prompt += f"Me: {message.message}\n"
-        index = self.router(router_prompt, save_messages=False)
+        index = self.router(
+            prompt=router_prompt, 
+            save_messages=False,
+            model="gpt-4-1106-preview",
+        )
         match = re.match(r"-?\d+", index)
         if match:
             index = match.group()
@@ -266,14 +279,24 @@ class Character:
         message,
         session_id=None,
     ) -> dict:
-        response = self.chat(message.message, id=session_id, save_messages=False)
+        response = self.chat(
+            prompt=message.message, 
+            id=session_id, 
+            save_messages=False,
+            model=self.chat_model,
+        )
         user_message = ChatMessage(role="user", content=message.message)
         assistant_message = ChatMessage(role="assistant", content=response)
         output = {"message": response, "config": None}
         return output, user_message, assistant_message
 
     def _qa_(self, message, session_id=None) -> dict:
-        response = self.qa(message.message, id=session_id, save_messages=False)
+        response = self.qa(
+            prompt=message.message, 
+            id=session_id, 
+            save_messages=False,
+            model=self.chat_model,
+        )
         user_message = ChatMessage(role="user", content=message.message)
         assistant_message = ChatMessage(role="assistant", content=response)
         output = {"message": response, "config": None}
@@ -284,11 +307,12 @@ class Character:
         message,
         session_id=None,
     ) -> dict:
-        response = self.creator(
-            message,
+        response = self.creator(            
+            prompt=message,
             id=session_id,
             input_schema=CreatorInput,
             output_schema=CreatorOutput,
+            model="gpt-4-1106-preview",
         )
 
         config = {k: v for k, v in response["config"].items() if v}
@@ -333,40 +357,32 @@ class Character:
             if session_id not in self.router.sessions:
                 self.router.new_session(
                     id=session_id,
-                    model="gpt-4-1106-preview",
                     system=self.router_prompt,
                     params=self.router_params,
                 )
                 self.creator.new_session(
                     id=session_id,
-                    model="gpt-4-1106-preview",
                     system=self.creator_prompt,
                     params=self.creator_params,
                 )
                 self.qa.new_session(
                     id=session_id,
-                    model="gpt-4-1106-preview",
                     system=self.qa_prompt,
                     params=self.qa_params,
                 )
                 self.chat.new_session(
                     id=session_id,
-                    model="gpt-4-1106-preview",
                     system=self.chat_prompt,
                     params=self.chat_params,
                 )
 
+        function = None
         if self.router_prompt:
             index = self._route_(message, session_id=session_id)
             function = self.function_map.get(index)
-        else:
-            function = self.function_map.get("1")
 
         if not function:
-            return {
-                "message": "I don't know how to respond to that.",
-                "attachment": None,
-            }
+            function = self.function_map.get("1")
 
         output, user_message, assistant_message = function(
             message, session_id=session_id
@@ -392,7 +408,6 @@ class EdenCharacter(Character):
     def sync(self):
         character_data = get_character_data(self.character_id)
         logos_data = character_data.get("logosData")
-
         name = character_data.get("name")
         identity = logos_data.get("identity")
         knowledge_summary = logos_data.get("knowledgeSummary")
@@ -401,6 +416,7 @@ class EdenCharacter(Character):
         abilities = logos_data.get("abilities")
         creation_enabled = abilities.get("creations", True) if abilities else True
         smart_reply = abilities.get("smart_reply", False) if abilities else False
+        chat_model = logos_data.get("chatModel", "gpt-4-1106-preview")
         image = character_data.get("image")
         voice = character_data.get("voice")
 
@@ -412,6 +428,7 @@ class EdenCharacter(Character):
             creation_enabled=creation_enabled,
             concept=concept,
             smart_reply=smart_reply,
+            chat_model=chat_model,
             image=image,
             voice=voice,
         )

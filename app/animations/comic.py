@@ -19,7 +19,7 @@ def illustrated_comic(request: ComicRequest):
     
     comicwriter = LLM(
         model=request.model,
-        system_message=str(comicwriter_system_template),
+        system_message=comicwriter_system_template.template,
         params=params,
     )
 

@@ -51,7 +51,7 @@ def test_story_animation():
 
 def test_comic_illustration():
     """
-    Test monologue on static character and prompt
+    Test comic on static character and prompt
     """
 
     prompt = """

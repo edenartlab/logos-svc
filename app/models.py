@@ -1,7 +1,10 @@
 import os
+import datetime
 from enum import Enum
 from typing import Optional, List
 from pydantic import BaseModel, Field
+
+from .utils import now_tz
 
 NARRATOR_CHARACTER_ID = os.getenv("NARRATOR_CHARACTER_ID")
 
@@ -54,6 +57,7 @@ class StoryRequest(BaseModel):
     character_ids: List[str]
     prompt: str
     narrator_id: str = NARRATOR_CHARACTER_ID
+    num_clips: int = 5
     model: str = "gpt-4-1106-preview"
     params: dict = {}
 
@@ -84,13 +88,13 @@ class ComicRequest(BaseModel):
     params: dict = {}
 
 
-class ComicPanel(BaseModel):
+class Poster(BaseModel):
     """
-    A single panel in a comic book sequence
+    A single panel or poster in a comic book sequence or other
     """
 
-    image: str = Field(description="Literal description of image content for panel")
-    caption: str = Field(description="Creative caption of panel")
+    image: str = Field(description="Literal description of image content for [poster or panel]")
+    caption: str = Field(description="Creative caption of poster or panel")
 
 
 class ComicResult(BaseModel):
@@ -98,7 +102,45 @@ class ComicResult(BaseModel):
     A screenplay consisting of a sequence of clips
     """
 
-    panels: List[ComicPanel] = Field(description="Comic Book panels")
+    panels: List[Poster] = Field(description="Comic Book panels")
+
+
+class Martian(Enum):
+    Verdelis = "Verdelis"
+    Shuijing = "Shuijing"
+    Kweku = "Kweku"
+    Ada = "Ada"
+    Kalama = "Kalama"
+    Mycos = "Mycos"
+
+class Setting(Enum):
+    physical_reality = "Physical Reality"
+    imaginarium = "Human Imaginarium"
+
+class Genre(Enum):
+    drama = "Drama"
+    comedy = "Comedy"
+    horror = "Horror"
+    mystery = "Mystery"
+    action = "Action"
+
+class AspectRatio(Enum):
+    portrait = "portrait"
+    landscape = "landscape"
+    square = "square"
+
+class LittleMartianRequest(BaseModel):
+    """
+    A request for Little Martians poster
+    """
+
+    martian: Martian
+    prompt: str
+    setting: Setting
+    genre: Genre
+    aspect_ratio: AspectRatio
+    model: str = "gpt-4-1106-preview"
+    params: dict = {}
 
 
 class ChatRequest(BaseModel):
@@ -157,3 +199,27 @@ class ModerationResult(BaseModel):
     gore: int = Field(description="Violence or gore")
     hate: int = Field(description="Hate, abusive or toxic speech")
     spam: int = Field(description="Spam, scam, or deceptive content")
+
+
+class ChatMessage(BaseModel):
+    """
+    A single chat message
+    """
+
+    role: str
+    content: str
+    name: Optional[str] = None
+    function_call: Optional[str] = None
+    received_at: datetime.datetime = Field(default_factory=now_tz)
+    finish_reason: Optional[str] = None
+    prompt_length: Optional[int] = None
+    completion_length: Optional[int] = None
+    total_length: Optional[int] = None
+
+    def __str__(self) -> str:
+        return str(
+            self.model_dump(
+                exclude_none=True,
+                # option=orjson.OPT_INDENT_2
+            )
+        )
