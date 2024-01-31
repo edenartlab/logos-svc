@@ -16,19 +16,19 @@ MAX_WORKERS = 3
 def animated_story(request: StoryRequest):
     screenplay = story(request)
     print(screenplay)
-    
+
     characters = {
-        character_id: EdenCharacter(character_id) 
+        character_id: EdenCharacter(character_id)
         for character_id in request.character_ids + [request.narrator_id]
+        if character_id != ""
     }
 
     character_name_lookup = {
-        character.name: character_id
-        for character_id, character in characters.items()
+        character.name: character_id for character_id, character in characters.items()
     }
 
     # images = [
-    #     characters[character_id].image 
+    #     characters[character_id].image
     #     for character_id in request.character_ids
     # ]
 
@@ -36,24 +36,18 @@ def animated_story(request: StoryRequest):
     width, height = 1024, 1024
 
     def run_story_segment(clip, idx):
-        if clip['voiceover'] == 'character':
-            character_id = character_name_lookup[clip['character']]
+        if clip["voiceover"] == "character":
+            character_id = character_name_lookup[clip["character"]]
             character = characters[character_id]
         else:
             character = characters[request.narrator_id]
         output_filename, thumbnail_url = screenplay_clip(
-            character,
-            clip['speech'],
-            clip['image_description'],
-            width,
-            height
+            character, clip["speech"], clip["image_description"], width, height
         )
         return output_filename, thumbnail_url
 
     results = utils.process_in_parallel(
-        screenplay['clips'], 
-        run_story_segment,
-        max_workers=MAX_WORKERS
+        screenplay["clips"], run_story_segment, max_workers=MAX_WORKERS
     )
 
     video_files = [video_file for video_file, thumbnail in results]
@@ -61,7 +55,7 @@ def animated_story(request: StoryRequest):
 
     with tempfile.NamedTemporaryFile(delete=True, suffix=".mp4") as temp_output_file:
         utils.concatenate_videos(video_files, temp_output_file.name)
-        with open(temp_output_file.name, 'rb') as f:
+        with open(temp_output_file.name, "rb") as f:
             video_bytes = f.read()
         output_url = s3.upload(video_bytes, "mp4")
 
