@@ -4,7 +4,7 @@ from ..prompt_templates import monologue_template, dialogue_template
 from ..models import MonologueRequest, MonologueResult
 
 
-def monologue(request: MonologueRequest):
+def monologue(request: MonologueRequest) -> MonologueResult:
     params = {"temperature": 1.0, "max_tokens": 1000, **request.params}
 
     character_data = get_character_data(request.character_id)

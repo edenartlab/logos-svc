@@ -1,0 +1,7 @@
+The following is your current working draft of the story: $draft
+
+$additional_context
+
+----
+
+$message

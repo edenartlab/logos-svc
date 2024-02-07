@@ -7,10 +7,25 @@ import requests
 import math
 import tempfile
 import subprocess
+import datetime
+import orjson
+from enum import Enum
 from PIL import Image, ImageFont
 from io import BytesIO
 from fastapi import HTTPException
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from pydantic import BaseModel, Field, create_model
+
+
+def orjson_dumps(v, *, default, **kwargs):
+    # orjson.dumps returns bytes, to match standard json.dumps we need to decode
+    return orjson.dumps(v, default=default, **kwargs).decode()
+
+
+def now_tz():
+    # Need datetime w/ timezone for cleanliness
+    # https://stackoverflow.com/a/24666683
+    return datetime.datetime.now(datetime.timezone.utc)
 
 
 def get_font(font_name, font_size):
@@ -154,7 +169,7 @@ def concatenate_videos(video_files, output_file):
     concat_command = ['ffmpeg']
     for video in converted_videos:
         concat_command.extend(['-i', video])
-    concat_command.extend(['-y', '-loglevel', 'panic','-filter_complex', filter_complex, '-map', '[v]', '-map', '[a]', output_file])
+    concat_command.extend(['-y', '-loglevel', 'panic', '-filter_complex', filter_complex, '-map', '[v]', '-map', '[a]', output_file])
     subprocess.run(concat_command)
 
     # Step 4: Delete temporary files
@@ -243,3 +258,13 @@ def wrap_text(draw, text, font, max_width):
         lines.append(line)
     
     return lines
+
+
+def create_dynamic_model(model_name: str, model_values: list):
+    ModelEnum = Enum(model_name, {value: value for value in model_values})
+    DynamicModel = create_model(
+        model_name,
+        **{model_name.lower(): (ModelEnum, Field(description=model_name))}
+    )
+    DynamicModel.__doc__ = model_name
+    return DynamicModel

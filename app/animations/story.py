@@ -4,7 +4,7 @@ import tempfile
 
 from .. import utils
 from ..plugins import replicate, elevenlabs, s3
-from ..character import EdenCharacter
+from ..character import Character, EdenCharacter
 from ..scenarios import story
 from ..models import StoryRequest
 from .animation import screenplay_clip
@@ -15,6 +15,7 @@ MAX_WORKERS = 3
 
 def animated_story(request: StoryRequest):
     screenplay = story(request)
+
     print(screenplay)
 
     characters = {
@@ -27,18 +28,31 @@ def animated_story(request: StoryRequest):
         character.name: character_id for character_id, character in characters.items()
     }
 
+    # if any character is new, assign a random voice
+    for clip in screenplay['clips']:
+        if not clip['character']:
+            continue
+        character_name = clip['character']
+        if character_name not in character_name_lookup:
+            characters[character_name] = Character(name=character_name)
+            character_name_lookup[character_name] = character_name
+        character_id = character_name_lookup[character_name]
+        if not characters[character_id].voice:
+            voice_id = elevenlabs.get_random_voice()
+            characters[character_id].voice = voice_id
+
     # images = [
     #     characters[character_id].image
     #     for character_id in request.character_ids
     # ]
 
     # width, height = utils.calculate_target_dimensions(images, MAX_PIXELS)
-    width, height = 1024, 1024
+    width, height = 1792, 1024
 
     def run_story_segment(clip, idx):
         if clip["voiceover"] == "character":
-            character_id = character_name_lookup[clip["character"]]
-            character = characters[character_id]
+            character_id = character_name_lookup[clip['character']]
+            character = characters.get(character_id)
         else:
             character = characters[request.narrator_id]
         output_filename, thumbnail_url = screenplay_clip(

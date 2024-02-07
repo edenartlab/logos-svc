@@ -7,11 +7,12 @@ from .animations import (
     animated_monologue, 
     animated_dialogue, 
     animated_story, 
-    illustrated_comic
+    illustrated_comic,
+    little_martian_poster
 )
-from .models import MonologueRequest, MonologueResult
+from .models import MonologueRequest
 from .models import DialogueRequest, DialogueResult, StoryRequest
-from .models import TaskRequest, TaskUpdate, TaskResult
+from .models import TaskRequest, TaskUpdate, TaskResult, LittleMartianRequest
 
 NARRATOR_CHARACTER_ID = os.getenv("NARRATOR_CHARACTER_ID")
 
@@ -21,7 +22,7 @@ def process_task(task_id: str, request: TaskRequest):
 
     task_type = request.generatorName
     webhook_url = request.webhookUrl
-
+    
     update = TaskUpdate(
         id=task_id,
         output=TaskResult(progress=0),
@@ -70,6 +71,21 @@ def process_task(task_id: str, request: TaskRequest):
             )
             output_url, thumbnail_url = illustrated_comic(task_req)
 
+        elif task_type == "littlemartians":
+            martian = request.config.get("martian")
+            prompt = request.config.get("prompt")
+            setting = request.config.get("setting")
+            genre = request.config.get("genre")
+            aspect_ratio = request.config.get("aspect_ratio")
+            task_req = LittleMartianRequest(
+                martian=martian,
+                prompt=prompt,
+                setting=setting,
+                genre=genre,
+                aspect_ratio=aspect_ratio,
+            )
+            output_url, thumbnail_url = little_martian_poster(task_req)
+
         output = TaskResult(
             files=[output_url],
             thumbnails=[thumbnail_url],
@@ -107,6 +123,7 @@ def process_task(task_id: str, request: TaskRequest):
 
 async def generate_task(background_tasks: BackgroundTasks, request: TaskRequest):
     task_id = str(uuid.uuid4())
-    if request.generatorName in ["monologue", "dialogue", "story"]:
+    print("MAKE A TASK!!")
+    if request.generatorName in ["monologue", "dialogue", "story", "littlemartians"]:
         background_tasks.add_task(process_task, task_id, request)
     return {"id": task_id}

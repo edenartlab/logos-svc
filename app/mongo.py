@@ -1,6 +1,6 @@
 import os
 import pymongo
-from pymongo import MongoClient
+from pymongo import MongoClient, DESCENDING
 from bson.objectid import ObjectId
 from dotenv import load_dotenv
 
@@ -10,6 +10,19 @@ MONGO_DB_NAME = os.getenv("MONGO_DB_NAME")
 client = MongoClient(MONGO_URI)
 db = client[MONGO_DB_NAME]
 
+
+def search_character(name: str):
+    character = db["characters"].find_one({
+        "$text": {"$search": name},
+        "logosData": {"$exists": True}
+    }, sort=[("createdAt", DESCENDING)])
+    
+    if character:
+        return character
+    else:
+        print(f"No character found with name: {name}")
+        return None
+    
 
 def get_character_data(character_id: str):
 

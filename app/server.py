@@ -8,7 +8,8 @@ from .animations import (
     animated_monologue, 
     animated_dialogue, 
     animated_story,
-    illustrated_comic
+    illustrated_comic,
+    little_martian_poster
 )
 from .generator import generate_task
 
@@ -34,6 +35,7 @@ router.add_api_route(path="/animation/monologue", endpoint=animated_monologue, m
 router.add_api_route(path="/animation/dialogue", endpoint=animated_dialogue, methods=["POST"])
 router.add_api_route(path="/animation/story", endpoint=animated_story, methods=["POST"])
 router.add_api_route(path="/animation/comic", endpoint=illustrated_comic, methods=["POST"])
+router.add_api_route(path="/animation/little_martian", endpoint=little_martian_poster, methods=["POST"])
 
 # Chat
 router.add_api_route(path="/chat/test", endpoint=chat.test, methods=["POST"])
