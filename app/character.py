@@ -566,12 +566,13 @@ class EdenCharacter(Character):
 
         # temporary hack until this is in schema
         if str(self.character_id) == "65b5d2932a094f8ee322cb69" or str(self.character_id) == "657aa5cd35eb16a8136493e5":
-            creation_enabled = True
+            story_creation_enabled = True
         else:
-            creation_enabled = False
+            story_creation_enabled = False
+        print("story_creation_enabled: ", story_creation_enabled)
 
         #story_creation_enabled = True #abilities.get("story_creations", False) if abilities else False
-        
+
         smart_reply = abilities.get("smart_reply", False) if abilities else False
         chat_model = logos_data.get("chatModel", "gpt-4-1106-preview")
         image = character_data.get("image")
