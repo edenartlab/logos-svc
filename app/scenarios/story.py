@@ -12,12 +12,14 @@ from ..prompt_templates.cinema import (
 )
 
 
-def story(request: StoryRequest):    
+def story(request: StoryRequest):
     params = {"temperature": 1.0, "max_tokens": 4096, **request.params}
-    
+
     character_details = ""
     character_names = []
     for character_id in request.character_ids:
+        if character_id == "":
+            continue
         character = EdenCharacter(character_id)
         character_names.append(character.name)
         character_details += character.card()
