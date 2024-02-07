@@ -33,7 +33,7 @@ def test_little_martians():
 
     request = {
         "martian": martian,
-        "prompt": f'{martian} {prompt}',
+        "prompt": prompt,
         "setting": setting,
         "genre": genre,
         "aspect_ratio": aspect_ratio,

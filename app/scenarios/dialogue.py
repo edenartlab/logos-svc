@@ -30,7 +30,7 @@ def dialogue(request: DialogueRequest):
 
     conversation = []
 
-    for m in range(4):
+    for m in range(6):
         llm = llms[m % 2]
         message = llm(message)
 

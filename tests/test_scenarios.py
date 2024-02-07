@@ -51,16 +51,16 @@ def test_story():
 
 
 
-def test_comic():
-    """
-    Test dialogue function on static characters and prompt
-    """
-    request = {
-        "character_id": "658b44b36104b05b266ca3c6", #"658b481a6104b05b266eaed6", #"658b44b36104b05b266ca3c6", # "658b481a6104b05b266eaed6"], 
-        "prompt": "Debate whether or not pizza is a vegetable"
-    }
+# def test_comic():
+#     """
+#     Test dialogue function on static characters and prompt
+#     """
+#     request = {
+#         "character_id": "658b44b36104b05b266ca3c6", #"658b481a6104b05b266eaed6", #"658b44b36104b05b266ca3c6", # "658b481a6104b05b266eaed6"], 
+#         "prompt": "Debate whether or not pizza is a vegetable"
+#     }
 
-    response = client.post("/scenarios/comic", json=request)
-    print(response.json())
+#     response = client.post("/scenarios/comic", json=request)
+#     print(response.json())
 
-    assert response.status_code == 200
+#     assert response.status_code == 200

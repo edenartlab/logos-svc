@@ -1,0 +1,5 @@
+The following characters names are already accounted for in the story: $character_names
+
+Here is a message from the user: "$message"
+
+Tell me any new names mentioned in the user message that do not appear in the list of character names already accounted.

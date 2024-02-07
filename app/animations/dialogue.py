@@ -26,6 +26,7 @@ def animated_dialogue(request: DialogueRequest):
         characters[character_id].image 
         for character_id in request.character_ids
     ]
+    images = list(set(images))
     width, height = utils.calculate_target_dimensions(images, MAX_PIXELS)
 
     def run_talking_head_segment(message, idx):
@@ -61,6 +62,8 @@ def animated_dialogue(request: DialogueRequest):
             os.remove(video_file)
 
     # generate thumbnail
+    print("DO IMAGES")
+    print(images)
     thumbnail = utils.create_dialogue_thumbnail(*images, width, height)
     thumbnail_url = s3.upload(thumbnail, "webp")
 

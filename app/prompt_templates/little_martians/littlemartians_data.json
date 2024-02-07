@@ -2,7 +2,7 @@
   "Verdelis": {
     "Physical Reality": {
       "Action": {
-        "modifier": "film still from action movie, abandoned architecture on Mars, green alien plants, ruins of archways and dome, transluscent walls, organic structure, ancient futuristic, dramatic lighting, highly detailed.",
+        "modifier": "<concept> film still from action movie, abandoned architecture on Mars, green alien plants, ruins of archways and dome, transluscent walls, organic structure, ancient futuristic, dramatic lighting, highly detailed.",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/c806b9247f2ebd80156dfe90168d150a8156d4a26786f4199f4d7600aeced628.tar",
         "lora_scale": [
           0.4,
@@ -13,19 +13,25 @@
           0.5
         ],
         "init_images": [
-          "17554f0f2c360db1d3b952af6697fd35eafb07a07b969f3af86b256d5d3549a6.webp",
-          "546a82266da09d3eb89836a99e1c143ce2e9fae9ec16d26892debc2f34e74ba8.webp",
+          "4cbdb4170cb5d796e45f43537f46507420a914938d3d4cacd3bc03654c7f470e.webp",
           "f6e5bc4de6c082cf99c1454e839cbff0ee776908e28f9d010552c4b623b465c8.webp",
           "546a82266da09d3eb89836a99e1c143ce2e9fae9ec16d26892debc2f34e74ba8.webp",
-          "11ff58b3f22b7229eba4afa5623b9cd70cbe790a5a911b16ee69c7f1e7621a6a.webp",
+          "9a3bb899d008217f9ee14eb70e39b434ec80838378d2e82d92d6f35221375e8a.webp",
           "5dec428154b41b1451fe307f4fa7e00a829727949794ea99b2d1234c07ee8671.webp",
           "e306631815a61b28035f8192c4ebb1a81f388b9b63af4db3dbe13fe5e2417ec0.webp",
+          "e22fb2b3f3658db8e579f7c55ec744f89679642f56a573ef7efa18b9dd3e1116.webp",
           "17554f0f2c360db1d3b952af6697fd35eafb07a07b969f3af86b256d5d3549a6.webp",
-          "11ff58b3f22b7229eba4afa5623b9cd70cbe790a5a911b16ee69c7f1e7621a6a.webp"
+          "09ec8f6e4d0439361e8ac04b3f9bbe2c1563af45666b2c644f9cc35c6145693b.webp",
+          "931480b1a617dc23d42cbf8a00f1532a13af8e8e0e73406a4418b29a575b769d.webp",
+          "11ff58b3f22b7229eba4afa5623b9cd70cbe790a5a911b16ee69c7f1e7621a6a.webp",
+          "217686d5292d3559048ab6178d43dc0d59f991e27a4c8a70de2d40f34b486f20.png",
+          "922b53cc167f2f1af190158ff6a11442795ec46daf505efd1eedc5c45fb5fce3.webp",
+          "c4613906e5dbc0bcdfd20ba65b587b8f77054d406b63a1749d0ddece7c1e4c64.webp",
+          "e81f4529ac2882159367f6965eb7d9900cbdbe4ce3e0fdaa8a803dbf634c8939.webp"
         ]
       },
       "Comedy": {
-        "modifier": "film still from comedy, wes anderson, abandoned architecture on Mars, green alien plants, ruins of archways and dome, transluscent walls, organic structure, ancient futuristic, dramatic lighting, highly detailed.",
+        "modifier": "<concept> film still from comedy, wes anderson, abandoned architecture on Mars, green alien plants, ruins of archways and dome, transluscent walls, organic structure, ancient futuristic, dramatic lighting, highly detailed.",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/c806b9247f2ebd80156dfe90168d150a8156d4a26786f4199f4d7600aeced628.tar",
         "lora_scale": [
           0.4,
@@ -36,26 +42,28 @@
           0.5
         ],
         "init_images": [
-          "89990d4d3aa94603657c3253bb7777bfc4a641569fbc87515617d68976f42707.webp",
-          "fe4c3f911f5b60950709956a3f7f0e578b0bd980f96abf93ea9b5ebbc33933fa.webp",
+          "eb871998aa6ebbc2bfe5697837ad5e5a2aaaff7a6c6ed0d88104ad3912a4a80d.webp",
+          "4613e3f7e803e8ad009327ded27efc98f280d0f6546e28dee671208d05229571.png",
+          "d840a35e0020b9292b2bee39c3a532e8921aefac0a26db8abc187c44357bee93.webp",
           "a97dc7ed84f0dad2a5f907854c96ef9898532998c375c296ac77c810749c7eef.webp",
-          "fe4728c6d65d1b586a2f4f43a052a94359dd20f4c27e72fcf414faa129eb8778.webp",
-          "45182b0c30c851921d8c6d1c7098eff7bf69672a0e5e532bb33eeddf100b9e3a.webp",
+          "96090e7d8cd167bede1af7a2be4fe2558660a568c07da90082b29905d76dac0c.webp",
+          "ff2ee38856bbcf2d3971b7e84b8a7069db011ea558480248aac88c248176c7aa.webp",
           "229db2f04ec5e3e137db7ee9fb9f36c1ac758a9d6d2e9101f6fa5e52fdaa5958.webp",
-          "c2eab7ce892f53e418af0c71c38fe5f3599766b68476f93067048c62da2354d0.webp",
           "cc9e656d9d58981475caef7c4e9b6493f3c95857e1f6294ba0e4bbb71d4e05fe.webp",
-          "7c5ceb498af4c2392b2a44f37232a7bfba6ec63f679f82c44a26e55e17cb688b.webp",
+          "385e1b36e8e97067e33019c291265da228be9e6cbf0d2b5673bc1bddaefcfb4e.webp",
           "e0442561864241c5a7f748423e57242f7c9ee8b3b993d2a44c7b472d1b707b1a.webp",
-          "7d94b720b7a58d20e8e60129ba5caf36453f148b87c1d646babac3269df286bf.webp",
+          "88ebe65a374129fc37c3537403bdb57006e55d01ee8fe26a628f48c25a1c2b6d.webp",
+          "305db67d71221edc51149d8ac22ab7a26fe20c85c13da6167e898e7f02c7be15.webp",
+          "4be8a7370b74a2e07c48cf21123a4d0c0217861ab3a672c432bf39ee6bb5ffd6.webp",
           "84039c173605e2dd4456c13eabef68bf2a23ac87eaabcdafef1e3f40111b029d.webp",
-          "19fe6b34ebb2afe8b17d4d21b5973604ab560d4cbb440a67eeada6959fe3793d.webp",
-          "ebead0f318aa8e86f4e99a97e6262015168b437855304ca5b1c2c91ac183ef2e.webp",
-          "23fa3740d325b20d0adec16e9c6a746a664de8c3b87c0edf61bd0d6aaf75b6f2.webp",
-          "388b9e20b6b80ee0259a165329d34a399f9965a101ccd60198fff5627cac5d9c.webp"
+          "7d44a2a5cb0be4a1bf075f6964c8411cde3b108c03109746b78054b7fcaf50a7.png",
+          "479672754a6443727134db7c9aff1494c012357a1f2546ca42fc94b6d91139b1.webp",
+          "a369989243ec4d30de4c26077d768c4b7af081eeb561ad24e2dd69bb4cb6e7ac.webp",
+          "80d037c8608f8b5252bf092f082ac59e39b65c4fb3a45c75ee4859d98998b558.webp"
         ]
       },
       "Drama": {
-        "modifier": "film still from drama movie, abandoned architecture on Mars, green alien plants, ruins of archways and dome, transluscent walls, organic structure, ancient futuristic, dramatic lighting, highly detailed.",
+        "modifier": "<concept> film still from drama movie, abandoned architecture on Mars, green alien plants, ruins of archways and dome, transluscent walls, organic structure, ancient futuristic, dramatic lighting, highly detailed.",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/c806b9247f2ebd80156dfe90168d150a8156d4a26786f4199f4d7600aeced628.tar",
         "lora_scale": [
           0.4,
@@ -66,18 +74,30 @@
           0.5
         ],
         "init_images": [
+          "73c4894efe4672690bd5547da24549e9f773c71c3053936bddc8dab340560de7.webp",
+          "75568f0fc89f800654181997ecb4c28b9c32693dd69fdcabdf4a92e64d97cc88.png",
+          "9948002875e023c5ecc791a6493fefe43fb9e42b8da91a4c1651670ae0d7df3f.webp",
+          "b66025cf98c3c508f765624729bbc4655a9294fef9399103fa3fcfb290a4e0fc.webp",
+          "9e1746adc5a9773fcaa8a1b99f7ab54b5ccff75b0fcedb8e015b060ea31feddb.png",
+          "bc8d77e440d5943a6626068fd85fe1e0fff5406ca677e5bd4c5c4510e2751478.webp",
+          "d45bf6771b881762f3d336f34e0ba87dba0cc46bbc5299263e8ba92f5df0e0d9.webp",
+          "ee2fc209dfcbeda41382c55a114e1025babbf4f009760dda90b6e86597a9df70.webp",
           "1f83878f49a833c163d4d180f109a262b4425132681df58b467b723c8f487c39.webp",
+          "34f55b045147070436f7be57e8d020fcd74e59adb49c54e0385bca4b8932de5f.webp",
           "3eae4f8984d5f987d15c744cd03ccce1810c061f486a3397700111a171486621.webp",
+          "c391245092ce6081a1e6f5b120432e8f80dec5095d286b644b8b29de271947c5.webp",
           "d9bc220cd6cdee587412d67a8fbf4d0420051439d5759dd8d885e995e3889380.webp",
           "2b2296483f06419fd649f93e7930a6f93b3ca45fd0fbc57f19cb987f30f74345.webp",
           "f1d115531ddb926a89db591b16e40a6a2351d2ce16b48c5740e74f1e8e0909d8.webp",
+          "933876d6816555d35d9c478b9c1fdb709c294a516735932dac9ba775d44d1cd7.webp",
+          "9993beb1fbac4462210bfbcfcb801de96c8aaacc7ac0c57877661e2f8d4d3b03.webp",
           "1a0fab8474ff48a11d6642eb3173f6b78a0c7d8af5859ef1227043c1ed883311.webp",
           "60152405fa9b933836ce6362f8b905088ae2a30d5447a2f64e27eaef204bb8fa.webp",
           "b10af35ffc2ca978e270b74f0a2a9fd2ebf8c2803a7afa22256b89726792c645.webp"
         ]
       },
       "Horror": {
-        "modifier": "film still from horror movie, abandoned architecture on Mars, green alien plants, ruins of archways and dome, transluscent walls, organic structure, ancient futuristic, dramatic lighting, highly detailed.",
+        "modifier": "<concept> film still from horror movie, abandoned architecture on Mars, green alien plants, ruins of archways and dome, transluscent walls, organic structure, ancient futuristic, dramatic lighting, highly detailed.",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/c806b9247f2ebd80156dfe90168d150a8156d4a26786f4199f4d7600aeced628.tar",
         "lora_scale": [
           0.4,
@@ -88,18 +108,34 @@
           0.5
         ],
         "init_images": [
+          "7232f7ac714bee8d08d9f3ac49537c607d5d6c5970fc620340841f16359a3264.webp",
+          "9e67c5196428bc57fc385b4dfd6af3778683d721021e39c07fb7c1acfae3d1ee.webp",
+          "92303464a3310f60f1a2624d2c7c58050ac9bad3bdc8188967319cf4a676bb04.webp",
+          "95c31a67db1502bb5acf556f310f927600ee8c1bef8d4d1ace5a79b5c210c739.webp",
           "cc3685c30eca54a131306476993017f6bf212b4f911ce96ca853226b009c0297.webp",
           "a40e25be1db6593a4497c96a9444176f167ddc186e0e71c98bd96e2be5d0b3a7.webp",
           "0bb485da96193e320c882206cf7797dc497c9b8d6732c085c19b84197f384cb7.webp",
           "000a5ffb35ae70c672d0da55b1f6146729a28192b08d835ddf4f2c928b05eae0.webp",
+          "e68ad6a2db777b14c4f430bf056f1440d198d305f3ff1a67b042fcacd2fe9221.webp",
+          "272db5145baa4cdf6adce495a9c0af9a74285a83e1d2d8d0fe578a2c3f3c8c10.webp",
+          "3c6917a268cbb8166263c8bb35f6f8c0740310d0778052bcc88e0a80a16a18b9.webp",
+          "395dfe84671ca788537ea911e9c49f5e6a4d4c3c08f1cb287f7bc1c5f765d1d1.webp",
+          "4c11343ec586d1d8448bdf77ded202db561430e3ddc6d06ca0bf8b6f95c11b04.webp",
+          "ebead0f318aa8e86f4e99a97e6262015168b437855304ca5b1c2c91ac183ef2e.webp",
+          "b8bec8e070dc1ff9fd231155904f85fd4cb934cc8219158649a3bfc9620e8169.webp",
           "27ed769ce559499bf86bec7d00975e15f962981ccc9ef6e9ab6b9c80317e7e2a.webp",
+          "daf1ae60e5819122e38faa5ca04751815c1dfeb5026122697b19d46392418455.webp",
           "c09c5984adac4fcc66e0ea3964a96286d88ae41bd486f629ed225f737548dceb.webp",
           "213b20fdded15ee05d0ae2468f03095e5dccecdc271f57d21b0d16a6964b18d2.webp",
-          "ef8d31833806e3c9d86f37322c5fc3aad21f80cf41efde632b99a02a9982bfcc.webp"
+          "67489a8a8c95e8eb9ceb6e88a8f099e30c5b0a81ef0aa5cca79bfe7c855bcc22.webp",
+          "6a79b7b08d792ff1e3e2ff397972eb1626d18113a2797df69c2cbb016a2a60c3.webp",
+          "21093561bf121efbed57c0f45f5de53d76f14b744fbe1db7359317e98d5e6fac.webp",
+          "ef8d31833806e3c9d86f37322c5fc3aad21f80cf41efde632b99a02a9982bfcc.webp",
+          "4fbd4582b464a7487fe263669d5bcedb229787d365c7b50aac0fbb3e331687ed.webp"
         ]
       },
       "Mystery": {
-        "modifier": "film still from mystery movie, abandoned architecture on Mars, green alien plants, ruins of archways and dome, transluscent walls, organic structure, ancient futuristic, dramatic lighting, highly detailed.",
+        "modifier": "<concept> film still from mystery movie, abandoned architecture on Mars, green alien plants, ruins of archways and dome, transluscent walls, organic structure, ancient futuristic, dramatic lighting, highly detailed.",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/c806b9247f2ebd80156dfe90168d150a8156d4a26786f4199f4d7600aeced628.tar",
         "lora_scale": [
           0.4,
@@ -110,20 +146,26 @@
           0.5
         ],
         "init_images": [
-          "9e67c5196428bc57fc385b4dfd6af3778683d721021e39c07fb7c1acfae3d1ee.webp",
-          "92303464a3310f60f1a2624d2c7c58050ac9bad3bdc8188967319cf4a676bb04.webp",
+          "06f5dd321852d186e1eb143ae68d4f678db2e62bb743741eaceb33d07887e130.webp",
+          "a540391485c5d00baa88d8597af4c048e756fd370fa6053c629c4d0f8cd74d23.webp",
+          "bd3a632dde3232818f4a3ebed4c72eaa4634b5458a7b89270772827fad95259e.png",
+          "d883d63efbb618e71ffd2c23e87c42be5f4d4cafc28607159292b11b6e6375b7.webp",
+          "74789281d76bf16b7c872ba9cd3c5828d0332cfe250183a83cd59db5c0ea7a14.webp",
+          "115dc9bace04cd9685f7e6683feb2e24a024c0db5cb5d561d341ab99f364e594.webp",
+          "affeab8905d06545ea120786a18236d8f9196cc20535a0fe0c3fe0085aff3466.webp",
+          "23b4c5666e007edc1c3046f6cc3df01d5b260ac463a4a8c2555932a19609eebf.webp",
           "80346653be28ada24abc675094ea74453beea4f49a835d27059e2a8da19f267f.webp",
-          "272db5145baa4cdf6adce495a9c0af9a74285a83e1d2d8d0fe578a2c3f3c8c10.webp",
-          "3c6917a268cbb8166263c8bb35f6f8c0740310d0778052bcc88e0a80a16a18b9.webp",
-          "4c11343ec586d1d8448bdf77ded202db561430e3ddc6d06ca0bf8b6f95c11b04.webp",
-          "6a79b7b08d792ff1e3e2ff397972eb1626d18113a2797df69c2cbb016a2a60c3.webp",
-          "4fbd4582b464a7487fe263669d5bcedb229787d365c7b50aac0fbb3e331687ed.webp"
+          "350484c205327c94feb3416a27bfbd14065967ec180d90a10f45e8d5c3b4e8b0.webp",
+          "f2ed5797fa15e59dd0754e7b58546ec7259a26219a6e42c8310f73afcd9fc6b6.webp",
+          "20b9954e82a990c796d4cdb702f499bec0ccc7692cab264b607bf4dd534e6bdf.webp",
+          "72125f48ec5dea27b8cc380f762a4bc8f7ec1aa684629c460b1c428af4d234ae.png",
+          "8360e73f1c1ab11d2c034614ac96411c7395822c6c89310679b592c475be5e66.webp"
         ]
       }
     },
     "Human Imaginarium": {
       "Action": {
-        "modifier": "sculpture inside medieval painting, action movie film still",
+        "modifier": "<concept> sculpture inside medieval painting, action movie film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/c806b9247f2ebd80156dfe90168d150a8156d4a26786f4199f4d7600aeced628.tar",
         "lora_scale": [
           0.2,
@@ -134,9 +176,14 @@
           0.6
         ],
         "init_images": [
+          "21ae276abd4ad41990b613a2a90d3aa1865ccbb32c6021c83f82f571560dfe23.webp",
           "2bb8ed207f81d8d4f9ceeeef722c39618b4f112dfaa2f8469a28fb31e234d5ad.jpg",
           "c16fae81f468dcc8a013a99a527bc7970056e75725475c1c0686f1d34c61831a.jpg",
           "9a39f6522c1500f44746d15486c96e7b68332f544ddb9d6cafe7ed1876148d12.jpg",
+          "04961d3da4cbef57c2b09880a18199027c83fb648121ccf51a98377e4b85e909.jpg",
+          "f07defe9ce13ced6ae80b0d9429a8eff3cbc635b63a5a240e8f3eef5769c37d1.jpg",
+          "719035c571a0f783398c2d8e5af488e59df9902eadfe0a17710d36ea5aa14961.avif",
+          "5ad4c86333767a173e07b315a3acbadc82fbe961b1d56b3161bdd30939536a19.jpg",
           "bcbd03cee39e1922da00ac1081a719183532c4195f0943ef065ddc1e7606c386.jpg",
           "364004c3a7f87d4871e4c9b705e74e511501b887461ce6a23ff74ae411b75e24.jpg",
           "8763fe02669d83a891027b035abf2ca45246cf773117920c60e95c3f02d15eb9.jpg",
@@ -144,7 +191,7 @@
         ]
       },
       "Comedy": {
-        "modifier": "sculpture in a painting by vasarely, geometric patterns everywhere, abstract geometry",
+        "modifier": "<concept> sculpture in a painting by vasarely, geometric patterns everywhere, abstract geometry",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/c806b9247f2ebd80156dfe90168d150a8156d4a26786f4199f4d7600aeced628.tar",
         "lora_scale": [
           0.2,
@@ -156,23 +203,27 @@
         ],
         "init_images": [
           "28a282aba2ac7b16d067efcb87821284211e2dc62d66d21d62430bde28f8fcc1.webp",
+          "fe4c3f911f5b60950709956a3f7f0e578b0bd980f96abf93ea9b5ebbc33933fa.webp",
           "cc95bb220703d84801783c8d409487f3f4423764215a1a16ee2fad0fce0a85a5.webp",
           "62c5084388edfd52f2f165c678f7047e25ff2e11bd4f9670a58fe2c5d5dfc3f8.webp",
           "db2ba89ffabd11ed4b8b4028ac5be0b7e75d5730c904756467de9c28ba1a0b5e.webp",
           "134dbeb315cc86d388246cf75bd44c141fd555a49b405e1706997a0d905cffe6.webp",
           "237cf945c8c6f5cdeddd8181eee62f3bb54ede1f44e0b4b1e2a04c2bb6acbac1.webp",
           "897da35cb6bc5f1332f5c37c4f40cabfc5fc36fff0a21db04f7ff7266b126702.webp",
+          "c2eab7ce892f53e418af0c71c38fe5f3599766b68476f93067048c62da2354d0.webp",
           "db0d95fe1b927af85929eaccaa0180955a6d191031f08d4e67a4e596c69fec45.webp",
+          "7c5ceb498af4c2392b2a44f37232a7bfba6ec63f679f82c44a26e55e17cb688b.webp",
           "97fea48cd7a0357894c9263ffe91e0838e4c5842f60070b812afdb1954f5b38f.webp",
           "3ec9c36c2f49aed22bedaa5cbade719e245c530c7b967cb602c1378ec96daf06.webp",
           "a44eabb320df0211f9569d906d29781c3c7c43bb45b222ba9d44ec8a4a12857a.webp",
           "2eeba52e8fca138543d4d14af73e9c09982de1c5e033771e0c6f63fa078ebe2c.webp",
+          "23fa3740d325b20d0adec16e9c6a746a664de8c3b87c0edf61bd0d6aaf75b6f2.webp",
           "605aa68e51a48c75ab4c5ac85003c30b05dfcc3fd0119930ea98535ca4efe9fc.webp",
           "e5deecc6d97111e7a19403a6599916858d3ce9a798402b5a7288208d0eb3f779.webp"
         ]
       },
       "Drama": {
-        "modifier": "sculpture inside Hieronymus Bosch painting, drama movie film still",
+        "modifier": "<concept> sculpture inside Hieronymus Bosch painting, drama movie film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/c806b9247f2ebd80156dfe90168d150a8156d4a26786f4199f4d7600aeced628.tar",
         "lora_scale": [
           0.2,
@@ -183,14 +234,20 @@
           0.6
         ],
         "init_images": [
-          "db2487eaf6ab0dbeed746f7b939021ba939173e71b6c98d86e64f8291d7aeaa8.jpg",
-          "22c02ffe7b997856d94eda9814390113d89a9e9d2c58db015e66c5aee190a6c2.jpg",
-          "d44e0f8d6630e4ff994cd36c412c974e0128f548bb365fdbe9ec40658dd9e3b4.jpg",
-          "8f685cf7fbd79fafe12b5569f3286fceba601b7ad7303fe7f540a0f5e60ba018.webp"
+          "0ca81486b7ba1af3fef9e7073cafa981354eabdca9945dfda0d23f29a777f79e.webp",
+          "535a2bf667d44bd19413644c6f66a7efe8d3100902209b755f99da4ed6b7d6a4.jpg",
+          "af94f560984772a19316f46d65eb5a88a5dadafe1f58ec2c388ded4b2dad9018.jpg",
+          "8aff1b51d934f796c2f7eb6bcba3d93895792e87e8025447f9c8e70814001f48.jpg",
+          "b69f18783ace44c8d525d4ddab3668ffd82bfdff03b8aab9b0d98bd865d74e0d.jpg",
+          "19c73b3041bfd942a7e2ff82771df545e3e3ac29b80fc685813eb2072915bf1b.webp",
+          "834994d9bdc15612649dcac4268546abb74a52cffd53638c347c6f12d3d81200.jpg",
+          "fe783b461f561975821f88286dafe1fbcfc00aa123f6b41f140852b229e1068d.webp",
+          "2d5fed590983806986adf07d83d61954bccb8203978488c06001094f26637456.webp",
+          "67e1fc2656149d9640a83031b9123f234eaeee9d6641f3af264a9b11b8d4bf1b.jpg"
         ]
       },
       "Horror": {
-        "modifier": "sculpture inside Hieronymus Bosch painting, horror movie film still",
+        "modifier": "<concept> sculpture inside Hieronymus Bosch painting, horror movie film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/c806b9247f2ebd80156dfe90168d150a8156d4a26786f4199f4d7600aeced628.tar",
         "lora_scale": [
           0.2,
@@ -205,6 +262,7 @@
           "dcccca43589834681b2cc1bd52b273bd666d2f2a9c0cb59cb250c5f65d71996b.jpg",
           "c74793604cc0cd835ffa06a2646481a756394dd37b221488221b45c6fe063276.png",
           "32b761543341796fa7c9044bc2f3f8c3f828803f7bc6f924e6dfa844f84c5b86.jpg",
+          "ff4b9bf54380536d7b1458b96487d3e454bec0a34786b9b15c26542483f7717a.jpg",
           "0bf85f8b1025cd740ad39320749f9d0fbd99da5ed76345039fa815fa12d529aa.jpg",
           "93f4bd3f505bebf655728d81105145deb513734047b520273c35d5b1094155ca.jpg",
           "1335d5f822f5b5117844788b14ec0ce11c760f0315b4054ff50526e6fd771cb8.jpg",
@@ -213,7 +271,7 @@
         ]
       },
       "Mystery": {
-        "modifier": "sculpture in painting by Pieter Bruegel the Elder, mystery movie film still",
+        "modifier": "<concept> sculpture in painting by Pieter Bruegel the Elder, mystery movie film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/c806b9247f2ebd80156dfe90168d150a8156d4a26786f4199f4d7600aeced628.tar",
         "lora_scale": [
           0.2,
@@ -226,9 +284,14 @@
         "init_images": [
           "ab5a280764547718fc2f49517e24ba4b5e69f1cf07e0f7d8a036aa61cfeeb51d.jpg",
           "41e69fb68a9d40ddd70469a751ea0f3ef7e7e4d6757ce3c7b1ce153f44ec06d5.jpg",
+          "35c5de06d2815bdaf1156c321d73f988efb3367b9ea467c22e666dba64b1ec80.jpg",
+          "db2487eaf6ab0dbeed746f7b939021ba939173e71b6c98d86e64f8291d7aeaa8.jpg",
           "27be434c94ca65f850ee451c9e79abdf8ed88e2f10317c0abb581a10c57f13e6.webp",
           "e5037c26f6aa2e2532fdf4b9b4472492af9567004d92666927f49ea2b2fe1153.jpg",
-          "e1fac1299cdc90704d590dfc5b892eaddd51718442b4750b1015e75f7fa25991.jpg"
+          "22c02ffe7b997856d94eda9814390113d89a9e9d2c58db015e66c5aee190a6c2.jpg",
+          "d44e0f8d6630e4ff994cd36c412c974e0128f548bb365fdbe9ec40658dd9e3b4.jpg",
+          "e1fac1299cdc90704d590dfc5b892eaddd51718442b4750b1015e75f7fa25991.jpg",
+          "8f685cf7fbd79fafe12b5569f3286fceba601b7ad7303fe7f540a0f5e60ba018.webp"
         ]
       }
     }
@@ -236,7 +299,7 @@
   "Shuijing": {
     "Physical Reality": {
       "Action": {
-        "modifier": "sculpture and alien lifeforms, comet surface, outer space, nasa, action film still",
+        "modifier": "<concept> sculpture and alien lifeforms, comet surface, outer space, nasa, action film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/4e56e17098d7a0f853b688b8a4d1c7f4697b6b1413cfeca36d9c2a361403ba79.tar",
         "lora_scale": [
           0.2,
@@ -247,14 +310,24 @@
           0.6
         ],
         "init_images": [
+          "6aef9d452a098451efa711a211d68b1df956bdbaf33beaf78b7a2845ea635c0d.webp",
           "2ba88e51ae8a180fdd3b7d4fb37ccbec431999527eb6e8b862e4409b8820cf3c.webp",
+          "12d9a83646f3fc4036a52faf13bc7aeb32ca328786172d3619382f92003f84ed.webp",
+          "a5cd0bfb477cf7db62cea590d407fba9ddde5992cff9d0946adddc9bc0003392.webp",
           "37126ecbea0828a468fa8075ba1f722b8f446d90373039b91b4334955f15bce7.webp",
+          "c60ea1a6a7b9a83fd2ee7bc54ecdf11b6ed6b670f5800f24fdda89aa2c3f0be7.webp",
+          "259843bffede6e5c37ec2a133d3c7271c62ec078fd074440f79d529e480949de.webp",
+          "6e7f63578b509e9b49ddb2c76742342f483534cdbfc77575be840a8b0d77588c.webp",
           "cb6a801c500a8799e96423956922c0b6135ac83f9855d72844aa65844890306a.webp",
+          "22645f780e2c5531bb2d8ae727f409631ff4995af87fc5ae7cb01663d266da27.webp",
+          "530221de9e9528c4f21d36dd977931247eb706c4288f4481cb51dba8edb31703.webp",
+          "dc5e930180a50feabc5bb7b09fe0f7696b8d685c5670f9fbfe8cee661d6e6dae.webp",
+          "8b0c7b8b4709f7cb2306878426678d7633f32970b8dee78eb4c83a0e7acb5e32.webp",
           "7d82d55ca48b222ee73c8b65ec9916a08a5c7f23eeef40c2265f1c7cb6d84dfd.webp"
         ]
       },
       "Comedy": {
-        "modifier": "sculpture and alien lifeforms, comet surface, outer space, nasa, comedy film still",
+        "modifier": "<concept> sculpture and alien lifeforms, comet surface, outer space, nasa, comedy film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/4e56e17098d7a0f853b688b8a4d1c7f4697b6b1413cfeca36d9c2a361403ba79.tar",
         "lora_scale": [
           0.2,
@@ -268,13 +341,17 @@
           "f0a030cb07921da921647ea5a48f91ad2b7a6430d37c21dd6d8525fb736d7426.webp",
           "ceae7ff9db6ed534cf8c417856d476e3a3ae984c16714c426a89f1560dda7e2d.webp",
           "6bbeb36a9d0de8d57cd6afa7351d9f9c908018c785bf316ea176a602f8a1ba11.webp",
+          "65ba9f19645255bada4c02f09d9cbc0b818599ee69822ee096ef98afa364ec5c.webp",
           "825b5dd808c5f0b1aae4d502ebecb5c4031b52d0c0c91299e7ca85cc354193a8.webp",
+          "25b9f35ffaebb2e59682fcf1fe942da5fc228113ed988ee37c7c997bd80b5d14.webp",
+          "1baf35dca51e28999914a403ef5309239b7a42e8f53a072ecf935a5ef2ff5a2b.webp",
           "68d54bc1f18784d204d3c255201164593e19a642ab8611ae8a81a507c8bfde27.webp",
+          "d74b230fd31e04bb58fbe63c70fb812bd89e52eeaf4fa1b56ae3c5abe52df899.webp",
           "f8f553dc57d33db92f825c33c31a5ee02b95e42c170cf6a54f22259dc20efd30.webp"
         ]
       },
       "Drama": {
-        "modifier": "film still from drama movie, linklater, small sculpture, subtle colors, alien life, microbiology analog photography, extremophiles underwater",
+        "modifier": "<concept> film still from drama movie, linklater, small sculpture, subtle colors, alien life, microbiology analog photography, extremophiles underwater",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/4e56e17098d7a0f853b688b8a4d1c7f4697b6b1413cfeca36d9c2a361403ba79.tar",
         "lora_scale": [
           0.2,
@@ -285,14 +362,19 @@
           0.6
         ],
         "init_images": [
+          "2f6e0417f318129d8b9674cafc344b7ab260d2ddefe18907741ff55a749408f4.webp",
           "feb50dd4bfb8f34bf00634e2be8e20afe128d0cdb183e85fb92cae96c0cba226.webp",
+          "0dba3cdcb29f98ce03564536fad2eb02f12a539fac2547ff2b533df8ed85d9f5.webp",
+          "df9de819f9598b0547afdf9dc9085ce7a6cbce1ff88c727844a4dc5f19ac69b2.webp",
+          "e2cb962aa7c9545aca73be3dae7b6095051cc7807b89cb9a5109a8194cbb1d40.webp",
+          "70a6960f0063f43f0808c587320d83b5b3a929b9c9aa756397a2dc6750305b54.webp",
           "15a19458ec443644c17f1b5079271b04e1be405c5864e7183edbd479a1bb34b4.webp",
           "110c1deed5a50b78adcfcf39d7be54ed66e12de90827c3455dcdabbbc4c29af5.webp",
           "5e81ce4073c5a194272f425193fed18d6e33d5fe9de071d86c9aefdc69ea5a2d.webp"
         ]
       },
       "Horror": {
-        "modifier": "film still from horror movie, kubrick, sculpture, subtle colors, alien life, microbiology analog photography, extremophiles underwater",
+        "modifier": "<concept> film still from horror movie, kubrick, sculpture, subtle colors, alien life, microbiology analog photography, extremophiles underwater",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/4e56e17098d7a0f853b688b8a4d1c7f4697b6b1413cfeca36d9c2a361403ba79.tar",
         "lora_scale": [
           0.2,
@@ -303,18 +385,25 @@
           0.6
         ],
         "init_images": [
-          "259843bffede6e5c37ec2a133d3c7271c62ec078fd074440f79d529e480949de.webp",
-          "6e7f63578b509e9b49ddb2c76742342f483534cdbfc77575be840a8b0d77588c.webp",
-          "530221de9e9528c4f21d36dd977931247eb706c4288f4481cb51dba8edb31703.webp",
+          "61190747ea41fe5feda1221074ec035381049e0fa86d80c0770ff1c54ef6319c.webp",
+          "303dc0e44f6bbf317a531cdf6a8940d1afcebc0b522be7a27b30137e29a0d165.webp",
+          "958961b673945f6bb94ba4785f02c8ecf197491c89e3c089620334ffeee684a6.webp",
+          "c7b423c336ee1afe4a322a94fde1c256d2a2e44706fd23acee6aae0b35bd1972.webp",
+          "79a70413bf44181f08a971684f1b1e71ae99f6d7a387f537225bcec56a9ca304.webp",
+          "94fab6c314af4d16cbc8e7743f07a8b30bf5070621963b9ee3772af20ad476ac.webp",
+          "4e25ea081ac6e2f8059d6540450ec84e82159ce73cd107760041c1197f5f74d0.webp",
           "a3b0b29334c530f95b70a681204c48d427372175bf886ecea641dba08104094c.webp",
+          "9ea427bd3f0408c605818eb513e12167a26d0b815e531486c2a46bae473d7e1e.webp",
+          "bc0212c300920954aa8655e4ecb419851ebd0a33db32cb7400fc8f30bbeb0705.webp",
           "7dc29de22a28f20d46e0fef5601333d1732ee39e275fab1afa02f03325a47b55.webp",
           "c627988a5b76be75cbf441616e355ee83d7d15d2e3db4e6281d0b6da9165b129.webp",
-          "8b0c7b8b4709f7cb2306878426678d7633f32970b8dee78eb4c83a0e7acb5e32.webp",
-          "c7d91b792c6e059f633ed2db4c831c72a050812065af5c4c62ce41927c0621fb.webp"
+          "0fd1a3c86d85a76f3de8831a17e9c29ce0cf6e977be47012048493ccd684f7e6.webp",
+          "c7d91b792c6e059f633ed2db4c831c72a050812065af5c4c62ce41927c0621fb.webp",
+          "c4fb4b576dfe456fe4f0624f06d046029438e6ad1c549dfb2c9a09bf4ef8691e.webp"
         ]
       },
       "Mystery": {
-        "modifier": "sculpture, subtle colors, ice crystals, microbiology analog macro photography, extremophiles underwater",
+        "modifier": "<concept> sculpture, subtle colors, ice crystals, microbiology analog macro photography, extremophiles underwater",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/4e56e17098d7a0f853b688b8a4d1c7f4697b6b1413cfeca36d9c2a361403ba79.tar",
         "lora_scale": [
           0.2,
@@ -325,17 +414,23 @@
           0.6
         ],
         "init_images": [
-          "6aef9d452a098451efa711a211d68b1df956bdbaf33beaf78b7a2845ea635c0d.webp",
+          "9ddbed398f32bab5c87f2efc2704a07942f9dde7d2a9af2b87a2d62862aab717.webp",
           "533e5fa55ec464612b917344d872ccfc3d60db45895186e6c2f80aad0f17da85.webp",
           "eaa77a17260abc23268a0996f635eddb7272ddbcb3ca7606b7ddcf514dedcbbf.webp",
+          "e1bfb123856e05019291fa50ec71d36f56e04f9414aac55e6bc945b86c838975.webp",
+          "0d1bfc71cc44cec0d9423cb113c1ac99bf4475ae0abe65e85a85bbc694d76b2d.webp",
+          "1be003673ff8f9b323cd686c9edd6856e78f8317050659296bb0a4f9bc42374e.webp",
+          "f1c7b03ce0616cb71aa065ab8515e4e2c13f6df037c447cb0ff9f24da7a3b986.webp",
           "c70b659ac3135e07709981af339f0354f4980bf8cd5024678ddcde624f761f68.webp",
-          "73a15ca2c72988cb4415f6f4e033ea2b1dd736d8fc61b75ee990ebb7b6336ff8.webp"
+          "73a15ca2c72988cb4415f6f4e033ea2b1dd736d8fc61b75ee990ebb7b6336ff8.webp",
+          "ac363b7c39bb463c1ac89a0dcba8afa1b59e6ad6def6f13207784abf0b39f2d1.webp",
+          "05d7fb7b41ce630a28e510d512ff80aa21219fbee4539f414a30df1fe0da1411.webp"
         ]
       }
     },
     "Human Imaginarium": {
       "Action": {
-        "modifier": "sculpture in painting from Hokusai, ukiyo-e, action film still, japanese animation",
+        "modifier": "<concept> sculpture in painting from Hokusai, ukiyo-e, action film still, japanese animation",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/4e56e17098d7a0f853b688b8a4d1c7f4697b6b1413cfeca36d9c2a361403ba79.tar",
         "lora_scale": [
           0.5,
@@ -346,17 +441,17 @@
           0.5
         ],
         "init_images": [
-          "47e158385b8604e41f13f413e9bd59fe2c01776c0b48fc24ab16549a157b132b.jpg",
           "777aaad8c239e6ef8e155888f5e52dc4f230c3d212203a4d35e197435649b77b.jpg",
           "5cb2140783fe2d7a2499005d12fb8a09a0582a6c7a5384b6a1ab2d729613f186.jpg",
           "9e1b7c15d9e80e7508bd3d43475d31363f6966be2b5c1c94786a9cff30dfd0ec.jpg",
+          "777aaad8c239e6ef8e155888f5e52dc4f230c3d212203a4d35e197435649b77b.jpg",
+          "007b511552c8e3770db33994d9625f68a06ff378ce39c420772df9513b44a1cf.jpg",
           "74c0895b724e801c71b6df006d35bd8c083e41804a5826c773199e076288d57d.jpg",
-          "a8b7eebf23bf6e26af1a4972a0af2a612aebf516526952c47d59922acc713c1f.jpg",
           "4b8069db9e4e108e9b083902d1ba4d3a8170d841f416588a1ff828612b88be05.jpg"
         ]
       },
       "Comedy": {
-        "modifier": "sculpture in painting from Kawase Hasui, ukiyo-e, commedy film still, japanese animation",
+        "modifier": "<concept> sculpture in painting from Kawase Hasui, ukiyo-e, commedy film still, japanese animation",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/4e56e17098d7a0f853b688b8a4d1c7f4697b6b1413cfeca36d9c2a361403ba79.tar",
         "lora_scale": [
           0.5,
@@ -380,7 +475,7 @@
         ]
       },
       "Drama": {
-        "modifier": "sculpture in Hiroshige landscape, ukiyo-e, drama film still",
+        "modifier": "<concept> sculpture in Hiroshige landscape, ukiyo-e, drama film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/4e56e17098d7a0f853b688b8a4d1c7f4697b6b1413cfeca36d9c2a361403ba79.tar",
         "lora_scale": [
           0.5,
@@ -392,9 +487,7 @@
         ],
         "init_images": [
           "d63f897ecde8440c023dc95c86b7c90af867170748eabf7d17619a2bf62afe9e.png",
-          "b5f729c8ab0edfbf6c6d08e75500fd8eb1014cbced9380ba26ccbcc8471c9960.webp",
           "6e7553945381817865faf08526a5c38b1d309ca6775af2bbf5e70423de479675.jpg",
-          "529e804d7d9979aa41594e67b3a7d5dc04fd203c6786947d4b3c81141f4e67da.jpg",
           "958fce72438e9183c764e971a92518d0ffce3946e1d3170607b0d82ef2b99089.png",
           "10820c0796bd666d427939c4c014b0686f4872f74ade3ce74bf07bb1692eeaf8.jpg",
           "ec3dd519b6996a1f616396de7c4c1918ccd1b7a86df878b1e8aad98e90db7f0c.png",
@@ -405,7 +498,7 @@
         ]
       },
       "Horror": {
-        "modifier": "sculpture in Utagawa Kuniyoshi landscape, ukiyo-e, horror film still",
+        "modifier": "<concept> sculpture in Utagawa Kuniyoshi landscape, ukiyo-e, horror film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/4e56e17098d7a0f853b688b8a4d1c7f4697b6b1413cfeca36d9c2a361403ba79.tar",
         "lora_scale": [
           0.5,
@@ -425,7 +518,7 @@
         ]
       },
       "Mystery": {
-        "modifier": "sculpture in song dynasty landscape painting, mystery film still",
+        "modifier": "<concept> sculpture in song dynasty landscape painting, mystery film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/4e56e17098d7a0f853b688b8a4d1c7f4697b6b1413cfeca36d9c2a361403ba79.tar",
         "lora_scale": [
           0.5,
@@ -441,7 +534,6 @@
           "35f6278ae21e985f4046c8c105bb816d717dd018e9ad7ce9dd75ec1e496042a4.jpg",
           "77f17b2a0f0172dabdec697e1b41acb7d3a9e767b5c059eb21756a03c5b0ea90.jpg",
           "e8b0f5d3a3676eecac9f6fa50b1c47558cdf662cfb3b7a3ee793f9b93ffbab38.png",
-          "07a2e3d1ce3c2d1cae1367a344d21bbe9440180103ac27236c1d6c168c99c7ca.jpg",
           "9b45e68a67148e99361e0d95c72c2fb64b6c0fbe1ff17b525ef3662f63cf9098.jpg"
         ]
       }
@@ -450,7 +542,7 @@
   "Kweku": {
     "Physical Reality": {
       "Action": {
-        "modifier": "action film still sci-fi thriller, analog photography, film grain, smooth color, sculpture head floating in a cave",
+        "modifier": "<concept> action film still sci-fi thriller, analog photography, film grain, smooth color, sculpture head floating in a cave",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/20792be13a74836817cab7a8fff02818861dcc015bfdff1446d2fbb941ba1b26.tar",
         "lora_scale": [
           0.5,
@@ -471,7 +563,7 @@
         ]
       },
       "Comedy": {
-        "modifier": "comedy film still sci-fi thriller, analog photography, film grain, smooth color, sculpture head floating in a cave",
+        "modifier": "<concept> comedy film still sci-fi thriller, analog photography, film grain, smooth color, sculpture head floating in a cave",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/20792be13a74836817cab7a8fff02818861dcc015bfdff1446d2fbb941ba1b26.tar",
         "lora_scale": [
           0.5,
@@ -491,7 +583,7 @@
         ]
       },
       "Drama": {
-        "modifier": "drama film still sci-fi thriller, analog photography, film grain, smooth color, sculpture head floating in a cave",
+        "modifier": "<concept> drama film still sci-fi thriller, analog photography, film grain, smooth color, sculpture head floating in a cave",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/20792be13a74836817cab7a8fff02818861dcc015bfdff1446d2fbb941ba1b26.tar",
         "lora_scale": [
           0.5,
@@ -511,7 +603,7 @@
         ]
       },
       "Horror": {
-        "modifier": "horror film still sci-fi thriller, analog photography, film grain, smooth color, sculpture head floating in a cave",
+        "modifier": "<concept> horror film still sci-fi thriller, analog photography, film grain, smooth color, sculpture head floating in a cave",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/20792be13a74836817cab7a8fff02818861dcc015bfdff1446d2fbb941ba1b26.tar",
         "lora_scale": [
           0.5,
@@ -532,7 +624,7 @@
         ]
       },
       "Mystery": {
-        "modifier": "mystery film still sci-fi thriller, analog photography, film grain, smooth color, sculpture head floating in a cave, underground, cavenours, lava tube, photography, cinema noir",
+        "modifier": "<concept> mystery film still sci-fi thriller, analog photography, film grain, smooth color, sculpture head floating in a cave, underground, cavenours, lava tube, photography, cinema noir",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/20792be13a74836817cab7a8fff02818861dcc015bfdff1446d2fbb941ba1b26.tar",
         "lora_scale": [
           0.5,
@@ -560,7 +652,7 @@
     },
     "Human Imaginarium": {
       "Action": {
-        "modifier": "sculpture made of geometric patterns in pattern filled background",
+        "modifier": "<concept> sculpture made of geometric patterns in pattern filled background",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/20792be13a74836817cab7a8fff02818861dcc015bfdff1446d2fbb941ba1b26.tar",
         "lora_scale": [
           0.5,
@@ -574,7 +666,6 @@
           "3b6eb0682a27e6b8a616e1699c54441b4f1230921fe12f890c43a077d34b1496.jpg",
           "7dfbee75a92fbd5a4280b1f86519dc45a4cbb081976694a494234af87a67d4eb.webp",
           "a41b21d974c34eca2b0710a5d64e6e962bcc205abb0db31e066fb8c0717caf8c.webp",
-          "ba8e4fb64d37b6438704e4fe6effa9d3da85c7ea1132391ab9f4044d658cc013.webp",
           "3f6bd9da0c44eb80dce472596c1fc35da2209f1b98251381ac724fcbb51abc28.webp",
           "8d11990904e1413344b62e08b658cf9c30d51c6fb26402548f7638f9e558714a.webp",
           "f94eb615bbc7069b61595e18618ab84b203012d15272570330f7e7dc562a8ea2.webp",
@@ -583,7 +674,7 @@
         ]
       },
       "Comedy": {
-        "modifier": "sculpture made of geometric patterns in pattern filled background, oil painting by Victor Vasarely",
+        "modifier": "<concept> sculpture made of geometric patterns in pattern filled background, oil painting by Victor Vasarely",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/20792be13a74836817cab7a8fff02818861dcc015bfdff1446d2fbb941ba1b26.tar",
         "lora_scale": [
           0.5,
@@ -607,12 +698,16 @@
           "b43eff7620a41779890e4c45a91232aa1cf64c81c25c9f79f0de1a26a47161e8.webp",
           "ab35a355195b25526dd9e566b5da477452bdc10bd21e7d06a493b7e0a0f7f041.webp",
           "8cb81be856c3d6c5a85e84ef29bde32eb174ce0da30edfbca5909c4bef043a0e.webp",
+          "ca6e2436f910a6ab06be3a8e743f1f1fcf6f05ef74d32fe23367104dac7b07ce.webp",
+          "d75dead929b9836be069a50c8b6c3e401f4bae7326b76e0a972d9a0181effd1e.webp",
+          "dcdb50ce8618aeb25d272170b413edb6494a8d411eade0f974e6ee12b720fc49.webp",
+          "e7a8ff457126835412cc47b970c04c439394553de0fba95c881ecd9de572a142.webp",
           "6196eac04d17a468733616ef560c51214fb49eafb754fe2a4134b95929b6b2ad.webp",
           "1a7ee332d76a2e1cec3b6912dede85783cc396c64f6541e384748ded5403f270.webp"
         ]
       },
       "Drama": {
-        "modifier": "sculpture made of geometric patterns in pattern filled background",
+        "modifier": "<concept> sculpture made of geometric patterns in pattern filled background",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/20792be13a74836817cab7a8fff02818861dcc015bfdff1446d2fbb941ba1b26.tar",
         "lora_scale": [
           0.5,
@@ -633,7 +728,7 @@
         ]
       },
       "Horror": {
-        "modifier": "sculpture made of geometric patterns piranesi painting, maze, stairways, oil painting, bw drawing",
+        "modifier": "<concept> sculpture made of geometric patterns piranesi painting, maze, stairways, oil painting, bw drawing",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/20792be13a74836817cab7a8fff02818861dcc015bfdff1446d2fbb941ba1b26.tar",
         "lora_scale": [
           0.5,
@@ -657,7 +752,7 @@
         ]
       },
       "Mystery": {
-        "modifier": "sculpture made of geometric patterns in pattern filled background, maze, stairways, oil painting, bw line drawing",
+        "modifier": "<concept> sculpture made of geometric patterns in pattern filled background, maze, stairways, oil painting, bw line drawing",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/20792be13a74836817cab7a8fff02818861dcc015bfdff1446d2fbb941ba1b26.tar",
         "lora_scale": [
           0.5,
@@ -676,7 +771,6 @@
           "e5fc55ffd7828d3dc24adeac1dcf2545535cdb7ff13939964b928328a0c486ec.webp",
           "a96abc5043023169bb5a8c3544b8f06b14139c82430b5fbc5ab3f8b628020484.webp",
           "6befc1d128be68dbf084a24da4bf410ed2c8c0d832ec766f145af4d862923e02.webp",
-          "3cc12507829aec0073b566cad887a199debaa2dfedec8d14e1aafd7172ff4dd1.webp",
           "593b50d7cc09a6fe963e2540b4a4cf8b7cf3ad31c93ab2a58d2c59e8430721e3.webp",
           "df6c9ec3dcec7995a5d19ac7c58f28788414340ab6a0e64ac17ce52486efbfbe.webp",
           "857d81479e6e901734924ea8a9ba26cbcf1796d4f2e3fd40ecf26329f03c8e07.webp",
@@ -691,7 +785,7 @@
   "Ada": {
     "Physical Reality": {
       "Action": {
-        "modifier": "action movie film still, sculpture and alien lifeforms in venus planet atmosphere",
+        "modifier": "<concept> action movie film still, sculpture and alien lifeforms in venus planet atmosphere",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0119b279ef5b508d0a2e21b36ef2f6f9eaca43c3303017ef209013dfc4199abd.tar",
         "lora_scale": [
           0.4,
@@ -703,16 +797,26 @@
         ],
         "init_images": [
           "991b07662f217a2defc6d48d89af1c2f625c83ed969c33b3b820a7fc67effab2.webp",
+          "fb440d7beef5f276ac45dd9fd0bef6e13e28683bc208ad5b58c04ccc4cfea130.webp",
           "c03015f719b24e1eee884185d436e6d58aebdba071f52d6b4c214e54756ec763.webp",
           "1fbaa50bae9d90f0d8d573fefbe6a0a6a559e6421a1e1cba1b469714b583c9de.webp",
           "99f81abf56a22f9ec6dd81ed8fb45da370b0eb28cd52bf735adb4684415dd06d.webp",
+          "05c182a919cead60d7aa3c5d199e0e9ef50d727f5d42009003203c62c0305c01.webp",
+          "9983e11543a95fa33597319b59954e5adc975693419cc8ed2b9bdca6c652ca8d.webp",
+          "f127b5aab73d8d1a45fbc0a5874b032a75f5859b50217336e335da93fddf7278.webp",
+          "5bb64eec434b762989edd10f45de1b6d034a075ba87a244684b89a1af43099fe.webp",
+          "9ee69143e4d66b464ee95d3a3eeb119c2a9382085afd784b91e138b1d8a98157.webp",
           "16f1fb759e531fa5531db61f8cc3a949fa3c1cfdffbe7eca62ed6624d7743236.webp",
+          "557b6a1087a3d8afc678a586b5fdb64e3b9c9b25b8ed27184bb8b10ff7f530d1.webp",
+          "253d2c86c6dbdd2bbd2236443babf580126f210d33d63ed072500d3b67d277c3.webp",
           "6f10bcf35f45c1d94f392f9700e914d206f599bd375e498e81282dc46b092715.webp",
-          "085fc9f6c6febda2815fe3d390704f8b968cd5f96e45a640c817255d5a64723e.webp"
+          "7f8517dc72538a742d83b79a99b7e76199398c8601312fa5dc81386995d1160d.webp",
+          "085fc9f6c6febda2815fe3d390704f8b968cd5f96e45a640c817255d5a64723e.webp",
+          "9f7a3b6159365b1cc4800dbd55dd9d8907b586a7cc644454a1bb2748faaf036f.webp"
         ]
       },
       "Comedy": {
-        "modifier": "comedy movie film still, sculpture and alien lifeforms in venus planet atmosphere",
+        "modifier": "<concept> comedy movie film still, sculpture and alien lifeforms in venus planet atmosphere",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0119b279ef5b508d0a2e21b36ef2f6f9eaca43c3303017ef209013dfc4199abd.tar",
         "lora_scale": [
           0.4,
@@ -723,16 +827,23 @@
           0.4
         ],
         "init_images": [
+          "64486c01423ec267094e362516258f2272e202e96889af52dc2320a5428f5284.webp",
+          "0858abe7cded35d618c491f32a13e8cffdfc06aab89f2dd73f9d51fd2584affd.webp",
           "ee71ca92f5b8a3c4fc198b5216d4addca34e05188c789550d41fbeccccf92754.webp",
           "0444442a506476d3faf89bd276a2c25194a465e1341c22cedc73b909898c81d3.webp",
           "19fea3ec47e37c51d4821537bf72f3c947a3fb32a6640a61016f46968a4c4e25.webp",
           "50390c712c5df5b94d055385adfb247561437bda6f9cdcbf3f59062e4fd8606a.webp",
+          "5497ebd00dc35eedbf1f57803c72eed22ebf2aa37258bed20d010c459fa3a667.webp",
+          "af3243c070a05607dc427962cb3110e300ca18b75adb9aa09237386b00df8f52.webp",
           "bdc14958b8719d769e4443e3403423131651eb853d7d8baf950d880c43270e3c.webp",
-          "7d4a8a1e048b08c6d792e8672f55011bc9cbfab144027cd67f8efaa677e5f595.webp"
+          "e190bc8bb86eb56ddc24d79abce4d2a892c72d283d8632b5c0d950cb0d4af12d.webp",
+          "7d4a8a1e048b08c6d792e8672f55011bc9cbfab144027cd67f8efaa677e5f595.webp",
+          "d2fe0fa9812dc470885220ea8afca5ce2e04e77936901fb89beeba7e85a65155.webp",
+          "1e979c238b3fce450081f998364a2ba47dbfed3a9e62e7a4ab948443855d2a71.webp"
         ]
       },
       "Drama": {
-        "modifier": "drama movie film still, sculpture and alien lifeforms in venus planet atmosphere",
+        "modifier": "<concept> drama movie film still, sculpture and alien lifeforms in venus planet atmosphere",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0119b279ef5b508d0a2e21b36ef2f6f9eaca43c3303017ef209013dfc4199abd.tar",
         "lora_scale": [
           0.4,
@@ -743,14 +854,22 @@
           0.4
         ],
         "init_images": [
-          "8f7e649e303d4c183d81e3f6e258bde905e504c9eee5acbf1f4d73dd9b9cb98d.jpg",
+          "894f7fee96d815279555988a130b4a4e6f00d8ee4fb420021600687e9fba4dfd.webp",
+          "c45369387b64bc43eb24edde2a586e7d98b95612ab760931bcd17e0c007029d2.webp",
+          "14b53a54cbc52c5ae22d6f68a7c60934a9f21cbf5ad3180c3b7863920d6a8685.webp",
+          "1405855ec03b95209df092e692025c15f516f888afcf6ef0dca3377bae4b6baf.webp",
+          "8a66f27a7e4c2974a26ff20869814874d5ef6e9666591cf1266d6917ce097458.webp",
           "59a32d3fba3a927c84257473bc3342d6fafaab5613cce5bc2b14fcf6a77d323e.jpg",
-          "1b0c96b22ecad5bbcc3a725ce7e668e6f915f9c73fd9b3c405e1ef89b54fab6c.jpg",
-          "1b0c96b22ecad5bbcc3a725ce7e668e6f915f9c73fd9b3c405e1ef89b54fab6c.jpg"
+          "996532570a9508c2215fd2e643b29e30cd37fa520b3fc127329b321f86e961a7.webp",
+          "d9eea78d593ecc3fba3d5e8bb9bf1b6883ff56c6d98e44a931c0fd2fb760ba72.webp",
+          "7a093962a203397810515a3189be3dde65f063a0cd523222d3c3408905143c95.webp",
+          "f8de337e5eab65ba5efc3e3a62aedff58f3744564eec3042efe5a362ca31f49f.webp",
+          "dfd7aba94d0e4100bb76abb2060e0b4c8d22edc3901b6ce0e5cf86fbb307f276.webp",
+          "6283f6d390817a87dda94cc11bbdb2bae68fe94cc435218bc937fea4cf92795b.webp"
         ]
       },
       "Horror": {
-        "modifier": "horror movie film still, sculpture and alien lifeforms in venus planet atmosphere",
+        "modifier": "<concept> horror movie film still, sculpture and alien lifeforms in venus planet atmosphere",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0119b279ef5b508d0a2e21b36ef2f6f9eaca43c3303017ef209013dfc4199abd.tar",
         "lora_scale": [
           0.4,
@@ -763,13 +882,19 @@
         "init_images": [
           "ac5d2471269c4e9f8d5f3aa7c85d63499b7357fab200f0f1aa6252bf1406776d.webp",
           "0365f7e8710017ca287b96c66009ab813433ee71a1cab107eb320c204964a9ef.webp",
+          "a056ea76b2c5185fed97102dd385f2f43b08e6cf43a25b38cbfc6e4ccf68204e.webp",
           "d97ebbfde74c82442fc76660c84b289c557a7ca54adea06bf9230c7771290c7b.webp",
           "9f8c7ace04bd5cd4a66028b8c9b11306e1aa4abe031b4512147c3f98d93ac145.webp",
-          "04c618b8bf72b608366c485f916ae9f0b2f6daecabf4fcbb08e16aea4a3c583c.webp"
+          "c17f491fa885fd38fc79c866b54e9366b5baadc508d6aae71ad57ea21d35eace.webp",
+          "037613702811fd4cab52043f1d529275c48a1470589f9390af661429bdec37be.webp",
+          "ef71288499bfd39475760ab36632d71734b7c5a2045eb3e885093764ea51c7c3.webp",
+          "04c618b8bf72b608366c485f916ae9f0b2f6daecabf4fcbb08e16aea4a3c583c.webp",
+          "fdc7bff18aef758850fdd81d0c03740f5ab393b1e8c8e3eda9dc294a7eb460c1.webp",
+          "4cf34c6ff0174ed9fae6fa129d6c62c51f6a7d76ae1757bdafdd1af9ba78470f.webp"
         ]
       },
       "Mystery": {
-        "modifier": "mystery movie film still, sculpture and alien lifeforms in venus planet atmosphere",
+        "modifier": "<concept> mystery movie film still, sculpture and alien lifeforms in venus planet atmosphere",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0119b279ef5b508d0a2e21b36ef2f6f9eaca43c3303017ef209013dfc4199abd.tar",
         "lora_scale": [
           0.4,
@@ -780,16 +905,19 @@
           0.4
         ],
         "init_images": [
+          "f144ef2841da7552b8bf1342603941765f5417fb38752ddd52ec03308d6b049a.webp",
           "1a113697d4d4895e1f44cb98fe7b84080a0149f48624edab47fa4dd2926ea1e1.webp",
+          "195c638b52c927fb24b5556a091ea489172d8e9fac22c96a195ea4b72c618d6e.webp",
           "d345ab98832bb3fcc053c4335d4017705db34e929866091fc1f099648ed525df.webp",
           "cff5ed1c254433982a268c9890bb22a36caa9f402fff05ea72a03aa06a7f064c.webp",
-          "5d91ab25d5e82ab6c6a6b980e578346035722d5ab3aaee91996060ce0ec171ad.webp"
+          "5d91ab25d5e82ab6c6a6b980e578346035722d5ab3aaee91996060ce0ec171ad.webp",
+          "2b21e68fe0bb183d7457ceb29ae927dafbcb09b91c190551cc3705afd63c87bb.webp"
         ]
       }
     },
     "Human Imaginarium": {
       "Action": {
-        "modifier": "sculpture in linear perspective geometric drawing",
+        "modifier": "<concept> sculpture in linear perspective geometric drawing",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0119b279ef5b508d0a2e21b36ef2f6f9eaca43c3303017ef209013dfc4199abd.tar",
         "lora_scale": [
           0.5,
@@ -800,15 +928,22 @@
           0.5
         ],
         "init_images": [
-          "674ef14b50e85c1f2bf49475a05327b615d30fe0b18b6fe7cb174bd0b7a93edf.png",
-          "49c558022ff8bd4902011b3029b873c31e7c339265d32e2f47baa4bf36481126.png",
-          "ce53afa3cc1f397be80a2f56b3df58ae118f76a24f186bc3fae72c8c0b05c31e.png",
-          "24d0a2b997a0f35debdae86924ce0d20bc0299ca35e36a7bdc5988746f3cc552.png",
-          "30daa37c0b2b7b4ef85da08d3af49f280211d527a1341dde5adfb01fc8bc741c.png"
+          "8a3e1c34b2194838a135c668832b9db2565207be423d958e1b73b645d98c5aa1.webp",
+          "a58cf4d47152abab29f1025891446ea232893348765d0c6e27c947a611a66980.webp",
+          "9f9a811c93cddf9c9022d2032e41569f5b7834a4dc9a52ac19f6e3992b38e244.webp",
+          "5f5866ddb8fb8edad7b04b2f2c299b611025fc1898434000495be68dcafeb19c.webp",
+          "5574e1ab23542f6fe316ddad11559ad62745145be6967175fed660a4d228c74d.webp",
+          "91f009b2a68ee18ee9bfa68536cdcc5f9f0cc06de32b7e24f853c6c0e2a98ef2.webp",
+          "4e4727505a2e42163832d03e703034152bfd3f99453c61c2fea8222232d1d7c2.webp",
+          "7231192dfc2203f367c609678445d12e354fed5ee1dbc8f6068d5d6633edabfc.webp",
+          "6b07ac3963658b55189307b6200dd29e76b6fa122629149f526c7f7b6e5aac17.webp",
+          "7957af72e318a9fdfda3c0aeb33742fe334f1051a778ec301976958d0bdc41bc.webp",
+          "c864ade61cf070e60df4ee02ca8e7cacc95831ffa0d234ad9ec2cc6607e7f5ba.webp",
+          "68faac1476829df3d8c12c2665bbabf3d9c877d529974f17442b511b6e2f0622.webp"
         ]
       },
       "Comedy": {
-        "modifier": "sculpture in linear perspective geometric drawing",
+        "modifier": "<concept> sculpture in linear perspective geometric drawing",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0119b279ef5b508d0a2e21b36ef2f6f9eaca43c3303017ef209013dfc4199abd.tar",
         "lora_scale": [
           0.5,
@@ -827,7 +962,7 @@
         ]
       },
       "Drama": {
-        "modifier": "sculpture in linear perspective geometric drawing",
+        "modifier": "<concept> sculpture in linear perspective geometric drawing",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0119b279ef5b508d0a2e21b36ef2f6f9eaca43c3303017ef209013dfc4199abd.tar",
         "lora_scale": [
           0.5,
@@ -846,7 +981,7 @@
         ]
       },
       "Horror": {
-        "modifier": "sculpture in linear perspective geometric drawing",
+        "modifier": "<concept> sculpture in linear perspective geometric drawing",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0119b279ef5b508d0a2e21b36ef2f6f9eaca43c3303017ef209013dfc4199abd.tar",
         "lora_scale": [
           0.5,
@@ -869,7 +1004,7 @@
         ]
       },
       "Mystery": {
-        "modifier": "sculpture in linear perspective geometric drawing",
+        "modifier": "<concept> sculpture in linear perspective geometric drawing",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0119b279ef5b508d0a2e21b36ef2f6f9eaca43c3303017ef209013dfc4199abd.tar",
         "lora_scale": [
           0.5,
@@ -880,6 +1015,8 @@
           0.5
         ],
         "init_images": [
+          "674ef14b50e85c1f2bf49475a05327b615d30fe0b18b6fe7cb174bd0b7a93edf.png",
+          "49c558022ff8bd4902011b3029b873c31e7c339265d32e2f47baa4bf36481126.png",
           "08332b42a6f6b2ffd3cc79d9217ffead85c1a6fcc31669e891f0e6a8965d7097.jpg",
           "479cfa13b941e4d5766ef8f29f2b07baceacf9cccdf4db19db9fe6a62118ae05.jpg",
           "b6558399375cc3d1301a2778eb707ed8232421cb368b031d1d9606bd57d9bf64.jpg",
@@ -889,6 +1026,8 @@
           "29deb924a5cee1a53602002f35d40cea10af09a2e25f35f73a3c47d8fb9429b6.png",
           "71a223b2838d20dc6ef8a348ed1a7549cfbc1adea6cbb5756d55b09394260aae.jpg",
           "334937db279318237e7aa64726ed61ac2610ee884bb88022be6480b41ffd5190.jpg",
+          "ce53afa3cc1f397be80a2f56b3df58ae118f76a24f186bc3fae72c8c0b05c31e.png",
+          "24d0a2b997a0f35debdae86924ce0d20bc0299ca35e36a7bdc5988746f3cc552.png",
           "f65aa051d44ac893483f4d39fbbe2e64fdcf5e5108d4ead64e710cfa57a8a8a1.jpg",
           "8b878042c743356e40ded007b7730def59942fc9acf0fd9bba88731763e1b31c.jpg"
         ]
@@ -898,7 +1037,7 @@
   "Kalama": {
     "Physical Reality": {
       "Action": {
-        "modifier": "sculpture in the middle of volcano eruption, action film still, oil painting by Remedios Varo",
+        "modifier": "<concept> sculpture in the middle of volcano eruption, action film still, oil painting by Remedios Varo",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/128d8f68f31f87c7adf7f06fc6aef287dc4ccc263e206d2b51e8a48ccfc66be8.tar",
         "lora_scale": [
           0.5,
@@ -909,17 +1048,22 @@
           0.4
         ],
         "init_images": [
+          "3aa35297104c81c6933fbb2279be6f17223043ba27297a4a505f70687e5920d5.webp",
           "f2684af59fd6ef7ae8d81b47f3a96375f3e3d13c07768cef9b911335e3709cc6.webp",
           "36051fd42bd50349284c8d5a9c0e92120df16356e10e98670764b24bebeca5d5.jpg",
           "332a51167968fcd0e4d3dfb892f78d554372d5fa99194753f2cece9fbbd2527f.webp",
           "664405881f48ca81e8f9335a5571a2e071f7cd6da425af361524fae59a8b3baf.jpg",
+          "d490cad239c2977750773be1cf88b04e5619fb62cf91fe562ea039a4a477b8d9.webp",
+          "84ee46c2b746450a4c7d399fb8a44656e7a945cb6636a6115c5fdf0717a1ff91.webp",
+          "7a98d764a421305c2df2e0109bd51aa67cadca3840f573b1b505cfb30214dd20.webp",
           "aa411c1c1597dcb9ce08aecda8373afb599b032d1c721dacb7fa6530acb4da20.webp",
           "a35bd609a39222144fea8b00fe955986ad04a42a87f322b72ee249a0f6920c24.webp",
+          "3e28c144e8efdafd4018e1cac167811026cc7c69719afd9ea5ad9db8765f3b91.webp",
           "a4a330930d0af5679abd6a217de3adfc36f52a2e3ffb0454b4bdd80853daf2fb.png"
         ]
       },
       "Comedy": {
-        "modifier": "sculpture in volcano eruption, mars planet surface, commedy film still, Wes Anderson",
+        "modifier": "<concept> sculpture in volcano eruption, mars planet surface, commedy film still, Wes Anderson",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/128d8f68f31f87c7adf7f06fc6aef287dc4ccc263e206d2b51e8a48ccfc66be8.tar",
         "lora_scale": [
           0.5,
@@ -930,13 +1074,15 @@
           0.4
         ],
         "init_images": [
+          "7288ff2a7cee51977c8fc269663fe306c3be06a2410b71e3242ede8354cfd9ea.webp",
+          "dfc11795665b48ef782efb737355f97b2204f02f284adf8310f03e0e3ffffac7.webp",
           "0995a0fb453c94c2faafedb10ec387b918b5a20cf1e207bad2a189a2fe7c7040.webp",
           "4bf11aa60add81e7d510cd5c70552e0fc8359c4fa21ee9282351318f47deeafa.webp",
           "0b517874e7c69d6f488b3772432b88ca64e2109fdff195401659928819e79aec.webp"
         ]
       },
       "Drama": {
-        "modifier": "sculpture in volcano eruption, mars planet surface, drama sci-fi film still",
+        "modifier": "<concept> sculpture in volcano eruption, mars planet surface, drama sci-fi film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/128d8f68f31f87c7adf7f06fc6aef287dc4ccc263e206d2b51e8a48ccfc66be8.tar",
         "lora_scale": [
           0.5,
@@ -947,15 +1093,19 @@
           0.4
         ],
         "init_images": [
+          "7454b7b26e33bbe57e4b082a05dbf83d474894a42c3bf3bfb3d234d3fa1dc300.webp",
           "7df4151a8051768e8e204ccd3bc06736dac87ecd125197042da5e65374a2de10.webp",
           "76c10c0c280458e8eef155e79e1f745e2f039c1806cc0c1364ba3b4b8753b7d7.webp",
+          "d81fd8c7e78941037ffbf45dfc07aed73f4e2a1c1f69331888fef8f7c42e4525.webp",
+          "a41c637207d18a5898de90f49b0d89de01c5f1dac75f4bb8d5008f91d953c409.webp",
           "dd05af60a723724a8f474417af9cf0462e833050cdfa1494dccdc84b037ccccf.webp",
+          "a2dd9349abd938eb2475efa291cfb912bccbbe365840fba8b0799ad7088065be.webp",
           "c0ff16df13e9fade4003fe98ae32852c794b90c48246f2af89aaf8e76478a277.webp",
           "7b150ecb8d8b7e6d93a9a0455f2aef29a766da94e19cd235ac74db10177b228f.webp"
         ]
       },
       "Horror": {
-        "modifier": "sculpture in volcano eruption, mars planet surface, horror film still, Remedios Varo",
+        "modifier": "<concept> sculpture in volcano eruption, mars planet surface, horror film still, Remedios Varo",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/128d8f68f31f87c7adf7f06fc6aef287dc4ccc263e206d2b51e8a48ccfc66be8.tar",
         "lora_scale": [
           0.5,
@@ -969,11 +1119,12 @@
           "b53e53a1a43201d0c993d0f3afa52f6a346eaff02204739395f53403694975ed.webp",
           "37ebf90eecb12224d0fa086e007916000bd7c59f6a31cde72b61802ec5bebf54.webp",
           "a2f30e07ebacc802aebca686c3be3514b9a8cb9efb7238c9591e4ed5d7e28438.webp",
-          "269a189ed2ced8cbbb192aaaeff5bfe5ef7946a258fa8020ee88eba833d5c797.webp"
+          "269a189ed2ced8cbbb192aaaeff5bfe5ef7946a258fa8020ee88eba833d5c797.webp",
+          "26c44f2fb4e6b891866e41f4445b1dd2cec6619b1f14bcb7682b25fbd7f0909d.webp"
         ]
       },
       "Mystery": {
-        "modifier": "sculpture in volcano eruption, mars planet surface, mystery film still",
+        "modifier": "<concept> sculpture in volcano eruption, mars planet surface, mystery film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/128d8f68f31f87c7adf7f06fc6aef287dc4ccc263e206d2b51e8a48ccfc66be8.tar",
         "lora_scale": [
           0.5,
@@ -986,6 +1137,7 @@
         "init_images": [
           "3a39905644b6660b818179cd4e8cccf8855f9fec6bc6bb8e4b3b9699f2e3051c.webp",
           "41e8678731b8941dcaa4cc54dc4251f4bc14f31227c1b9f251e7efcb03891fef.webp",
+          "05c6f5119c24171472ddf2c87a500e61c8286fe0c0704101882557ed98c054cb.webp",
           "086254aa66a332bee80fa125979003fdd10cef4d2da2026e8b92e47f675306fc.webp",
           "6324d56e6753f8a8fab91d6d6db2d5c606aeddc10e93c4812b2938f339f3e4f2.webp"
         ]
@@ -993,7 +1145,7 @@
     },
     "Human Imaginarium": {
       "Action": {
-        "modifier": "sculpture in oil painting by Agnes Pelton, Remedios Varo, action movie film still",
+        "modifier": "<concept> sculpture in oil painting by Agnes Pelton, Remedios Varo, action movie film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/128d8f68f31f87c7adf7f06fc6aef287dc4ccc263e206d2b51e8a48ccfc66be8.tar",
         "lora_scale": [
           0.5,
@@ -1015,7 +1167,7 @@
         ]
       },
       "Comedy": {
-        "modifier": "sculpture in oil painting by Leonor Fini, comedy movie film still",
+        "modifier": "<concept> sculpture in oil painting by Leonor Fini, comedy movie film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/128d8f68f31f87c7adf7f06fc6aef287dc4ccc263e206d2b51e8a48ccfc66be8.tar",
         "lora_scale": [
           0.5,
@@ -1026,15 +1178,23 @@
           0.4
         ],
         "init_images": [
+          "d4db91b4aee99d6cabd14bf77d947336147bc1522d5be7cacfc5cf1a91b433f7.jpg",
+          "ce48f18d92c801eb1ae6f455670bc17c5cfce7c3fcf14cb6a915f7615df5eac9.jpg",
           "64fe9f417fea89e3ea2d5fa0ce63ef2a50b394f42a0b1c380f436b53493780df.jpg",
-          "6f81af18ca7da8c9f644ce4e6041ec781e3b0ccc495092425578819753dc55db.jpg",
+          "297c7432ec9b384e15b6480f3c3a0cc9669ed97a9eb5fb09bb6528e6f55fe9b8.jpg",
+          "6306440fe1951f062c8df882498dcc075e8cd3fc0bfe1059e7649f424afe6d8e.jpg",
           "7de65eccfc6e2a3e1ab1f41350a4c60bbed630da9761937be1611bf33b71ae98.jpg",
           "e46fea0317154210b36180189309f8d57049a969e6388c70ce84d054547b3b9f.jpg",
-          "7bf67850257efa9ef78c5bf20fcf2d8700304b51c062e8678955d247c08780c2.jpg"
+          "58477dba84b63b92570e9862dcff3b38039d58a5bddfafe7b935805077380b75.jpg",
+          "58ccae0c37e4d681ae49111bc43f4294ebcca655f99bf723f875ed87fcad2b8d.jpg",
+          "7bf67850257efa9ef78c5bf20fcf2d8700304b51c062e8678955d247c08780c2.jpg",
+          "1cd911af3248548ff165d26e0545bb7cb7d92a6891df30c93954bcc66924bc6c.jpg",
+          "5379cbe4cbad9c444f9cbb5f6dda49eae2911f80b49a0413b396e4b42aa8f224.jpg",
+          "32bce12f6c4786fc53feb0d8839a537739e4e8d181f0ab3b20c36ce041d46838.jpg"
         ]
       },
       "Drama": {
-        "modifier": "sculpture in oil painting by Remedios Varo, drama movie film still",
+        "modifier": "<concept> sculpture in oil painting by Remedios Varo, drama movie film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/128d8f68f31f87c7adf7f06fc6aef287dc4ccc263e206d2b51e8a48ccfc66be8.tar",
         "lora_scale": [
           0.5,
@@ -1045,16 +1205,18 @@
           0.4
         ],
         "init_images": [
+          "2a1eb3659453bdd36b326003bb82ec2dbc80ae5faba964c506c4e7024b87faea.jpg",
           "c3ea0996189c91266cae911cf81832b6e5d8b8e6cd1b9364812b25b4829f8a00.webp",
-          "8207d8fea914eddeb6500b5f7bc303bc20380294df4cf2d108a7e9ce76708a5d.jpg",
+          "39539f0ed01b894d74ee61bc475ff7c182f2d9f4efec7f30eea1ddc51499987e.webp",
+          "38ef37e3061cf9135044d524312246c8a22f038fb5511352e57ee36c350b3a54.jpg",
           "100ab48abb7c5de12efa4dbd365379dec64e596a009653f1549c709db8865ad0.jpg",
           "5919b60f3f4b954a31807753ca9f0c509a2cba6486d1ac01c7505bd08a3d99ba.jpg",
-          "d2a483378c71b913c7bc785753d50b9877069d6d051979a6b4608d77832f9d06.webp",
+          "1847ee898e12bbea56869d401b38aface1dd416e1e7a8e212d4bee15bd6f6f03.jpg",
           "ca5ebf25ff8241345743dadd03fd158342ce3977f576516ae0d203626281652a.jpg"
         ]
       },
       "Horror": {
-        "modifier": "sculpture in oil painting by Tarsila do Amaral, horror movie film still",
+        "modifier": "<concept> sculpture in oil painting by Tarsila do Amaral, horror movie film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/128d8f68f31f87c7adf7f06fc6aef287dc4ccc263e206d2b51e8a48ccfc66be8.tar",
         "lora_scale": [
           0.5,
@@ -1078,7 +1240,7 @@
         ]
       },
       "Mystery": {
-        "modifier": "sculpture in oil painting by Remedios Varo, mystery movie film still",
+        "modifier": "<concept> sculpture in oil painting by Remedios Varo, mystery movie film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/128d8f68f31f87c7adf7f06fc6aef287dc4ccc263e206d2b51e8a48ccfc66be8.tar",
         "lora_scale": [
           0.5,
@@ -1104,7 +1266,7 @@
   "Mycos": {
     "Physical Reality": {
       "Action": {
-        "modifier": "sculpture floating through comet asteroid, Ersnt Haeckel painting",
+        "modifier": "<concept> sculpture floating through comet asteroid, Ersnt Haeckel painting",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0ad81e4ab54d0b23e5f56a95ae6fe169110d750ced8068e51154bf7907ba0867.tar",
         "lora_scale": [
           0.2,
@@ -1123,7 +1285,7 @@
         ]
       },
       "Comedy": {
-        "modifier": "sculpture and alien lifeforms, comet surface, outer space, nasa",
+        "modifier": "<concept> sculpture and alien lifeforms, comet surface, outer space, nasa",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0ad81e4ab54d0b23e5f56a95ae6fe169110d750ced8068e51154bf7907ba0867.tar",
         "lora_scale": [
           0.2,
@@ -1147,7 +1309,7 @@
         ]
       },
       "Drama": {
-        "modifier": "drama film still, subtle colors, ethereal, analog photography, sculpture floating throughalien lifeforms, outer space, nasa",
+        "modifier": "<concept> drama film still, subtle colors, ethereal, analog photography, sculpture floating throughalien lifeforms, outer space, nasa",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0ad81e4ab54d0b23e5f56a95ae6fe169110d750ced8068e51154bf7907ba0867.tar",
         "lora_scale": [
           0.2,
@@ -1167,7 +1329,7 @@
         ]
       },
       "Horror": {
-        "modifier": "horror movie film still, sculpture and alien lifeforms, comet surface, outer space, nasa",
+        "modifier": "<concept> horror movie film still, sculpture and alien lifeforms, comet surface, outer space, nasa",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0ad81e4ab54d0b23e5f56a95ae6fe169110d750ced8068e51154bf7907ba0867.tar",
         "lora_scale": [
           0.2,
@@ -1187,7 +1349,7 @@
         ]
       },
       "Mystery": {
-        "modifier": "mystery film still, subtle colors, ethereal, analog photography, hitchcock, sculpture floating throughalien lifeforms, outer space, nasa",
+        "modifier": "<concept> mystery film still, subtle colors, ethereal, analog photography, hitchcock, sculpture floating throughalien lifeforms, outer space, nasa",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0ad81e4ab54d0b23e5f56a95ae6fe169110d750ced8068e51154bf7907ba0867.tar",
         "lora_scale": [
           0.2,
@@ -1208,7 +1370,7 @@
     },
     "Human Imaginarium": {
       "Action": {
-        "modifier": "action movie film still, sculpture and alien lifeforms",
+        "modifier": "<concept> action movie film still, sculpture and alien lifeforms",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0ad81e4ab54d0b23e5f56a95ae6fe169110d750ced8068e51154bf7907ba0867.tar",
         "lora_scale": [
           0.2,
@@ -1230,7 +1392,7 @@
         ]
       },
       "Comedy": {
-        "modifier": "comedy movie film still, sculpture and alien lifeforms",
+        "modifier": "<concept> comedy movie film still, sculpture and alien lifeforms",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0ad81e4ab54d0b23e5f56a95ae6fe169110d750ced8068e51154bf7907ba0867.tar",
         "lora_scale": [
           0.2,
@@ -1243,16 +1405,21 @@
         "init_images": [
           "7e64fc623e6f15e9773cce7cf84595d76ac968bcb4d4b7ed2c2543e5c99e524b.webp",
           "364b05ff17a185ef0ad0493c48317f2995660374cef62549a628293345a71e80.webp",
+          "19d846da79aa5aaf290049a95203856de08ba14a73ad8a8cab8c2588dd80f341.webp",
+          "c7be08a60a2c3916e46ebfe5c222e043e710edc5e85be70abe4f23ca176cbdbb.webp",
+          "ee207056dc597490019a689216314e310d77224bad426f6104e3714196beeb15.webp",
           "b50f9226c4912f0e925b25aa050cc1cf28724533093b80a1997add14806a2c68.webp",
+          "3e9f153d66d3424b496e135a23811bdad40339867ab65ae3ce95e1d4ac8030e1.webp",
           "1731018a26a68145921967001a63555a5a123f74775a7c955f9dfff75a516933.webp",
           "6dea764b4edea4c4781fe4b63c9017e72141a2376ca7c6e93941b8a30d146a6a.webp",
           "85ec4648a369ac5a7dd3ad854cbc25200e0e6b1b99e7ddfd1ba5f72e7f0274de.webp",
           "3efd046d2c563de87361dbd3ea6c7ca04282968f1f39da044446f6d1800c92a1.webp",
+          "a77fe4371a7ca57c2285f3f0e7b7cf3842108fef7ba7b0f7559dd6a4adcda1ea.webp",
           "866ecc9f163e89a66c052f7795e0c46155a6c67cd270b331caa354a53f9c67f7.webp"
         ]
       },
       "Drama": {
-        "modifier": "drama movie film still, sculpture and alien lifeforms",
+        "modifier": "<concept> drama movie film still, sculpture and alien lifeforms",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0ad81e4ab54d0b23e5f56a95ae6fe169110d750ced8068e51154bf7907ba0867.tar",
         "lora_scale": [
           0.2,
@@ -1264,6 +1431,7 @@
         ],
         "init_images": [
           "acec6acf1c33474d0e9162c5184977ba72c09e4d7f50b54810068ac54a44fd78.webp",
+          "a722482acfb24e55e142905e4f12ab4e8ccf7a14ef3d5499179846a47c307f50.webp",
           "afdafb44975289770e3bf0851a443d0246f867896a843073656e1c978cad765d.webp",
           "25d6468bcbce4017c4f18906ba1c455b34f7444ba41dedc8174d17b063d3e45c.webp",
           "b956be0f90a64736e6ea8d55adb4ba16d29840bec709880c14eecf0cbc2020bf.webp",
@@ -1276,7 +1444,7 @@
         ]
       },
       "Horror": {
-        "modifier": "horror movie film still, sculpture and alien lifeforms",
+        "modifier": "<concept> horror movie film still, sculpture and alien lifeforms",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0ad81e4ab54d0b23e5f56a95ae6fe169110d750ced8068e51154bf7907ba0867.tar",
         "lora_scale": [
           0.2,
@@ -1287,17 +1455,37 @@
           0.6
         ],
         "init_images": [
+          "15f22ff31aa6ea619ae40d81a92f96ad50cfe03a820a02ad3da211abae04c8ff.jpg",
+          "c6e7a11c6b4192a40357f47f8c28b7f9662abc65cafac01e667021a658807c2c.jpg",
+          "739ed20c1f29124b54fc28efbf8bc7d57b2e86904d1190925e49c7368e7f64c3.jpg",
+          "fc3e5c4fa8945f7a8db68965ff78d4908d797a703c1033b82bffc58e5a965f6a.jpg",
           "21b9f7a22831a659ffccc10f35ac0fdeb2557f166c8d6c66012c999756fc63b3.webp",
+          "9051aa6e5bdd41d5b9e3a3654d27855a04afdb09e8baee8fa807fbc100a735e5.jpg",
           "d74baa8d09fdcfd8f402583049148fff9837e43460d25cff85ffa134d89eb35f.webp",
+          "e75bdcddf1d98a5406ccbf79ff784f29fa740c715c947540ee0b79240e712891.jpg",
+          "81789a171a91202219d53261d4c8f5cce296bfb7a7509f096bb7946c5abd042c.jpg",
           "d2d6d31090a943d36c16bfccd5ff8b936d3e340c57203255e67605d3bddf91ba.webp",
           "0e8d58ef5b53359e881ea4232e704f76230aafc685987cc0e40a254d83d217f8.webp",
+          "3c0b9baa532d84abc5fe70752072e162c90bc848f4cf8bbfa1346ead1c669138.jpg",
+          "593742a6621a650b4a336c02afcf9ccb3d271e3ef2ec80434f8548987c56fd0e.jpg",
           "d71803c6d6c513b9aee04811db37e52ae8dff1f58b577937979f2570619c3585.webp",
+          "e7310425c31a3df30fde76d1b0e8cc721710aaaa598cd6f5aeeead06932bf33d.jpg",
+          "36224c90d50770bce851ecdad6ea2c0b11b1e492b3f6c7a3d846466b872f1a08.jpg",
           "9b454b70cf26c88f3c837d9253812f6755bafd6ee95350f2fe4b66b5e33f6732.webp",
-          "0881e656c41628c11343f9774137e1d2fdab4df6f8452f53bc200d57db53003a.webp"
+          "8e226e2a32858a66f03b40fbe87d0db23dcd4af267521a064a39f36be668590c.jpg",
+          "df53707c97f6290892ab2e3d643af5b3afd8286ae4ff53803dfdcba49d01a713.jpg",
+          "2f5d265635e6b389c661566ff91431b4e89b0c8ce06a81edfe40bfefe5c6e9fd.jpg",
+          "0a2124ced59affcd33319a182a6780e434d5d82c42ec6b0858b1e17e16b393be.jpg",
+          "ba0cb304b9f7700d213600df3b3278ff14388c12338f187da72dbdfee6865f8c.jpg",
+          "0881e656c41628c11343f9774137e1d2fdab4df6f8452f53bc200d57db53003a.webp",
+          "30ffbee84cc1b4e06a5b65c6752dc3094ba9ded40825e8986f994a64f0f9ffd6.jpg",
+          "b70f666512654472b12fed96ea946aae533b59aca2db768e797c4e05dfdb1eb0.jpg",
+          "ecaf895e34e4be75bc159fb5cabddee9acb4bd5bc3c4fe23b52c9367a0960b6f.jpg",
+          "96d195bfaae8d16d0758b7e625940b780d86590c6c5ef70f2deaf6db9a889910.jpg"
         ]
       },
       "Mystery": {
-        "modifier": "mystery movie film still, sculpture and alien lifeforms",
+        "modifier": "<concept> mystery movie film still, sculpture and alien lifeforms",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0ad81e4ab54d0b23e5f56a95ae6fe169110d750ced8068e51154bf7907ba0867.tar",
         "lora_scale": [
           0.3,

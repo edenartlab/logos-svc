@@ -2,6 +2,6 @@ Please produce a story about the Little Martian, $martian.
 
 The premise or subject should somehow connect to what's been requested: $premise.
 
-The genre of the story should be $genre.
+The genre of the story should be: $genre.
 
 The setting of the story is: $setting.

@@ -73,7 +73,18 @@ class LLM(BaseModel):
             self.default_session.system = system_message
             for arg in kwargs:
                 setattr(self.default_session, arg, kwargs[arg])
-            
+
+    def memory(
+        self,
+        key: str,
+        session_id: Union[str, UUID] = None,
+        value: Any = None,
+    ) -> Any:
+        sess = self.get_session(session_id)
+        if value:
+            sess.memory[key] = value
+        return sess.memory.get(key, None)
+
     def new_session(
         self,
         return_session: bool = False,

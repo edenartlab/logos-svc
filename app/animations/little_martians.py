@@ -29,24 +29,12 @@ def little_martian_poster(request: LittleMartianRequest):
     init_image = random.choice(data['init_images'])
     init_image_strength = random_interval(*data['init_image_strength'])
     
-    
-    print("go")
-
-
-    print(lora)
-    print(modifier)
-    print(lora_scale)
-
-    
     littlemartian_writer = LLM(
         model=request.model,
         system_message=littlemartians_poster_system.template,
         params=params,
     )
-    print("------")
-    print(request.prompt)
-
-
+    
     prompt = littlemartians_poster_prompt.substitute(
         martian = request.martian.value,
         setting = request.setting.value,
@@ -54,19 +42,17 @@ def little_martian_poster(request: LittleMartianRequest):
         premise = request.prompt,
     )
     
-    
-    print(prompt)
+    print("==============")
+    print("PROMPT:", prompt)
     
     result = littlemartian_writer(prompt, output_schema=Poster)
 
-    print(result)
     prompt = result['image']
     
-
     text_input = f'{modifier}, {prompt}'
-    # text_input = f'{modifier}'
 
-    print(text_input)
+    print("RESULT:", prompt)
+    print("text_input:", text_input)
 
     # def run_panel(panel, idx):
     #     # pick lora of character
@@ -94,6 +80,8 @@ def little_martian_poster(request: LittleMartianRequest):
         "n_samples": 1,
     }
 
+
+    print("config")
     print(config)
     
 
@@ -102,9 +90,12 @@ def little_martian_poster(request: LittleMartianRequest):
     print(image_url, thumbnail_url)
 
     caption = result['caption']
+
     print(caption)
     image = utils.download_image(image_url)
     composite_image, thumbnail_image = poster(image, caption)
+
+    print("-========-")
     # results = utils.process_in_parallel(
     #     comic_book['panels'], 
     #     run_panel,
@@ -122,5 +113,17 @@ def little_martian_poster(request: LittleMartianRequest):
 
     output_url = s3.upload(img_bytes, "jpg")
     thumbnail_url = s3.upload(thumbnail_bytes, "webp")
+
+    # download output_url
+    # martian, setting, genre, pr = request.martian.value, request.setting.value, request.genre.value, request.prompt
+
+    # filename = f'{martian}_{setting}_{genre}_{pr}.jpg'
+
+    # with open(filename, "wb") as f:
+    #     f.write(requests.get(output_url).content)
+
+    # # save config as json file
+    # with open(f"{filename}.json", "w") as f:
+    #     f.write(str(config))
 
     return output_url, thumbnail_url

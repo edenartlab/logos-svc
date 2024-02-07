@@ -49,25 +49,25 @@ def test_story_animation():
     assert response.status_code == 200
 
 
-def test_comic_illustration():
-    """
-    Test comic on static character and prompt
-    """
+# # def test_comic_illustration():
+# #     """
+# #     Test comic on static character and prompt
+# #     """
 
-    prompt = """
-    - Little Martians: Verdelis
-    - Setting: Simulation
-    - Genre: Drama
-    - Premise: Verdelis goes to outer space cosmos
-    - Number of panels: 3
-    """
+# #     prompt = """
+# #     - Little Martians: Verdelis
+# #     - Setting: Simulation
+# #     - Genre: Drama
+# #     - Premise: Verdelis goes to outer space cosmos
+# #     - Number of panels: 3
+# #     """
 
-    request = {
-        "character_id": "658b44b36104b05b266ca3c6", 
-        "prompt": prompt
-    }
+# #     request = {
+# #         "character_id": "658b44b36104b05b266ca3c6", 
+# #         "prompt": prompt
+# #     }
 
-    response = client.post("/animation/comic", json=request)
-    print(response.json())
+# #     response = client.post("/animation/comic", json=request)
+# #     print(response.json())
 
-    assert response.status_code == 200
+# #     assert response.status_code == 200

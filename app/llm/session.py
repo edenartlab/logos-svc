@@ -51,6 +51,7 @@ class ChatSession(BaseModel):
     input_fields: Set[str] = {"role", "content", "name"}
     recent_messages: Optional[int] = None
     save_messages: Optional[bool] = True
+    memory: Dict[str, Any] = {}
     total_prompt_length: int = 0
     total_completion_length: int = 0
     total_length: int = 0
@@ -211,6 +212,9 @@ class ChatSession(BaseModel):
         api_url, headers, data, user_message = self.prepare_request(
             model, prompt, system, params, False, input_schema, output_schema
         )
+        print("______________")
+        print(data)
+        print("______________")
         r = client.post(
             api_url,
             json=data,
@@ -240,7 +244,7 @@ class ChatSession(BaseModel):
             # self.total_length += r["usage"]["total_tokens"]
         except KeyError:
             raise KeyError(f"No AI generation: {r}")
-        print("content is", content)
+        
         return content
 
     def stream(

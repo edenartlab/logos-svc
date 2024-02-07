@@ -10,7 +10,7 @@ from .animations import (
     illustrated_comic,
     little_martian_poster
 )
-from .models import MonologueRequest, MonologueResult
+from .models import MonologueRequest
 from .models import DialogueRequest, DialogueResult, StoryRequest
 from .models import TaskRequest, TaskUpdate, TaskResult, LittleMartianRequest
 
