@@ -137,7 +137,7 @@ class Character:
             if not self.knowledge_summary.strip():
                 self.knowledge_summary = summary(
                     SummaryRequest(text=self.knowledge)
-                ).summary
+                )
             options.append("A question about or reference to your knowledge")
             knowledge_summary = (
                 f"You have the following knowledge: {self.knowledge_summary}"
@@ -554,6 +554,7 @@ class EdenCharacter(Character):
         self.sync()
 
     def sync(self):
+        print("syncing character: ", self.character_id)
         character_data = get_character_data(self.character_id)
         logos_data = character_data.get("logosData")
         name = character_data.get("name")
@@ -563,16 +564,7 @@ class EdenCharacter(Character):
         concept = logos_data.get("concept")
         abilities = logos_data.get("abilities")
         creation_enabled = abilities.get("creations", True) if abilities else True
-
-        # temporary hack until this is in schema
-        if str(self.character_id) == "65b5d2932a094f8ee322cb69" or str(self.character_id) == "657aa5cd35eb16a8136493e5":
-            story_creation_enabled = True
-        else:
-            story_creation_enabled = False
-        print("story_creation_enabled: ", story_creation_enabled)
-
-        #story_creation_enabled = True #abilities.get("story_creations", False) if abilities else False
-
+        story_creation_enabled = abilities.get("story_creations", True) if abilities else True
         smart_reply = abilities.get("smart_reply", False) if abilities else False
         chat_model = logos_data.get("chatModel", "gpt-4-1106-preview")
         image = character_data.get("image")
