@@ -12,5 +12,3 @@ with open(dir_path / 'littlemartians_poster_prompt.txt', 'r') as file:
 
 with open(dir_path / 'littlemartians_data.json', 'r') as file:
     littlemartians_data = json.load(file)
-
-

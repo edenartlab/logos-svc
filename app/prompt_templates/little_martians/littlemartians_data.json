@@ -299,7 +299,7 @@
   "Shuijing": {
     "Physical Reality": {
       "Action": {
-        "modifier": "<concept> film still from action movie, small sculpture, subtle colors, alien life, analog photography, extremophiles underwater,
+        "modifier": "<concept> film still from action movie, small sculpture, subtle colors, alien life, analog photography, extremophiles underwater",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/4e56e17098d7a0f853b688b8a4d1c7f4697b6b1413cfeca36d9c2a361403ba79.tar",
         "lora_scale": [
           0.4,
