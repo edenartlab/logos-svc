@@ -14,12 +14,10 @@ MAX_WORKERS = 3
 
 
 def animated_story(request: StoryRequest, callback=None):
-    print(request.intro_screen)
-    print(request)
     screenplay = story(request)
-    screenplay["clips"] = screenplay["clips"]
     if callback:
         callback(progress=0.1)
+
     print(screenplay)
 
     characters = {
@@ -73,12 +71,11 @@ def animated_story(request: StoryRequest, callback=None):
     thumbnail_url = results[0][1]
 
     if request.intro_screen:
-        print("LETS GO")
         character_names = [characters[character_id].name for character_id in request.character_ids]
         character_name_str = ", ".join(character_names)
         paragraphs = [
             request.prompt,
-            f"Characters: {character_name_str}"
+            f"Characters: {character_name_str}" if character_names else "",
         ]
         intro_screen = utils.video_textbox(
             paragraphs, 
