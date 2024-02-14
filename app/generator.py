@@ -82,7 +82,7 @@ def process_task(task_id: str, request: TaskRequest):
 
         elif task_type == "story":
             character_ids = request.config.get("characterIds")
-            prompt = request.config.intro_screenget("prompt")
+            prompt = request.config.get("prompt")
             intro_screen = request.config.get("intro_screen")
             task_req = StoryRequest(
                 character_ids=character_ids,
@@ -140,13 +140,14 @@ def process_task(task_id: str, request: TaskRequest):
         output = TaskResult(
             files=[],
             thumbnails=[],
-            name=prompt,
+            name="",
             attributes={},
             progress=0,
             isFinal=True,
         )
         status = "failed"
         error = str(e)
+        print("error", error)
 
     if webhook_url:
         update = TaskUpdate(
