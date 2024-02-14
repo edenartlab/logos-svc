@@ -37,7 +37,9 @@ def talking_head(
     character: Character,
     text: str, 
     width: Optional[int] = None,
-    height: Optional[int] = None
+    height: Optional[int] = None,
+    gfpgan: bool = False,
+    gfpgan_upscale: int = 1
 ) -> str:
     if character.voice:
         voice_id = character.voice
@@ -53,8 +55,8 @@ def talking_head(
     output_url, thumbnail_url = replicate.wav2lip(
         face_url=character.image,
         speech_url=audio_url,
-        gfpgan=False,
-        gfpgan_upscale=1,
+        gfpgan=gfpgan,
+        gfpgan_upscale=gfpgan_upscale,
         width=width,
         height=height,
     )

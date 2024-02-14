@@ -13,6 +13,8 @@ class MonologueRequest(BaseModel):
     prompt: str
     model: str = "gpt-4-1106-preview"
     params: dict = {}
+    gfpgan: bool = False
+    intro_screen: bool = False
 
 
 class MonologueResult(BaseModel):
@@ -24,6 +26,9 @@ class DialogueRequest(BaseModel):
     prompt: str
     model: str = "gpt-4-1106-preview"
     params: dict = {}
+    gfpgan: bool = False
+    intro_screen: bool = False
+    dual_view: bool = False
 
 
 class DialogueResult(BaseModel):
@@ -37,6 +42,7 @@ class StoryRequest(BaseModel):
     num_clips: int = 5
     model: str = "gpt-4-1106-preview"
     params: dict = {}
+    intro_screen: bool = False
 
 
 class StoryVoiceoverMode(Enum):

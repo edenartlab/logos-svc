@@ -9,8 +9,11 @@ import tempfile
 import subprocess
 import datetime
 import orjson
+import imageio
+import numpy as np
+from moviepy.editor import *
 from enum import Enum
-from PIL import Image, ImageFont
+from PIL import Image, ImageFont, ImageDraw
 from io import BytesIO
 from fastapi import HTTPException
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -26,6 +29,16 @@ def now_tz():
     # Need datetime w/ timezone for cleanliness
     # https://stackoverflow.com/a/24666683
     return datetime.datetime.now(datetime.timezone.utc)
+
+
+def create_dynamic_model(model_name: str, model_values: list):
+    ModelEnum = Enum(model_name, {value: value for value in model_values})
+    DynamicModel = create_model(
+        model_name,
+        **{model_name.lower(): (ModelEnum, Field(description=model_name))}
+    )
+    DynamicModel.__doc__ = model_name
+    return DynamicModel
 
 
 def get_font(font_name, font_size):
@@ -59,7 +72,7 @@ def download_image(url):
     response = requests.get(url)
     image = Image.open(BytesIO(response.content))
     return image
-    
+
 
 def PIL_to_bytes(image, ext="JPEG", quality=95):
     img_byte_arr = BytesIO()
@@ -74,9 +87,7 @@ def calculate_target_dimensions(images, max_pixels):
     total_aspect_ratio = 0.0
 
     for image_url in images:
-        response = requests.get(image_url)
-        image = Image.open(BytesIO(response.content))
-
+        image = download_image(image_url)
         width, height = image.size
         min_w = min(min_w, width)
         min_h = min(min_h, height)
@@ -159,20 +170,18 @@ def concatenate_videos(video_files, output_file):
             subprocess.run(convert_command)
             converted_videos.append(output_video)
     
-    print("videos", converted_videos)
-    
-    # Create the filter_complex string
+    # create the filter_complex string
     filter_complex = "".join([f"[{i}:v] [{i}:a] " for i in range(len(converted_videos))])
     filter_complex += f"concat=n={len(converted_videos)}:v=1:a=1 [v] [a]"
 
-    # Concatenate videos
+    # concatenate videos
     concat_command = ['ffmpeg']
     for video in converted_videos:
         concat_command.extend(['-i', video])
     concat_command.extend(['-y', '-loglevel', 'panic', '-filter_complex', filter_complex, '-map', '[v]', '-map', '[a]', output_file])
     subprocess.run(concat_command)
 
-    # Step 4: Delete temporary files
+    # delete temporary files
     for video in converted_videos:
         os.remove(video)
 
@@ -198,6 +207,22 @@ def combine_speech_video(audio_url: str, video_url: str):
     cmd = ['ffmpeg', '-y', '-loglevel', 'panic', '-i', looped_video.name, '-i', audio_file.name, '-c:v', 'copy', '-c:a', 'aac', '-strict', 'experimental', '-shortest', output_file.name]
     subprocess.run(cmd)
 
+    return output_file.name
+
+
+def stitch_image_video(image_file: str, video_file: str, image_left: bool = False):
+    output_file = tempfile.NamedTemporaryFile(suffix=".mp4", delete=False)
+
+    if image_left:
+        filter_complex = '"[1:v][0:v]scale2ref[img][vid];[img]setpts=PTS-STARTPTS[imgp];[vid]setpts=PTS-STARTPTS[vidp];[imgp][vidp]hstack"'
+    else:
+        filter_complex = '"[0:v][1:v]scale2ref[vid][img];[vid]setpts=PTS-STARTPTS[vidp];[img]setpts=PTS-STARTPTS[imgp];[vidp][imgp]hstack"'
+    
+    cmd = ['ffmpeg', '-y', '-loglevel', 'panic', '-i', video_file, '-i', image_file, '-filter_complex', filter_complex, '-c:v', 'libx264', '-pix_fmt', 'yuv420p', output_file.name]
+
+    #subprocess.run(cmd)
+    os.system(" ".join(cmd))
+    
     return output_file.name
 
 
@@ -260,11 +285,42 @@ def wrap_text(draw, text, font, max_width):
     return lines
 
 
-def create_dynamic_model(model_name: str, model_values: list):
-    ModelEnum = Enum(model_name, {value: value for value in model_values})
-    DynamicModel = create_model(
-        model_name,
-        **{model_name.lower(): (ModelEnum, Field(description=model_name))}
-    )
-    DynamicModel.__doc__ = model_name
-    return DynamicModel
+def video_textbox(
+    paragraphs: list[str],
+    width: int, 
+    height: int, 
+    duration: float,
+    fade_in: float,
+    font_size: int = 36, 
+    font_ttf: str = "Arial.ttf",
+    margin_left: int = 25,
+    margin_right: int = 25,
+    line_spacing: float = 1.25
+):
+    font = get_font(font_ttf, font_size)
+
+    canvas = Image.new('RGB', (width, height))
+    draw = ImageDraw.Draw(canvas)
+
+    draw.rectangle([(0, 0), (width, height)], fill='black')
+
+    y = 100
+    for text in paragraphs:
+        wrapped_text = wrap_text(draw, text, font, width - margin_left - margin_right)
+        for line in wrapped_text:
+            draw.text((margin_left, y), line, fill="white", font=font)
+            y += int(line_spacing * font.size)
+        y += int(line_spacing * font.size)
+
+    image_np = np.array(canvas)
+    clip = ImageClip(image_np, duration=duration)
+    clip = clip.fadein(fade_in).fadeout(fade_in)
+
+    # Create a silent audio clip and set it as the audio of the video clip
+    silent_audio = AudioClip(lambda t: [0, 0], duration=duration, fps=44100)
+    clip = clip.set_audio(silent_audio)
+
+    output_file = tempfile.NamedTemporaryFile(suffix=".mp4", delete=False)
+    clip.write_videofile(output_file.name, fps=30, codec='libx264', audio_codec='aac')
+
+    return output_file.name

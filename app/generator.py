@@ -3,6 +3,11 @@ import uuid
 import requests
 from fastapi import BackgroundTasks
 
+from .models import (
+    MonologueRequest,
+    DialogueRequest, DialogueResult, StoryRequest,
+    TaskRequest, TaskUpdate, TaskResult, LittleMartianRequest
+)
 from .animations import (
     animated_monologue, 
     animated_dialogue, 
@@ -10,9 +15,6 @@ from .animations import (
     illustrated_comic,
     little_martian_poster
 )
-from .models import MonologueRequest
-from .models import DialogueRequest, DialogueResult, StoryRequest
-from .models import TaskRequest, TaskUpdate, TaskResult, LittleMartianRequest
 
 NARRATOR_CHARACTER_ID = os.getenv("NARRATOR_CHARACTER_ID")
 
@@ -22,45 +24,76 @@ def process_task(task_id: str, request: TaskRequest):
 
     task_type = request.generatorName
     webhook_url = request.webhookUrl
+
+    def send_progress_update(progress: float):
+        if webhook_url:
+            update = TaskUpdate(
+                id=task_id,
+                output=TaskResult(progress=progress),
+                status="processing",
+                error=None,
+            )
+            requests.post(webhook_url, json=update.dict())
     
-    update = TaskUpdate(
-        id=task_id,
-        output=TaskResult(progress=0),
-        status="processing",
-        error=None,
-    )
 
     if webhook_url:
+        update = TaskUpdate(
+            id=task_id,
+            output=TaskResult(progress=0),
+            status="processing",
+            error=None,
+        )
         requests.post(webhook_url, json=update.dict())
 
     try:
         if task_type == "monologue":
             character_id = request.config.get("characterId")
             prompt = request.config.get("prompt")
+            gfpgan = request.config.get("gfpgan")
+            dual_view = request.config.get("dual_view")
             task_req = MonologueRequest(
                 character_id=character_id,
                 prompt=prompt,
+                gfpgan=gfpgan,
+                dual_view=dual_view,
             )
-            output_url, thumbnail_url = animated_monologue(task_req)
+            output_url, thumbnail_url = animated_monologue(
+                task_req,
+                callback=send_progress_update
+            )
 
         elif task_type == "dialogue":
             character_ids = request.config.get("characterIds")
             prompt = request.config.get("prompt")
+            gfpgan = request.config.get("gfpgan")
+            dual_view = request.config.get("dual_view")
+            intro_screen = request.config.get("intro_screen")
             task_req = DialogueRequest(
                 character_ids=character_ids,
                 prompt=prompt,
+                gfpgan=gfpgan,
+                dual_view=dual_view,
+                intro_screen=intro_screen
             )
-            output_url, thumbnail_url = animated_dialogue(task_req)
+            output_url, thumbnail_url = animated_dialogue(
+                task_req,
+                callback=send_progress_update
+            )
 
         elif task_type == "story":
             character_ids = request.config.get("characterIds")
-            prompt = request.config.get("prompt")
+            prompt = request.config.intro_screenget("prompt")
+            intro_screen = request.config.get("intro_screen")
             task_req = StoryRequest(
                 character_ids=character_ids,
                 prompt=prompt,
                 narrator_id=NARRATOR_CHARACTER_ID,
+                intro_screen=intro_screen,
             )
-            output_url, thumbnail_url = animated_story(task_req)
+            output_url, thumbnail_url = animated_story(
+                task_req,
+                callback=send_progress_update
+            )
 
         elif task_type == "comic":
             character_id = request.config.get("characterId")
@@ -69,7 +102,10 @@ def process_task(task_id: str, request: TaskRequest):
                 character_id=character_id,
                 prompt=prompt,
             )
-            output_url, thumbnail_url = illustrated_comic(task_req)
+            output_url, thumbnail_url = illustrated_comic(
+                task_req,
+                callback=send_progress_update
+            )
 
         elif task_type == "littlemartians":
             martian = request.config.get("martian")
@@ -84,7 +120,10 @@ def process_task(task_id: str, request: TaskRequest):
                 genre=genre,
                 aspect_ratio=aspect_ratio,
             )
-            output_url, thumbnail_url = little_martian_poster(task_req)
+            output_url, thumbnail_url = little_martian_poster(
+                task_req,
+                callback=send_progress_update
+            )
 
         output = TaskResult(
             files=[output_url],
@@ -109,21 +148,19 @@ def process_task(task_id: str, request: TaskRequest):
         status = "failed"
         error = str(e)
 
-    update = TaskUpdate(
-        id=task_id,
-        output=output,
-        status=status,
-        error=error,
-    )
-    print("update", update.dict())
-
     if webhook_url:
+        update = TaskUpdate(
+            id=task_id,
+            output=output,
+            status=status,
+            error=error,
+        )
+        print("update", update.dict())
         requests.post(webhook_url, json=update.dict())
 
 
 async def generate_task(background_tasks: BackgroundTasks, request: TaskRequest):
     task_id = str(uuid.uuid4())
-    print("MAKE A TASK!!")
     if request.generatorName in ["monologue", "dialogue", "story", "littlemartians"]:
         background_tasks.add_task(process_task, task_id, request)
     return {"id": task_id}

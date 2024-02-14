@@ -1,3 +1,4 @@
+import time
 import os
 from pydantic import BaseModel, SecretStr, HttpUrl, Field
 from uuid import uuid4, UUID
@@ -209,41 +210,60 @@ class ChatSession(BaseModel):
         input_schema: Any = None,
         output_schema: Any = None,
     ):
-        api_url, headers, data, user_message = self.prepare_request(
-            model, prompt, system, params, False, input_schema, output_schema
-        )
-        print("______________")
-        print(data)
-        print("______________")
-        r = client.post(
-            api_url,
-            json=data,
-            headers=headers,
-            timeout=None,
-        )
-        r = r.json()
+        #zmodel = "gpt-3.5-turbo" 
+
+        finished = False
+        tries = 0
+        max_tries = 5
+
+        while not finished:
+            api_url, headers, data, user_message = self.prepare_request(
+                model, prompt, system, params, False, input_schema, output_schema
+            )
+
+            resp = client.post(
+                api_url,
+                json=data,
+                headers=headers,
+                timeout=None,
+            )
+            resp = resp.json()
+
+            if resp.get("error"):
+                error = resp.get("error").get('code', '')  
+                if error == 'context_length_exceeded':
+                    print(resp.get("error"))
+                    self.messages = self.messages[2:]
+                elif error == 'rate_limit_exceeded':
+                    time.sleep(5 * (2 ** tries))  # exp backoff
+            else:
+                finished = True
+
+            tries += 1
+            if tries >= max_tries:
+                finished = True
 
         try:
             if not output_schema:
-                content = r["choices"][0]["message"]["content"]
+                content = resp["choices"][0]["message"]["content"]
                 assistant_message = ChatMessage(
-                    role=r["choices"][0]["message"]["role"],
+                    role=resp["choices"][0]["message"]["role"],
                     content=content,
-                    # finish_reason=r["choices"][0]["finish_reason"],
-                    # prompt_length=r["usage"]["prompt_tokens"],
-                    # completion_length=r["usage"]["completion_tokens"],
-                    # total_length=r["usage"]["total_tokens"],
+                    # finish_reason=resp["choices"][0]["finish_reason"],
+                    # prompt_length=resp["usage"]["prompt_tokens"],
+                    # completion_length=resp["usage"]["completion_tokens"],
+                    # total_length=resp["usage"]["total_tokens"],
                 )
                 self.add_messages(user_message, assistant_message, save_messages)
             else:
-                content = r["choices"][0]["message"]["function_call"]["arguments"]
+                content = resp["choices"][0]["message"]["function_call"]["arguments"]
                 content = orjson.loads(content)
 
-            # self.total_prompt_length += r["usage"]["prompt_tokens"]
-            # self.total_completion_length += r["usage"]["completion_tokens"]
-            # self.total_length += r["usage"]["total_tokens"]
+            # self.total_prompt_length += resp["usage"]["prompt_tokens"]
+            # self.total_completion_length += resp["usage"]["completion_tokens"]
+            # self.total_length += resp["usage"]["total_tokens"]
         except KeyError:
-            raise KeyError(f"No AI generation: {r}")
+            raise KeyError(f"No AI generation: {resp}")
         
         return content
 

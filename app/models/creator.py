@@ -16,12 +16,15 @@ class Thought(BaseModel):
 class GeneratorMode(Enum):
     create = "create"
     controlnet = "controlnet"
-    interpolate = "interpolate"
-    real2real = "real2real"
     remix = "remix"
     blend = "blend"
     upscale = "upscale"
-
+    interpolate = "interpolate"
+    real2real = "real2real"
+    txt2vid = "txt2vid"
+    img2vid = "img2vid"
+    vid2vid = "vid2vid"
+    
 
 class Config(BaseModel):
     """
@@ -32,7 +35,10 @@ class Config(BaseModel):
     text_input: Optional[str] = Field(description="Text prompt that describes image")
     seed: Optional[int] = Field(description="Seed for random number generator")
     init_image: Optional[str] = Field(
-        description="Path to image file for create, remix, or upscale"
+        description="Path to image file for create, remix, upscale, controlnet, img2vid, or vid2vid"
+    )
+    init_video: Optional[str] = Field(
+        description="Path to video file for vid2vid"
     )
     init_image_strength: Optional[float] = Field(
         description="Strength of init image, default 0.15"
