@@ -13,7 +13,6 @@ def get_character(character_id: str):
 
 def think(request: ChatRequest) -> bool:
     character = get_character(request.character_id)
-    character.sync()
     message = {
         "message": request.message,
         "attachments": request.attachments,

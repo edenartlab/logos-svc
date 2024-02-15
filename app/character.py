@@ -554,7 +554,10 @@ class EdenCharacter(Character):
         self.sync()
 
     def sync(self):
-        print("syncing character: ", self.character_id)
+        """
+        Sync the character data from the database
+        """
+        
         character_data = get_character_data(self.character_id)
         logos_data = character_data.get("logosData")
         name = character_data.get("name")
@@ -583,3 +586,7 @@ class EdenCharacter(Character):
             image=image,
             voice=voice,
         )
+
+    def __call__(self, message, session_id=None):
+        self.sync()
+        super().__call__(message, session_id)
