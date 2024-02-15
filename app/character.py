@@ -532,7 +532,7 @@ class EdenCharacter(Character):
         concept = logos_data.get("concept")
         abilities = logos_data.get("abilities")
         creation_enabled = abilities.get("creations", True) if abilities else True
-        story_creation_enabled = abilities.get("story_creations", True) if abilities else True
+        story_creation_enabled = abilities.get("story_creations", False) if abilities else False
         smart_reply = abilities.get("smart_reply", False) if abilities else False
         chat_model = logos_data.get("chatModel", "gpt-4-1106-preview")
         image = character_data.get("image")
