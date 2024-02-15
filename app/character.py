@@ -589,4 +589,4 @@ class EdenCharacter(Character):
 
     def __call__(self, message, session_id=None):
         self.sync()
-        super().__call__(message, session_id)
+        return super().__call__(message, session_id)
