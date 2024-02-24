@@ -3,7 +3,7 @@ from PIL import Image, ImageDraw
 
 from ..plugins import replicate, elevenlabs, s3
 from ..character import Character
-from ..utils import combine_speech_video, wrap_text, get_font, create_dynamic_model
+from ..utils import combine_audio_video, wrap_text, get_font, create_dynamic_model
 from ..scenarios.tasks import general_assistant
 from ..models.tasks import SimpleAssistantRequest
 from ..plugins import elevenlabs
@@ -87,7 +87,7 @@ def screenplay_clip(
         width=width,
         height=height,
     )
-    output_filename = combine_speech_video(audio_url, video_url)
+    output_filename = combine_audio_video(audio_url, video_url)
     return output_filename, thumbnail_url
 
 

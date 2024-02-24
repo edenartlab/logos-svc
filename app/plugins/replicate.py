@@ -120,3 +120,25 @@ def txt2vid(
     thumbnail_url = output[0]["thumbnails"][0]
     
     return output_url, thumbnail_url
+
+
+def audiocraft(
+    prompt: str,
+    seconds: int,
+):
+    config = {
+        "model_name": "facebook/musicgen-large",
+        "text_input": prompt,
+        "duration_seconds": seconds,
+    }
+
+    output = run_task(
+        config, 
+        model_name="abraham-ai/audiocraft"
+    )
+    
+    output = list(output)
+    output_url = output[0]["files"][0]
+    thumbnail_url = output[0]["thumbnails"][0]
+    
+    return output_url, thumbnail_url

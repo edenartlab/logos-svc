@@ -5,18 +5,21 @@ from fastapi import BackgroundTasks
 
 from .models import (
     MonologueRequest,
-    DialogueRequest, DialogueResult, StoryRequest,
+    DialogueRequest, DialogueResult, StoryRequest, ReelRequest,
     TaskRequest, TaskUpdate, TaskResult, LittleMartianRequest
 )
 from .animations import (
     animated_monologue, 
     animated_dialogue, 
-    animated_story, 
+    animated_story,
+    animated_reel, 
     illustrated_comic,
     little_martian_poster
 )
 
 NARRATOR_CHARACTER_ID = os.getenv("NARRATOR_CHARACTER_ID")
+
+logosGenerators = ["monologue", "dialogue", "story", "reel", "comic", "littlemartians"]
 
 
 def process_task(task_id: str, request: TaskRequest):
@@ -95,6 +98,21 @@ def process_task(task_id: str, request: TaskRequest):
                 callback=send_progress_update
             )
 
+        elif task_type == "reel":
+            character_ids = request.config.get("characterIds")
+            prompt = request.config.get("prompt")
+            intro_screen = request.config.get("intro_screen")
+            task_req = ReelRequest(
+                character_ids=character_ids,
+                prompt=prompt,
+                narrator_id=NARRATOR_CHARACTER_ID,
+                intro_screen=intro_screen,
+            )
+            output_url, thumbnail_url = animated_reel(
+                task_req,
+                callback=send_progress_update
+            )
+
         elif task_type == "comic":
             character_id = request.config.get("characterId")
             prompt = request.config.get("prompt")
@@ -162,6 +180,6 @@ def process_task(task_id: str, request: TaskRequest):
 
 async def generate_task(background_tasks: BackgroundTasks, request: TaskRequest):
     task_id = str(uuid.uuid4())
-    if request.generatorName in ["monologue", "dialogue", "story", "littlemartians"]:
+    if request.generatorName in logosGenerators:
         background_tasks.add_task(process_task, task_id, request)
     return {"id": task_id}

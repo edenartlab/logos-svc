@@ -1,5 +1,7 @@
+import io
 import os
 import random
+import wave
 from elevenlabs import generate, set_api_key
 from ..utils import exponential_backoff
 

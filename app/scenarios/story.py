@@ -4,8 +4,12 @@ from pydantic import BaseModel, Field
 
 from ..mongo import get_character_data
 from ..llm import LLM
-from ..models import StoryRequest, StoryClip, StoryResult
 from ..character import EdenCharacter
+from ..models import (
+    StoryRequest, 
+    StoryClip, 
+    StoryResult
+)
 from ..prompt_templates.cinema import (
     screenwriter_system_template,
     screenwriter_prompt_template,
@@ -24,22 +28,6 @@ def story(request: StoryRequest):
         character_names.append(character.name)
         character_details += character.card()
     
-    # CharacterName = Enum("CharacterName", {
-    #     name: name for name in character_names
-    # })
-        
-    # class DynamicStoryClip(StoryClip):
-    #     """
-    #     A single clip in a screenplay sequence
-    #     """
-    #     character: Optional[CharacterName] = Field(description="Character name if voiceover mode is character, otherwise null (possible values: {})".format(", ".join(character_names)))
-
-    # class DynamicStoryResult(BaseModel):
-    #     """
-    #     A screenplay consisting of a sequence of clips
-    #     """
-    #     clips: List[DynamicStoryClip] = Field(description="Clips in the sequence")
-
     prompt = screenwriter_prompt_template.substitute(
         character_details=character_details,
         character_names=", ".join(character_names),

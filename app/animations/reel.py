@@ -17,10 +17,6 @@ MAX_WORKERS = 3
 
 def animated_reel(request: ReelRequest, callback=None):
     result = reel(request)
-    #result = {'voiceover': 'lucy', 'character': 'lucy', 'speech': 'Today, I felt... free... for the first time. As though a bird on a clear day, in front of a clear sky. How beautiful it all is.', 'music_description': 'Upbeat and energetic jazzy show tunes with brassy horns and a lively rhythm section.', 'image_description': 'A girl in a sparkly flapper dress dances with vibrant and animated Charleston steps on a stage with a vintage microphone and a spotlight.'}
-    print(result)
-    
-    # result = {'voiceover': 'none', 'character': None, 'speech': None, 'music_description': 'Upbeat and energetic jazzy show tunes with brassy horns and a lively rhythm section.', 'image_description': 'A girl in a sparkly flapper dress dances with vibrant and animated Charleston steps on a stage with a vintage microphone and a spotlight.'}
 
     if callback:
         callback(progress=0.1)
@@ -105,16 +101,9 @@ def animated_reel(request: ReelRequest, callback=None):
         height=height,
     )
 
-    #video_url = "https://replicate.delivery/pbxt/II0gldIYqnZUCNPePeR8kILN6shW5UC03Vbq0BAQZW8s3BaSA/AnimateDiff_00002.mp4"
-    #thumbnail_url = "https://replicate.delivery/pbxt/blhtASK84272CBjeQpIA8nUdPVMoy3yNJi6wQGi04eQs3BaSA/tmpotch74z9.jpg"
+    print("results", video_url, thumbnail_url, audio_url)
 
-    # video_url, thumbnail_url, audio_url = "https://replicate.delivery/pbxt/sIL9XYuTDf1eHk4cuoSOZHeItykhvtTHFCPh4vYRngiTKF0kA/AnimateDiff_00001.mp4", "https://replicate.delivery/pbxt/NLN2dNj7Q26AF9sysHtjS95XIr6bTXO1E0KyDieury7kSBNJA/tmpc8cdkgjq.jpg", "https://edenartlab-dev.s3.amazonaws.com/b17586e49846e60b82b4274b6efcafa048ecdb9f02af7a45b4f6120c49c80fa4.mp3"
-
-    print("REP", video_url, thumbnail_url, audio_url)
     output_filename = utils.combine_audio_video(audio_url, video_url)
-
-
-
 
     if callback:
         callback(progress=0.9)
@@ -143,7 +132,7 @@ def animated_reel(request: ReelRequest, callback=None):
                 video_bytes = f.read()
             output_url = s3.upload(video_bytes, "mp4")
 
-        # clean up clips
+        # clean up
         for video_file in video_files:
             os.remove(video_file)
 

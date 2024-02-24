@@ -490,7 +490,6 @@ class Character:
                     system=self.chat_prompt,
                     params=self.chat_params,
                 )
-
         function = None
         if self.router_prompt:
             index = self._route_(message, session_id=session_id)
@@ -498,18 +497,15 @@ class Character:
         
         if not function:
             function = self.function_map.get("1")
-
         output, user_message, assistant_message = function(
             message, session_id=session_id
         )
-
         self.router.add_messages(user_message, assistant_message, id=session_id)
         self.creator.add_messages(user_message, assistant_message, id=session_id)
         self.story_editor.add_messages(user_message, assistant_message, id=session_id)
         self.story_context.add_messages(user_message, assistant_message, id=session_id)
         self.qa.add_messages(user_message, assistant_message, id=session_id)
         self.chat.add_messages(user_message, assistant_message, id=session_id)
-
         return output
 
 
@@ -523,6 +519,10 @@ class EdenCharacter(Character):
         self.sync()
 
     def sync(self):
+        """
+        Sync the character data from the database
+        """
+
         character_data = get_character_data(self.character_id)
         logos_data = character_data.get("logosData")
         name = character_data.get("name")
@@ -531,7 +531,7 @@ class EdenCharacter(Character):
         knowledge = logos_data.get("knowledge")
         concept = logos_data.get("concept")
         abilities = logos_data.get("abilities")
-        creation_enabled = abilities.get("creations", True) if abilities else True
+        creation_enabled = abilities.get("creations", False) if abilities else False
         story_creation_enabled = abilities.get("story_creations", False) if abilities else False
         smart_reply = abilities.get("smart_reply", False) if abilities else False
         chat_model = logos_data.get("chatModel", "gpt-4-1106-preview")
@@ -551,3 +551,7 @@ class EdenCharacter(Character):
             image=image,
             voice=voice,
         )
+
+    def __call__(self, message, session_id=None):
+        self.sync()
+        return super().__call__(message, session_id)

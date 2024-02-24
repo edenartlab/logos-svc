@@ -186,7 +186,7 @@ def concatenate_videos(video_files, output_file):
         os.remove(video)
 
 
-def combine_speech_video(audio_url: str, video_url: str):
+def combine_audio_video(audio_url: str, video_url: str):
     audio_file = tempfile.NamedTemporaryFile(suffix=".mp3", delete=True)
     video_file = tempfile.NamedTemporaryFile(suffix=".mp4", delete=True)
     output_file = tempfile.NamedTemporaryFile(suffix=".mp4", delete=False)
