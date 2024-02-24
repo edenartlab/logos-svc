@@ -119,7 +119,7 @@ def animated_dialogue(request: DialogueRequest, callback=None):
         os.remove(video_file)
 
     # generate thumbnail
-    thumbnail = utils.create_dialogue_thumbnail(*images, width, height)
+    thumbnail = utils.create_dialogue_thumbnail(*images, 2*width, height)
     thumbnail_url = s3.upload(thumbnail, "webp")
 
     if callback:
