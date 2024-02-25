@@ -10,12 +10,12 @@ def test_monologue_animation():
     """
     request = {
         "character_id": "6596129023f1c4b471dbb94a", 
-        "prompt": "Tell me a story about pizza"
+        "prompt": "Tell me a story about pizza",
+        "gfpgan": False,
+        "intro_screen": True
     }
-
     response = client.post("/animation/monologue", json=request)
     print(response.json())
-
     assert response.status_code == 200
 
 
@@ -25,49 +25,41 @@ def test_dialogue_animation():
     """
     request = {
         "character_ids": ["6596129023f1c4b471dbb94a", "6598e117dd06d165264f2277"],
-        "prompt": "Debate panspermia vs. abiogenesis"
+        "prompt": "Debate panspermia vs. abiogenesis",
+        # "gfpgan": True,
+        "intro_screen": True,
+        "dual_view": True
     }
-
     response = client.post("/animation/dialogue", json=request)
     print(response.json())
-
     assert response.status_code == 200
 
 
-def test_story_animation():
+def test_story():
     """
-    Test story generation
+    Test story prompt without characters
     """
     request = {
-        "character_ids": ["6596129023f1c4b471dbb94a", "6598e117dd06d165264f2277", "6598e103dd06d165264f2247", "6598ee16dd06d16526503ce7"],
-        "prompt": "Debate panspermia vs. abiogenesis"
+        "character_ids": [],
+        "prompt": "A family of Dragons lives in a mystical layer underneath a volcano. The dragons are beautiful, ornately decorated, fire-breathing, creatures. They are brave and wise. The story should just be about them journeying to a bunch of beautiful far away places in nature, and then coming back to their volcano lair. Make sure the image prompts are very short. No more than 5 words.",
+        "intro_screen": True
     }
-
-    response = client.post("/animation/dialogue", json=request)
+    
+    response = client.post("/animation/story", json=request)
     print(response.json())
-
     assert response.status_code == 200
 
 
-# # def test_comic_illustration():
-# #     """
-# #     Test comic on static character and prompt
-# #     """
-
-# #     prompt = """
-# #     - Little Martians: Verdelis
-# #     - Setting: Simulation
-# #     - Genre: Drama
-# #     - Premise: Verdelis goes to outer space cosmos
-# #     - Number of panels: 3
-# #     """
-
-# #     request = {
-# #         "character_id": "658b44b36104b05b266ca3c6", 
-# #         "prompt": prompt
-# #     }
-
-# #     response = client.post("/animation/comic", json=request)
-# #     print(response.json())
-
-# #     assert response.status_code == 200
+def test_reel():
+    """
+    Test music reels
+    """
+    request = {
+        "character_ids": [],
+        "prompt": "A woman dancing to some jazzy show tunes",
+        "intro_screen": False
+    }
+    
+    response = client.post("/animation/reel", json=request)
+    print(response.json())
+    assert response.status_code == 200
