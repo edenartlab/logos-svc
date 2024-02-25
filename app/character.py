@@ -522,7 +522,7 @@ class EdenCharacter(Character):
         """
         Sync the character data from the database
         """
-
+        
         character_data = get_character_data(self.character_id)
         logos_data = character_data.get("logosData")
         name = character_data.get("name")
