@@ -3,7 +3,7 @@ from PIL import Image, ImageDraw
 
 from ..plugins import replicate, elevenlabs, s3
 from ..character import Character
-from ..utils import combine_speech_video, wrap_text, get_font, create_dynamic_model
+from ..utils import combine_audio_video, wrap_text, get_font, create_dynamic_model
 from ..scenarios.tasks import general_assistant
 from ..models.tasks import SimpleAssistantRequest
 from ..plugins import elevenlabs
@@ -37,7 +37,9 @@ def talking_head(
     character: Character,
     text: str, 
     width: Optional[int] = None,
-    height: Optional[int] = None
+    height: Optional[int] = None,
+    gfpgan: bool = False,
+    gfpgan_upscale: int = 1
 ) -> str:
     if character.voice:
         voice_id = character.voice
@@ -53,8 +55,8 @@ def talking_head(
     output_url, thumbnail_url = replicate.wav2lip(
         face_url=character.image,
         speech_url=audio_url,
-        gfpgan=False,
-        gfpgan_upscale=1,
+        gfpgan=gfpgan,
+        gfpgan_upscale=gfpgan_upscale,
         width=width,
         height=height,
     )
@@ -85,7 +87,7 @@ def screenplay_clip(
         width=width,
         height=height,
     )
-    output_filename = combine_speech_video(audio_url, video_url)
+    output_filename = combine_audio_video(audio_url, video_url)
     return output_filename, thumbnail_url
 
 

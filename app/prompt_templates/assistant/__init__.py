@@ -33,3 +33,10 @@ with open(dir_path / 'story_context_system.txt', 'r') as file:
 
 with open(dir_path / 'story_context_prompt.txt', 'r') as file:
     story_context_prompt_template = Template(file.read())
+
+
+with open(dir_path / 'livecoder_system.txt', 'r') as file:
+    livecoder_system = Template(file.read())
+
+with open(dir_path / 'livecoder_prompt.txt', 'r') as file:
+    livecoder_prompt_template = Template(file.read())

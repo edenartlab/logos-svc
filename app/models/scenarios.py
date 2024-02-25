@@ -13,6 +13,8 @@ class MonologueRequest(BaseModel):
     prompt: str
     model: str = "gpt-4-1106-preview"
     params: dict = {}
+    gfpgan: bool = False
+    intro_screen: bool = False
 
 
 class MonologueResult(BaseModel):
@@ -24,6 +26,9 @@ class DialogueRequest(BaseModel):
     prompt: str
     model: str = "gpt-4-1106-preview"
     params: dict = {}
+    gfpgan: bool = False
+    intro_screen: bool = False
+    dual_view: bool = False
 
 
 class DialogueResult(BaseModel):
@@ -37,6 +42,7 @@ class StoryRequest(BaseModel):
     num_clips: int = 5
     model: str = "gpt-4-1106-preview"
     params: dict = {}
+    intro_screen: bool = False
 
 
 class StoryVoiceoverMode(Enum):
@@ -63,6 +69,35 @@ class StoryResult(BaseModel):
     A screenplay consisting of a sequence of clips
     """
     clips: List[StoryClip] = Field(description="Clips in the sequence")
+
+
+class ReelRequest(BaseModel):
+    character_ids: List[str]
+    prompt: str
+    narrator_id: str = NARRATOR_CHARACTER_ID
+    model: str = "gpt-4-1106-preview"
+    params: dict = {}
+    intro_screen: bool = False
+
+
+class ReelVoiceoverMode(Enum):
+    character = "character"
+    narrator = "narrator"
+    none = "none"
+
+
+class ReelResult(BaseModel):
+    """
+    A screenplay consisting of a sequence of clips
+    """
+    voiceover: ReelVoiceoverMode = Field(description="Voiceover mode for reel")
+    character: Optional[str] = Field(
+        description="Character name if voiceover mode is character, otherwise null"
+    )
+    speech: Optional[str] = Field(description="Spoken text for clip if voiceover mode is not none, otherwise null")
+    music_description: str = Field(description="Music content for reel")
+    image_description: str = Field(description="Image content for clip")
+
 
 
 class ComicRequest(BaseModel):

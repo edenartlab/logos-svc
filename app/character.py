@@ -42,19 +42,6 @@ Name: {name}
 Description: {identity}
 """
 
-# class Module:
-#     def __init__(self, params):
-#         self.params = params
-#         self.llm = LLM(params=self.params)
-
-#     def update(self, system_message):
-#         self.llm.update(system_message=system_message)
-
-#     def __call__(self, *args, **kwargs):
-#         for function in self.chain:
-#             function(*args, **kwargs)
-
-
 
 class Character:
     def __init__(
@@ -256,7 +243,8 @@ class Character:
         for msg in conversation:
             role = "Eden" if msg.role == "assistant" else "Me"
             router_prompt += f"{role}: {msg.content}\n"
-        router_prompt += f"Me: {message.message}\n"
+        router_prompt += f"Me: {message.message}"
+        router_prompt = router_prompt[-5000:] # limit to 5000 characters
         index = self.router(
             prompt=router_prompt, 
             save_messages=False,
@@ -396,9 +384,6 @@ class Character:
         for name, character in characters.items():
             additional_context += f"\n---\n{name}: {character.identity}\n"
 
-        print("ADDITIONAL CONTEXT")
-        print(additional_context)
-
         draft = self.story_context.memory(
             "draft",
             session_id=session_id,
@@ -409,9 +394,6 @@ class Character:
             additional_context=additional_context,
             message=message.message,
         )
-
-        print("THE STORY EDITOR PROMPT")
-        print(story_editor_prompt)
 
         class StoryEditorOutput(BaseModel):
             """
@@ -429,9 +411,6 @@ class Character:
             model="gpt-4-1106-preview",
             #model="gpt-3.5-turbo",
         )
-
-        print("THE STORY EDITOR RESPONSE")
-        print(response)
 
         draft = self.story_context.memory(
             "draft",
@@ -453,15 +432,9 @@ class Character:
                 "num_clips": 10,
             }
 
-            print("THE CONFIG")
-            print(config)
-
         else:
             message_out += "\n\nHere is the current working draft:\n\n"+draft
             config = None
-
-        print("THE MESSAGE OUT")
-        print(message_out)
 
         message_in = message.message
         if message.attachments:
@@ -474,9 +447,6 @@ class Character:
             "message": message_out, 
             "config": config
         }
-
-        print("OUTPUT")
-        print(output)
 
         return output, user_message, assistant_message
 
@@ -520,27 +490,22 @@ class Character:
                     system=self.chat_prompt,
                     params=self.chat_params,
                 )
-
         function = None
         if self.router_prompt:
             index = self._route_(message, session_id=session_id)
             function = self.function_map.get(index)
-            print("chat: ", function)
         
         if not function:
             function = self.function_map.get("1")
-
         output, user_message, assistant_message = function(
             message, session_id=session_id
         )
-
         self.router.add_messages(user_message, assistant_message, id=session_id)
         self.creator.add_messages(user_message, assistant_message, id=session_id)
         self.story_editor.add_messages(user_message, assistant_message, id=session_id)
         self.story_context.add_messages(user_message, assistant_message, id=session_id)
         self.qa.add_messages(user_message, assistant_message, id=session_id)
         self.chat.add_messages(user_message, assistant_message, id=session_id)
-
         return output
 
 
@@ -566,7 +531,7 @@ class EdenCharacter(Character):
         knowledge = logos_data.get("knowledge")
         concept = logos_data.get("concept")
         abilities = logos_data.get("abilities")
-        creation_enabled = abilities.get("creations", True) if abilities else True
+        creation_enabled = abilities.get("creations", False) if abilities else False
         story_creation_enabled = abilities.get("story_creations", False) if abilities else False
         smart_reply = abilities.get("smart_reply", False) if abilities else False
         chat_model = logos_data.get("chatModel", "gpt-4-1106-preview")

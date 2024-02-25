@@ -1,0 +1,5 @@
+Here is the request from the audience: ${request}
+
+Write a single compilable piece of TidalCycles code targeting orbit ${orbit}.
+
+If the request says to use a preset, pick one at random for ${orbit}. Feel free to swap samples/instruments.

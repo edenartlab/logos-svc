@@ -14,7 +14,7 @@ class TaskResult(BaseModel):
     thumbnails: List[str] = []
     name: str = ""
     attributes: dict = {}
-    progress: int = 0
+    progress: float = 0
     isFinal: bool = False
 
 

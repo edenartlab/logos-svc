@@ -29,6 +29,8 @@ from .scenarios import (
     StoryVoiceoverMode,
     StoryClip,
     StoryResult,
+    ReelRequest,
+    ReelResult,
     ComicRequest,
     Poster,
     ComicResult,
@@ -39,6 +41,11 @@ from .characters import (
     ChatTestRequest,
     CharacterOutput,
     ChatMessage,
+)
+
+from .livecode import (
+    LiveCodeRequest,
+    LiveCodeResult,
 )
 
 from .little_martians import (

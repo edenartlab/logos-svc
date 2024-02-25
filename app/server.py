@@ -3,11 +3,19 @@ from fastapi.responses import JSONResponse
 import traceback
 import logging
 
-from .scenarios import monologue, dialogue, story, chat, tasks
+from .scenarios import (
+    monologue, 
+    dialogue, 
+    story, 
+    chat, 
+    livecode,
+    tasks
+)
 from .animations import (
     animated_monologue, 
     animated_dialogue, 
     animated_story,
+    animated_reel,
     illustrated_comic,
     little_martian_poster
 )
@@ -34,6 +42,7 @@ router.add_api_route(path="/scenarios/story", endpoint=story, methods=["POST"])
 router.add_api_route(path="/animation/monologue", endpoint=animated_monologue, methods=["POST"])
 router.add_api_route(path="/animation/dialogue", endpoint=animated_dialogue, methods=["POST"])
 router.add_api_route(path="/animation/story", endpoint=animated_story, methods=["POST"])
+router.add_api_route(path="/animation/reel", endpoint=animated_reel, methods=["POST"])
 router.add_api_route(path="/animation/comic", endpoint=illustrated_comic, methods=["POST"])
 router.add_api_route(path="/animation/little_martian", endpoint=little_martian_poster, methods=["POST"])
 
@@ -41,6 +50,9 @@ router.add_api_route(path="/animation/little_martian", endpoint=little_martian_p
 router.add_api_route(path="/chat/test", endpoint=chat.test, methods=["POST"])
 router.add_api_route(path="/chat/speak", endpoint=chat.speak, methods=["POST"])
 router.add_api_route(path="/chat/think", endpoint=chat.think, methods=["POST"])
+
+# LiveCoder
+router.add_api_route(path="/livecode/code", endpoint=livecode.code, methods=["POST"])
 
 # Generator
 router.add_api_route(path="/tasks/create", endpoint=generate_task, methods=["POST"])

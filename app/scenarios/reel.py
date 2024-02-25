@@ -6,17 +6,16 @@ from ..mongo import get_character_data
 from ..llm import LLM
 from ..character import EdenCharacter
 from ..models import (
-    StoryRequest, 
-    StoryClip, 
-    StoryResult
+    ReelRequest, 
+    ReelResult
 )
 from ..prompt_templates.cinema import (
-    screenwriter_system_template,
-    screenwriter_prompt_template,
+    reelwriter_system_template,
+    reelwriter_prompt_template,
 )
 
 
-def story(request: StoryRequest):
+def reel(request: ReelRequest):
     params = {"temperature": 1.0, "max_tokens": 4096, **request.params}
 
     character_details = ""
@@ -28,24 +27,24 @@ def story(request: StoryRequest):
         character_names.append(character.name)
         character_details += character.card()
     
-    prompt = screenwriter_prompt_template.substitute(
+    prompt = reelwriter_prompt_template.substitute(
         character_details=character_details,
         character_names=", ".join(character_names),
-        story=request.prompt,
+        prompt=request.prompt,
     )
 
-    screenwriter = LLM(
+    reelwriter = LLM(
         model=request.model,
-        system_message=screenwriter_system_template.template,
+        system_message=reelwriter_system_template.template,
         params=params,
     )
     
-    story = screenwriter(prompt, output_schema=StoryResult)
+    reel_result = reelwriter(prompt, output_schema=ReelResult)
     
-    print("===== generate a story =======")
+    print("===== generate a reel =======")
     print(prompt)
     print("-----")
-    print(story)
+    print(reel_result)
     print("-----")
 
-    return story
+    return reel_result

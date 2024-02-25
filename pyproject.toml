@@ -21,6 +21,8 @@ dependencies = [
     "replicate>=0.22.0",
     "moviepy>=1.0.3",
     "eden_sdk @ git+https://github.com/edenartlab/eden-sdk-py.git",
+    "transformers>=4.37.2",
+    "pydub>=0.25.1",
 ]
 
 readme = "README.md"
