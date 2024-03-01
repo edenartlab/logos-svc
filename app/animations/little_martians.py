@@ -24,11 +24,14 @@ def little_martian_poster(request: LittleMartianRequest):
     data = littlemartians_data[request.martian.value][request.setting.value][request.genre.value]
 
     lora = data['lora']
+    character_id = data['character_id']
     modifier = data['modifier']
     lora_scale = random_interval(*data['lora_scale'])
     init_image = random.choice(data['init_images'])
     init_image_strength = random_interval(*data['init_image_strength'])
-    
+
+    character = EdenCharacter(character_id)
+
     littlemartian_writer = LLM(
         model=request.model,
         system_message=littlemartians_poster_system.template,
@@ -37,13 +40,11 @@ def little_martian_poster(request: LittleMartianRequest):
     
     prompt = littlemartians_poster_prompt.substitute(
         martian = request.martian.value,
+        identity = character.identity,
         setting = request.setting.value,
         genre = request.genre.value,
         premise = request.prompt,
     )
-    
-    print("==============")
-    print("PROMPT:", prompt)
     
     result = littlemartian_writer(prompt, output_schema=Poster)
 
@@ -51,22 +52,12 @@ def little_martian_poster(request: LittleMartianRequest):
     
     text_input = f'{modifier}, {prompt}'
 
-    print("RESULT:", prompt)
-    print("text_input:", text_input)
-
-    # def run_panel(panel, idx):
-    #     # pick lora of character
-    #     # pick init image character x genre
-    print("========")
-
-    if request.aspect_ratio.value == "portrait":
-        w, h = 1024, 1280
-    elif request.aspect_ratio.value == "landscape":
-        w, h = 1280, 768
-    elif request.aspect_ratio.value == "square":
-        w, h = 1024, 1024
-
-
+    if request.aspect_ratio == "portrait":
+        width, height = 1280, 1920
+    elif request.aspect_ratio == "landscape":
+        width, height = 1920, 1280
+    else:
+        width, height = 1600, 1600
 
     config = {
         "text_input": text_input,
@@ -80,18 +71,11 @@ def little_martian_poster(request: LittleMartianRequest):
         "n_samples": 1,
     }
 
-
-    print("config")
-    print(config)
-    
-
     image_url, thumbnail_url = replicate.sdxl(config)
 
-    print(image_url, thumbnail_url)
-
     caption = result['caption']
-
     print(caption)
+
     image = utils.download_image(image_url)
     composite_image, thumbnail_image = poster(image, caption)
 

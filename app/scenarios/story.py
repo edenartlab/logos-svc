@@ -28,11 +28,14 @@ def story(request: StoryRequest):
         character_names.append(character.name)
         character_details += character.card()
     
+    story_prompt = request.prompt
+    if character_details:
+        character_details = f"Characters:\n{character_details}\n\nCharacter names (only use these for character field in each clip):\n{', '.join(character_names)}\n---\n\n"
+
     prompt = screenwriter_prompt_template.substitute(
         character_details=character_details,
-        character_names=", ".join(character_names),
-        story=request.prompt,
-    )
+        story=story_prompt,
+    ).strip()
 
     screenwriter = LLM(
         model=request.model,

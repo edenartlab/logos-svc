@@ -4,6 +4,7 @@
       "Action": {
         "modifier": "<concept> film still from action movie, abandoned architecture on Mars, green alien plants, ruins of archways and dome, translucent walls, organic structure, ancient futuristic, dramatic lighting, highly detailed.",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/c806b9247f2ebd80156dfe90168d150a8156d4a26786f4199f4d7600aeced628.tar",
+				"character_id": "65c2826e0335fa57d24e0aea",
         "lora_scale": [0.4, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -27,6 +28,7 @@
       "Comedy": {
         "modifier": "<concept> film still from comedy, wes anderson, abandoned architecture on Mars, green alien plants, ruins of archways and dome, translucent walls, organic structure, ancient futuristic, dramatic lighting, highly detailed.",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/c806b9247f2ebd80156dfe90168d150a8156d4a26786f4199f4d7600aeced628.tar",
+				"character_id": "65c2826e0335fa57d24e0aea",
         "lora_scale": [0.4, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -53,6 +55,7 @@
       "Drama": {
         "modifier": "<concept> film still from drama movie, abandoned architecture on Mars, green alien plants, ruins of archways and dome, translucent walls, organic structure, ancient futuristic, dramatic lighting, highly detailed.",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/c806b9247f2ebd80156dfe90168d150a8156d4a26786f4199f4d7600aeced628.tar",
+				"character_id": "65c2826e0335fa57d24e0aea",
         "lora_scale": [0.4, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -81,6 +84,7 @@
       "Horror": {
         "modifier": "<concept> film still from horror movie, abandoned architecture on Mars, green alien plants, ruins of archways and dome, translucent walls, organic structure, ancient futuristic, dramatic lighting, highly detailed.",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/c806b9247f2ebd80156dfe90168d150a8156d4a26786f4199f4d7600aeced628.tar",
+				"character_id": "65c2826e0335fa57d24e0aea",
         "lora_scale": [0.4, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -113,6 +117,7 @@
       "Mystery": {
         "modifier": "<concept> film still from mystery movie, abandoned architecture on Mars, green alien plants, ruins of archways and dome, translucent walls, organic structure, ancient futuristic, dramatic lighting, highly detailed.",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/c806b9247f2ebd80156dfe90168d150a8156d4a26786f4199f4d7600aeced628.tar",
+				"character_id": "65c2826e0335fa57d24e0aea",
         "lora_scale": [0.4, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -137,6 +142,7 @@
       "Action": {
         "modifier": "<concept> sculpture inside medieval painting, action movie film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/c806b9247f2ebd80156dfe90168d150a8156d4a26786f4199f4d7600aeced628.tar",
+				"character_id": "65c2826e0335fa57d24e0aea",
         "lora_scale": [0.4, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -157,6 +163,7 @@
       "Comedy": {
         "modifier": "<concept> sculpture in a painting by Vasarely, geometric patterns everywhere, abstract geometry",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/c806b9247f2ebd80156dfe90168d150a8156d4a26786f4199f4d7600aeced628.tar",
+				"character_id": "65c2826e0335fa57d24e0aea",
         "lora_scale": [0.4, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -183,6 +190,7 @@
       "Drama": {
         "modifier": "<concept> sculpture inside Hieronymus Bosch and Max Ernst painting, drama movie film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/c806b9247f2ebd80156dfe90168d150a8156d4a26786f4199f4d7600aeced628.tar",
+				"character_id": "65c2826e0335fa57d24e0aea",
         "lora_scale": [0.4, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -201,6 +209,7 @@
       "Horror": {
         "modifier": "<concept> sculpture inside Hieronymus Bosch painting, horror movie film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/c806b9247f2ebd80156dfe90168d150a8156d4a26786f4199f4d7600aeced628.tar",
+				"character_id": "65c2826e0335fa57d24e0aea",
         "lora_scale": [0.4, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -219,6 +228,7 @@
       "Mystery": {
         "modifier": "<concept> sculpture in painting by Pieter Bruegel the Elder, mystery movie film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/c806b9247f2ebd80156dfe90168d150a8156d4a26786f4199f4d7600aeced628.tar",
+				"character_id": "65c2826e0335fa57d24e0aea",
         "lora_scale": [0.4, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -241,6 +251,7 @@
       "Action": {
         "modifier": "<concept> film still from action movie, small sculpture, subtle colors, alien life, analog photography, extremophiles underwater",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/4e56e17098d7a0f853b688b8a4d1c7f4697b6b1413cfeca36d9c2a361403ba79.tar",
+				"character_id": "658b44b36104b05b266ca3c6",
         "lora_scale": [0.4, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -263,6 +274,7 @@
       "Comedy": {
         "modifier": "<concept> film still from comedy movie, small sculpture, subtle colors, alien life, microbiology analog photography, extremophiles underwater",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/4e56e17098d7a0f853b688b8a4d1c7f4697b6b1413cfeca36d9c2a361403ba79.tar",
+				"character_id": "658b44b36104b05b266ca3c6",
         "lora_scale": [0.4, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -281,6 +293,7 @@
       "Drama": {
         "modifier": "<concept> film still from drama movie, small sculpture, subtle colors, alien life, microbiology analog photography, extremophiles underwater",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/4e56e17098d7a0f853b688b8a4d1c7f4697b6b1413cfeca36d9c2a361403ba79.tar",
+				"character_id": "658b44b36104b05b266ca3c6",
         "lora_scale": [0.4, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -298,6 +311,7 @@
       "Horror": {
         "modifier": "<concept> film still from horror movie, Kubrick, sculpture, subtle colors, alien life, microbiology analog photography, extremophiles underwater",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/4e56e17098d7a0f853b688b8a4d1c7f4697b6b1413cfeca36d9c2a361403ba79.tar",
+				"character_id": "658b44b36104b05b266ca3c6",
         "lora_scale": [0.4, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -321,6 +335,7 @@
       "Mystery": {
         "modifier": "<concept> sculpture in mystery film still, subtle colors, ice crystals, microbiology analog macro photography, extremophiles underwater",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/4e56e17098d7a0f853b688b8a4d1c7f4697b6b1413cfeca36d9c2a361403ba79.tar",
+				"character_id": "658b44b36104b05b266ca3c6",
         "lora_scale": [0.4, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -342,6 +357,7 @@
       "Action": {
         "modifier": "<concept> sculpture in painting from Hokusai, ukiyo-e, action film still, japanese animation",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/4e56e17098d7a0f853b688b8a4d1c7f4697b6b1413cfeca36d9c2a361403ba79.tar",
+				"character_id": "658b44b36104b05b266ca3c6",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -357,6 +373,7 @@
       "Comedy": {
         "modifier": "<concept> sculpture in painting from Kawase Hasui, ukiyo-e, commedy film still, japanese animation",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/4e56e17098d7a0f853b688b8a4d1c7f4697b6b1413cfeca36d9c2a361403ba79.tar",
+				"character_id": "658b44b36104b05b266ca3c6",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.3, 0.5],
         "init_images": [
@@ -375,6 +392,7 @@
       "Drama": {
         "modifier": "<concept> sculpture in Hiroshige landscape, ukiyo-e, drama film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/4e56e17098d7a0f853b688b8a4d1c7f4697b6b1413cfeca36d9c2a361403ba79.tar",
+				"character_id": "658b44b36104b05b266ca3c6",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.1, 0.4],
         "init_images": [
@@ -392,6 +410,7 @@
       "Horror": {
         "modifier": "<concept> sculpture in Utagawa Kuniyoshi landscape, ukiyo-e, japanase animation horror film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/4e56e17098d7a0f853b688b8a4d1c7f4697b6b1413cfeca36d9c2a361403ba79.tar",
+				"character_id": "658b44b36104b05b266ca3c6",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.1, 0.4],
         "init_images": [
@@ -406,6 +425,7 @@
       "Mystery": {
         "modifier": "<concept> sculpture in song dynasty landscape painting, mystery film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/4e56e17098d7a0f853b688b8a4d1c7f4697b6b1413cfeca36d9c2a361403ba79.tar",
+				"character_id": "658b44b36104b05b266ca3c6",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.3, 0.5],
         "init_images": [
@@ -424,6 +444,7 @@
       "Action": {
         "modifier": "<concept> action film still sci-fi thriller, analog photography, film grain, smooth color, sculpture head floating in a cave",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/20792be13a74836817cab7a8fff02818861dcc015bfdff1446d2fbb941ba1b26.tar",
+				"character_id": "658b481a6104b05b266eaed6",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.1, 0.4],
         "init_images": [
@@ -439,6 +460,7 @@
       "Comedy": {
         "modifier": "<concept> comedy film still sci-fi thriller, analog photography, film grain, smooth color, sculpture head floating in a cave",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/20792be13a74836817cab7a8fff02818861dcc015bfdff1446d2fbb941ba1b26.tar",
+				"character_id": "658b481a6104b05b266eaed6",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.1, 0.4],
         "init_images": [
@@ -453,6 +475,7 @@
       "Drama": {
         "modifier": "<concept> drama film still sci-fi thriller, analog photography, film grain, smooth color, sculpture head floating in a cave",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/20792be13a74836817cab7a8fff02818861dcc015bfdff1446d2fbb941ba1b26.tar",
+				"character_id": "658b481a6104b05b266eaed6",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.1, 0.4],
         "init_images": [
@@ -467,6 +490,7 @@
       "Horror": {
         "modifier": "<concept> horror film still sci-fi thriller, analog photography, film grain, smooth color, sculpture head floating in a cave",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/20792be13a74836817cab7a8fff02818861dcc015bfdff1446d2fbb941ba1b26.tar",
+				"character_id": "658b481a6104b05b266eaed6",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.1, 0.4],
         "init_images": [
@@ -482,6 +506,7 @@
       "Mystery": {
         "modifier": "<concept> mystery film still sci-fi thriller, analog photography, film grain, smooth color, sculpture head floating in a cave, underground, cavernous, lava tube, photography, cinema noir",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/20792be13a74836817cab7a8fff02818861dcc015bfdff1446d2fbb941ba1b26.tar",
+				"character_id": "658b481a6104b05b266eaed6",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.1, 0.4],
         "init_images": [
@@ -504,6 +529,7 @@
       "Action": {
         "modifier": "<concept> sculpture made of geometric patterns in pattern filled background",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/20792be13a74836817cab7a8fff02818861dcc015bfdff1446d2fbb941ba1b26.tar",
+				"character_id": "658b481a6104b05b266eaed6",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.1, 0.4],
         "init_images": [
@@ -520,6 +546,7 @@
       "Comedy": {
         "modifier": "<concept> sculpture made of geometric patterns in pattern filled background, oil painting by Victor Vasarely",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/20792be13a74836817cab7a8fff02818861dcc015bfdff1446d2fbb941ba1b26.tar",
+				"character_id": "658b481a6104b05b266eaed6",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.1, 0.4],
         "init_images": [
@@ -547,6 +574,7 @@
       "Drama": {
         "modifier": "<concept> sculpture made of geometric patterns in pattern filled background",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/20792be13a74836817cab7a8fff02818861dcc015bfdff1446d2fbb941ba1b26.tar",
+				"character_id": "658b481a6104b05b266eaed6",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.1, 0.4],
         "init_images": [
@@ -562,6 +590,7 @@
       "Horror": {
         "modifier": "<concept> sculpture made of geometric patterns, piranesi painting, maze, stairways, oil painting, bw drawing",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/20792be13a74836817cab7a8fff02818861dcc015bfdff1446d2fbb941ba1b26.tar",
+				"character_id": "658b481a6104b05b266eaed6",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.1, 0.4],
         "init_images": [
@@ -580,6 +609,7 @@
       "Mystery": {
         "modifier": "<concept> sculpture made of geometric patterns in pattern filled background, maze, stairways, oil painting, bw line drawing",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/20792be13a74836817cab7a8fff02818861dcc015bfdff1446d2fbb941ba1b26.tar",
+				"character_id": "658b481a6104b05b266eaed6",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.1, 0.4],
         "init_images": [
@@ -607,6 +637,7 @@
       "Action": {
         "modifier": "<concept> action movie film still, sculpture head floating and alien lifeforms in venus planet atmosphere",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0119b279ef5b508d0a2e21b36ef2f6f9eaca43c3303017ef209013dfc4199abd.tar",
+				"character_id": "65c2d3380335fa57d2953302",
         "lora_scale": [0.4, 0.7],
         "init_image_strength": [0.2, 0.4],
         "init_images": [
@@ -632,6 +663,7 @@
       "Comedy": {
         "modifier": "<concept> comedy movie film still, sculpture head floating and alien lifeforms in venus planet atmosphere",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0119b279ef5b508d0a2e21b36ef2f6f9eaca43c3303017ef209013dfc4199abd.tar",
+				"character_id": "65c2d3380335fa57d2953302",
         "lora_scale": [0.4, 0.7],
         "init_image_strength": [0.2, 0.4],
         "init_images": [
@@ -653,6 +685,7 @@
       "Drama": {
         "modifier": "<concept> drama movie film still, sculpture head floating and alien lifeforms in venus planet atmosphere",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0119b279ef5b508d0a2e21b36ef2f6f9eaca43c3303017ef209013dfc4199abd.tar",
+				"character_id": "65c2d3380335fa57d2953302",
         "lora_scale": [0.4, 0.7],
         "init_image_strength": [0.2, 0.4],
         "init_images": [
@@ -673,6 +706,7 @@
       "Horror": {
         "modifier": "<concept> horror movie film still, sculpture head floating and alien lifeforms in venus planet atmosphere",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0119b279ef5b508d0a2e21b36ef2f6f9eaca43c3303017ef209013dfc4199abd.tar",
+				"character_id": "65c2d3380335fa57d2953302",
         "lora_scale": [0.4, 0.7],
         "init_image_strength": [0.2, 0.4],
         "init_images": [
@@ -692,6 +726,7 @@
       "Mystery": {
         "modifier": "<concept> mystery movie film still, sculpture head floating and alien lifeforms in venus planet atmosphere",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0119b279ef5b508d0a2e21b36ef2f6f9eaca43c3303017ef209013dfc4199abd.tar",
+				"character_id": "65c2d3380335fa57d2953302",
         "lora_scale": [0.4, 0.7],
         "init_image_strength": [0.2, 0.4],
         "init_images": [
@@ -709,6 +744,7 @@
       "Action": {
         "modifier": "<concept> sculpture in linear perspective geometric drawing",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0119b279ef5b508d0a2e21b36ef2f6f9eaca43c3303017ef209013dfc4199abd.tar",
+				"character_id": "65c2d3380335fa57d2953302",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -729,6 +765,7 @@
       "Comedy": {
         "modifier": "<concept> sculpture in linear perspective geometric drawing",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0119b279ef5b508d0a2e21b36ef2f6f9eaca43c3303017ef209013dfc4199abd.tar",
+				"character_id": "65c2d3380335fa57d2953302",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -742,6 +779,7 @@
       "Drama": {
         "modifier": "<concept> sculpture in linear perspective geometric drawing",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0119b279ef5b508d0a2e21b36ef2f6f9eaca43c3303017ef209013dfc4199abd.tar",
+				"character_id": "65c2d3380335fa57d2953302",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -755,6 +793,7 @@
       "Horror": {
         "modifier": "<concept> sculpture in linear perspective geometric drawing",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0119b279ef5b508d0a2e21b36ef2f6f9eaca43c3303017ef209013dfc4199abd.tar",
+				"character_id": "65c2d3380335fa57d2953302",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -772,6 +811,7 @@
       "Mystery": {
         "modifier": "<concept> sculpture in linear perspective geometric drawing",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/0119b279ef5b508d0a2e21b36ef2f6f9eaca43c3303017ef209013dfc4199abd.tar",
+				"character_id": "65c2d3380335fa57d2953302",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -799,6 +839,7 @@
       "Action": {
         "modifier": "<concept> sculpture head floating in the middle of volcano eruption, action film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/128d8f68f31f87c7adf7f06fc6aef287dc4ccc263e206d2b51e8a48ccfc66be8.tar",
+				"character_id": "65c2d6da0335fa57d29797f1",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.1, 0.4],
         "init_images": [
@@ -819,6 +860,7 @@
       "Comedy": {
         "modifier": "<concept> sculpture head floating in volcano eruption, mars planet surface, commedy film still, Wes Anderson",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/128d8f68f31f87c7adf7f06fc6aef287dc4ccc263e206d2b51e8a48ccfc66be8.tar",
+				"character_id": "65c2d6da0335fa57d29797f1",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.1, 0.4],
         "init_images": [
@@ -832,6 +874,7 @@
       "Drama": {
         "modifier": "<concept> sculpture head floating in volcano eruption, mars planet surface, drama sci-fi film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/128d8f68f31f87c7adf7f06fc6aef287dc4ccc263e206d2b51e8a48ccfc66be8.tar",
+				"character_id": "65c2d6da0335fa57d29797f1",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.1, 0.4],
         "init_images": [
@@ -849,6 +892,7 @@
       "Horror": {
         "modifier": "<concept> sculpture head floating in volcano eruption, mars planet surface, horror film still, Remedios Varo",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/128d8f68f31f87c7adf7f06fc6aef287dc4ccc263e206d2b51e8a48ccfc66be8.tar",
+				"character_id": "65c2d6da0335fa57d29797f1",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.1, 0.4],
         "init_images": [
@@ -862,6 +906,7 @@
       "Mystery": {
         "modifier": "<concept> sculpture head floating in volcano eruption, mars planet surface, mystery film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/128d8f68f31f87c7adf7f06fc6aef287dc4ccc263e206d2b51e8a48ccfc66be8.tar",
+				"character_id": "65c2d6da0335fa57d29797f1",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.1, 0.4],
         "init_images": [
@@ -877,6 +922,7 @@
       "Action": {
         "modifier": "<concept> sculpture in oil painting by Agnes Pelton, Remedios Varo, action movie film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/128d8f68f31f87c7adf7f06fc6aef287dc4ccc263e206d2b51e8a48ccfc66be8.tar",
+				"character_id": "65c2d6da0335fa57d29797f1",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.1, 0.4],
         "init_images": [
@@ -893,6 +939,7 @@
       "Comedy": {
         "modifier": "<concept> sculpture in oil painting by Leonor Fini, comedy movie film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/128d8f68f31f87c7adf7f06fc6aef287dc4ccc263e206d2b51e8a48ccfc66be8.tar",
+				"character_id": "65c2d6da0335fa57d29797f1",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.1, 0.4],
         "init_images": [
@@ -914,6 +961,7 @@
       "Drama": {
         "modifier": "<concept> sculpture in oil painting by Remedios Varo, drama movie film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/128d8f68f31f87c7adf7f06fc6aef287dc4ccc263e206d2b51e8a48ccfc66be8.tar",
+				"character_id": "65c2d6da0335fa57d29797f1",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.1, 0.4],
         "init_images": [
@@ -930,6 +978,7 @@
       "Horror": {
         "modifier": "<concept> sculpture in oil painting by Tarsila do Amaral, horror movie film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/128d8f68f31f87c7adf7f06fc6aef287dc4ccc263e206d2b51e8a48ccfc66be8.tar",
+				"character_id": "65c2d6da0335fa57d29797f1",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.1, 0.4],
         "init_images": [
@@ -948,6 +997,7 @@
       "Mystery": {
         "modifier": "<concept> sculpture in oil painting by Remedios Varo, mystery movie film still",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/128d8f68f31f87c7adf7f06fc6aef287dc4ccc263e206d2b51e8a48ccfc66be8.tar",
+				"character_id": "65c2d6da0335fa57d29797f1",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.1, 0.4],
         "init_images": [
@@ -968,6 +1018,7 @@
       "Action": {
         "modifier": "<concept> sculpture floating through comet asteroid, Ersnt Haeckel painting",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/a74f0d1f70314f0e470b314bb8e8c3ac3224e3de90a619eae3156b542ae3c628.tar",
+				"character_id": "65c2d6a50335fa57d2976362",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -981,6 +1032,7 @@
       "Comedy": {
         "modifier": "<concept> sculpture and alien lifeforms, comet surface, outer space, nasa",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/a74f0d1f70314f0e470b314bb8e8c3ac3224e3de90a619eae3156b542ae3c628.tar",
+				"character_id": "65c2d6a50335fa57d2976362",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -999,6 +1051,7 @@
       "Drama": {
         "modifier": "<concept> drama film still, subtle colors, ethereal, analog photography, sculpture floating through alien lifeforms, outer space, nasa",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/a74f0d1f70314f0e470b314bb8e8c3ac3224e3de90a619eae3156b542ae3c628.tar",
+				"character_id": "65c2d6a50335fa57d2976362",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -1013,6 +1066,7 @@
       "Horror": {
         "modifier": "<concept> horror movie film still, sculpture and alien lifeforms, comet surface, outer space, nasa",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/a74f0d1f70314f0e470b314bb8e8c3ac3224e3de90a619eae3156b542ae3c628.tar",
+				"character_id": "65c2d6a50335fa57d2976362",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -1027,6 +1081,7 @@
       "Mystery": {
         "modifier": "<concept> mystery film still, subtle colors, ethereal, analog photography, hitchcock, sculpture floating throughalien lifeforms, outer space, nasa",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/a74f0d1f70314f0e470b314bb8e8c3ac3224e3de90a619eae3156b542ae3c628.tar",
+				"character_id": "65c2d6a50335fa57d2976362",
         "lora_scale": [0.5, 0.7],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -1042,6 +1097,7 @@
       "Action": {
         "modifier": "<concept> action movie film still, sculpture and alien lifeforms",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/a74f0d1f70314f0e470b314bb8e8c3ac3224e3de90a619eae3156b542ae3c628.tar",
+				"character_id": "65c2d6a50335fa57d2976362",
         "lora_scale": [0.5, 0.6],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -1058,6 +1114,7 @@
       "Comedy": {
         "modifier": "<concept> comedy movie film still, sculpture and alien lifeforms",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/a74f0d1f70314f0e470b314bb8e8c3ac3224e3de90a619eae3156b542ae3c628.tar",
+				"character_id": "65c2d6a50335fa57d2976362",
         "lora_scale": [0.5, 0.6],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -1079,6 +1136,7 @@
       "Drama": {
         "modifier": "<concept> drama movie film still, sculpture and alien lifeforms",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/a74f0d1f70314f0e470b314bb8e8c3ac3224e3de90a619eae3156b542ae3c628.tar",
+				"character_id": "65c2d6a50335fa57d2976362",
         "lora_scale": [0.5, 0.6],
         "init_image_strength": [0.2, 0.5],
         "init_images": [
@@ -1098,6 +1156,7 @@
       "Horror": {
         "modifier": "<concept> horror movie film still, sculpture and alien lifeforms",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/a74f0d1f70314f0e470b314bb8e8c3ac3224e3de90a619eae3156b542ae3c628.tar",
+				"character_id": "65c2d6a50335fa57d2976362",
         "lora_scale": [0.5, 0.6],
         "init_image_strength": [0.3, 0.5],
         "init_images": [
@@ -1133,6 +1192,7 @@
       "Mystery": {
         "modifier": "<concept> mystery movie film still, sculpture and alien lifeforms",
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/a74f0d1f70314f0e470b314bb8e8c3ac3224e3de90a619eae3156b542ae3c628.tar",
+				"character_id": "65c2d6a50335fa57d2976362",
         "lora_scale": [0.5, 0.6],
         "init_image_strength": [0.3, 0.5],
         "init_images": [

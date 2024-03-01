@@ -9,10 +9,6 @@ from ..plugins import replicate, elevenlabs, s3
 from ..character import Character, EdenCharacter
 from ..scenarios import reel
 from ..models import ReelRequest
-#from .animation import reel_clip
-
-MAX_PIXELS = 1024 * 1024
-MAX_WORKERS = 3
 
 
 def animated_reel(request: ReelRequest, callback=None):
@@ -20,8 +16,6 @@ def animated_reel(request: ReelRequest, callback=None):
 
     if callback:
         callback(progress=0.1)
-
-    print(result)
 
     characters = {
         character_id: EdenCharacter(character_id)
@@ -44,8 +38,14 @@ def animated_reel(request: ReelRequest, callback=None):
             voice_id = elevenlabs.get_random_voice()
             characters[character_id].voice = voice_id
 
-    width, height = 1024, 1280
-    duration = 20
+    if request.aspect_ratio == "portrait":
+        width, height = 1280, 1920
+    elif request.aspect_ratio == "landscape":
+        width, height = 1920, 1280
+    else:
+        width, height = 1600, 1600
+        
+    min_duration = 20
     speech_audio = None
 
     if result["speech"]:
@@ -75,28 +75,36 @@ def animated_reel(request: ReelRequest, callback=None):
         silence2 = AudioSegment.silent(duration=2500)
         speech_audio = silence1 + speech_audio + silence2
 
-        duration = len(speech_audio) / 1000
+        duration = max(min_duration, len(speech_audio) / 1000)
 
     music_url, _ = replicate.audiocraft(
-        prompt=result["music_description"],
+        prompt=result["music_prompt"],
         seconds=duration
     )
     music_bytes = requests.get(music_url).content
-    print("music", music_url)
     
     if speech_audio:
         buffer = BytesIO()
         music_audio = AudioSegment.from_mp3(BytesIO(music_bytes))
         music_audio = music_audio - 5
         speech_audio = speech_audio + 5  # boost speech
+
+        # combine speech and audio at max duration
+        nm, na = len(music_audio), len(speech_audio)
+        duration = max(nm, na)
+        if len(music_audio) < duration:
+            music_audio += AudioSegment.silent(duration=duration - nm)
+        elif len(speech_audio) < duration:
+            speech_audio += AudioSegment.silent(duration=duration - na)
         combined_audio = music_audio.overlay(speech_audio)
+
         combined_audio.export(buffer, format="mp3")
         audio_url = s3.upload(buffer.getvalue(), "mp3")
     else:
         audio_url = s3.upload(music_bytes, "mp3")
 
     video_url, thumbnail_url = replicate.txt2vid(
-        interpolation_texts=[result["image_description"]],
+        interpolation_texts=[result["image_prompt"]],
         width=width,
         height=height,
     )

@@ -61,7 +61,7 @@ class StoryClip(BaseModel):
         description="Character name if voiceover mode is character, otherwise null"
     )
     speech: str = Field(description="Spoken text for clip")
-    image_description: str = Field(description="Image content for clip")
+    image_prompt: str = Field(description="Image content for clip")
 
 
 class StoryResult(BaseModel):
@@ -71,13 +71,22 @@ class StoryResult(BaseModel):
     clips: List[StoryClip] = Field(description="Clips in the sequence")
 
 
+class ReelNarrationMode(Enum):
+    auto = "auto"
+    on = "on"
+    off = "off"
+
+
 class ReelRequest(BaseModel):
     character_ids: List[str]
     prompt: str
-    narrator_id: str = NARRATOR_CHARACTER_ID
-    model: str = "gpt-4-1106-preview"
-    params: dict = {}
-    intro_screen: bool = False
+    music_prompt: Optional[str] = None
+    aspect_ratio: Optional[str] = "portrait"
+    narrator_id: Optional[str] = NARRATOR_CHARACTER_ID
+    narration: Optional[ReelNarrationMode] = "auto"
+    intro_screen: Optional[bool] = False
+    model: Optional[str] = "gpt-4-1106-preview"
+    params: Optional[dict] = {}
 
 
 class ReelVoiceoverMode(Enum):
@@ -95,8 +104,8 @@ class ReelResult(BaseModel):
         description="Character name if voiceover mode is character, otherwise null"
     )
     speech: Optional[str] = Field(description="Spoken text for clip if voiceover mode is not none, otherwise null")
-    music_description: str = Field(description="Music content for reel")
-    image_description: str = Field(description="Image content for clip")
+    music_prompt: str = Field(description="Music content for reel")
+    image_prompt: str = Field(description="Image content for clip")
 
 
 

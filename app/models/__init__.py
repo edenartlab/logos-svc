@@ -29,6 +29,7 @@ from .scenarios import (
     StoryVoiceoverMode,
     StoryClip,
     StoryResult,
+    ReelNarrationMode,
     ReelRequest,
     ReelResult,
     ComicRequest,
