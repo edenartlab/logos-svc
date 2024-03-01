@@ -7,7 +7,7 @@ You will then write a screenplay for a film based on the information provided. I
 voiceover: whether the voiceover is the narrator or a character speaking
 character: If voiceover is in character mode, the name of the speaking character. Important: you may only use the exact name of a character provided by the user in the cast of characters.
 speech: If voiceover is in character or narrator mode, the text of the speech
-image_description: a description of the image content for the clip
+image_prompt: a description of the image content for the clip
 
 Generate around 5-10 clips. Approximately half should be character dialogue and half should be narration. For clips where the voiceover is a character, some of the image prompts may emphasize non-personal objects or scenery, and some may emphasize the character.
 

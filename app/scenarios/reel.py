@@ -6,6 +6,7 @@ from ..mongo import get_character_data
 from ..llm import LLM
 from ..character import EdenCharacter
 from ..models import (
+    ReelNarrationMode,
     ReelRequest, 
     ReelResult
 )
@@ -27,11 +28,19 @@ def reel(request: ReelRequest):
         character_names.append(character.name)
         character_details += character.card()
     
+    reel_prompt = request.prompt
+    if request.narration == ReelNarrationMode.on:
+        reel_prompt += f"\n\nThe user has requested there should be a narrated voiceover."
+    elif request.narration == ReelNarrationMode.off:
+        reel_prompt += f"\n\nThe user has requested there should be **NO** narrated voiceover."
+
+    if character_details:
+        character_details = f"Characters:\n{character_details}\n\nCharacter names (only use these for character field in each clip):\n{', '.join(character_names)}\n---\n\n"
+
     prompt = reelwriter_prompt_template.substitute(
         character_details=character_details,
-        character_names=", ".join(character_names),
-        prompt=request.prompt,
-    )
+        prompt=reel_prompt,
+    ).strip()
 
     reelwriter = LLM(
         model=request.model,
@@ -41,6 +50,17 @@ def reel(request: ReelRequest):
     
     reel_result = reelwriter(prompt, output_schema=ReelResult)
     
+    if request.narration == ReelNarrationMode.on:
+        reel_result['voiceover'] = "narrator"
+        reel_result['character'] = request.narrator_id
+    elif request.narration == ReelNarrationMode.off:
+        reel_result['voiceover'] = "none"
+        reel_result['character'] = None
+        reel_result['speech'] = None
+
+    if request.music_prompt:
+        reel_result['music_prompt'] = request.music_prompt
+
     print("===== generate a reel =======")
     print(prompt)
     print("-----")

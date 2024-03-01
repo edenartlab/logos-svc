@@ -173,7 +173,8 @@ def poster(
     font = get_font(font_ttf, font_size)
     width, height = image.size
 
-    draw = ImageDraw.Draw(Image.new('RGB', (width, height)))
+    draw = ImageDraw.Draw(Image.new('RGB', (width, height), (0, 0, 0)))
+    caption = caption.replace('\n', ' ')
     wrapped_caption = wrap_text(draw, caption, font, width - 2 * margin)
     num_lines = len(wrapped_caption)
 
@@ -188,13 +189,12 @@ def poster(
     draw.rectangle([(0, 0), (total_width, total_height)], fill='black')
 
     resized_image = image.resize((width, height))
-
     composite_image.paste(resized_image, (int(margin/2), int(margin/2)))
 
-    caption_box = Image.new('RGB', (width, caption_box_height), color='black')
+    caption_box = Image.new('RGB', (total_width, caption_box_height), color='black')
     draw = ImageDraw.Draw(caption_box)
 
-    caption_y = caption_padding_top + 0*margin/2
+    caption_y = caption_padding_top
     for line in wrapped_caption:
         draw.text((margin + shadow_offset[0], caption_y + shadow_offset[1]), line, fill=shadow_color, font=font)
         draw.text((margin, caption_y), line, fill=font_color, font=font)

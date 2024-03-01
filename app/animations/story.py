@@ -56,7 +56,7 @@ def animated_story(request: StoryRequest, callback=None):
         else:
             character = characters[request.narrator_id]
         output_filename, thumbnail_url = screenplay_clip(
-            character, clip["speech"], clip["image_description"], width, height
+            character, clip["speech"], clip["image_prompt"], width, height
         )
         progress += progress_increment
         if callback:

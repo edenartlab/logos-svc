@@ -1,4 +1,9 @@
-Please produce a story about the Little Martian, $martian. 
+Please produce a story about the Little Martian, $martian.
+
+Here is some biographical information about $martian:
+---
+$identity
+---
 
 The premise or subject should somehow connect to what's been requested: $premise.
 
