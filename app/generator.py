@@ -102,9 +102,15 @@ def process_task(task_id: str, request: TaskRequest):
             character_ids = request.config.get("characterIds")
             prompt = request.config.get("prompt")
             intro_screen = request.config.get("intro_screen")
+            narration = request.config.get("narration")
+            music_prompt = request.config.get("music_prompt")
+            aspect_ratio = request.config.get("aspect_ratio")
             task_req = ReelRequest(
                 character_ids=character_ids,
                 prompt=prompt,
+                music_prompt=music_prompt,
+                aspect_ratio=aspect_ratio,
+                narration=narration,
                 narrator_id=NARRATOR_CHARACTER_ID,
                 intro_screen=intro_screen,
             )
