@@ -47,6 +47,7 @@ def animated_reel(request: ReelRequest, callback=None):
         
     min_duration = 20
     speech_audio = None
+    duration = min_duration
 
     if result["speech"]:
         if result["voiceover"] == "character":
