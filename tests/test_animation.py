@@ -56,8 +56,10 @@ def test_reel():
     """
     request = {
         "character_ids": [],
-        "prompt": "A woman dancing to some jazzy show tunes",
-        "intro_screen": False
+        "prompt": "A jazz woman dancing to some saxophone jazzy show tunes, instrumental",
+        "intro_screen": True,
+        "narration": "off",
+        #"music_prompt": "death metal heavy rock, incomprehensible, gore, screen"
     }
     
     response = client.post("/animation/reel", json=request)
