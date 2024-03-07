@@ -7,8 +7,6 @@ from .models import (
     MonologueRequest,
     DialogueRequest, DialogueResult, StoryRequest, ReelRequest,
     TaskRequest, TaskUpdate, TaskResult, LittleMartianRequest,
-
-    KojiiMakeitradRequest, KojiiChebelRequest, KojiiUntitledxyzRequest, KoijiiVioletforestRequest, KoijiiHueminRequest
 )
 from .animations import (
     animated_monologue, 
@@ -19,11 +17,11 @@ from .animations import (
     little_martian_poster
 )
 from .creation_interfaces import (
-    kojii_makeitrad,
-    kojii_chebel,
-    kojii_untitledxyz,
-    kojii_violetforest,
-    kojii_huemin
+    kojii_makeitrad, KojiiMakeitradRequest,
+    kojii_chebel, KojiiChebelRequest,
+    kojii_untitledxyz, KojiiUntitledxyzRequest,
+    kojii_violetforest, KoijiiVioletforestRequest,
+    kojii_huemin, KoijiiHueminRequest
 )
 
 NARRATOR_CHARACTER_ID = os.getenv("NARRATOR_CHARACTER_ID")
