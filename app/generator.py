@@ -20,8 +20,8 @@ from .creation_interfaces import (
     kojii_makeitrad, KojiiMakeitradRequest,
     kojii_chebel, KojiiChebelRequest,
     kojii_untitledxyz, KojiiUntitledxyzRequest,
-    kojii_violetforest, KoijiiVioletforestRequest,
-    kojii_huemin, KoijiiHueminRequest
+    kojii_violetforest, KojiiVioletforestRequest,
+    kojii_huemin, KojiiHueminRequest
 )
 
 NARRATOR_CHARACTER_ID = os.getenv("NARRATOR_CHARACTER_ID")
