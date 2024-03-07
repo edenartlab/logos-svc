@@ -31,23 +31,32 @@ class KojiiChebelRequest(BaseModel):
 def kojii_chebel(request: KojiiChebelRequest, callback=None):
     lora_scale = request.abstract
 
-    if request.color:
+    if request.color == ColorType.color:
         color_mode = "soft pastel color tones"
         negative_prompt = "saturated"
     else:
         color_mode = "black and white"
         negative_prompt = "color, colors, yellow, orange, red, pink, purple, blue, green"
-        
+    print("----")
+    print(request)
+    print(request.number)
+    print(request.number == Number.one)
+    print(request.number == Number.many)
+    print("done")
+
+
     if request.number == Number.one:
+        print("n1")
         prompt = f"in the style of <concept>, oil paint, {color_mode}, woman, dance, brush strokes"
     elif request.number == Number.many:
+        print("n2")
         prompt = f"in the style of <concept>, oil paint, {color_mode}, women, dance, brush strokes"
     
     if request.aspect_ratio == AspectRatio.portrait:
         w, h = 1024, 1536
     elif request.aspect_ratio == AspectRatio.landscape:
         w, h = 1536, 1024
-
+    print("n3")
     control_image = random.choice(
         control_images[request.number.value][request.aspect_ratio.value]
     )
