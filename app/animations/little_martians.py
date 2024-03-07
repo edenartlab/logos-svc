@@ -65,8 +65,8 @@ def little_martian_poster(request: LittleMartianRequest):
         "lora_scale": lora_scale,
         "init_image": f'https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/{init_image}',
         "init_image_strength": init_image_strength,
-        "width": w,
-        "height": h,
+        "width": width,
+        "height": height,
         "adopt_aspect_from_init_img": False,
         "n_samples": 1,
     }
@@ -79,35 +79,10 @@ def little_martian_poster(request: LittleMartianRequest):
     image = utils.download_image(image_url)
     composite_image, thumbnail_image = poster(image, caption)
 
-    print("-========-")
-    # results = utils.process_in_parallel(
-    #     comic_book['panels'], 
-    #     run_panel,
-    #     max_workers=4
-    # )
-
-    # image_urls = [image_url for image_url, thumbnail in results]
-    # images = [utils.download_image(url) for url in image_urls]
-    # captions = [panel['caption'] for panel in comic_book['panels']]
-
-    # composite_image, thumbnail_image = comic_strip(images, captions)
-    
     img_bytes = utils.PIL_to_bytes(composite_image, ext="JPEG")
     thumbnail_bytes = utils.PIL_to_bytes(thumbnail_image, ext="WEBP")
 
     output_url = s3.upload(img_bytes, "jpg")
     thumbnail_url = s3.upload(thumbnail_bytes, "webp")
-
-    # download output_url
-    # martian, setting, genre, pr = request.martian.value, request.setting.value, request.genre.value, request.prompt
-
-    # filename = f'{martian}_{setting}_{genre}_{pr}.jpg'
-
-    # with open(filename, "wb") as f:
-    #     f.write(requests.get(output_url).content)
-
-    # # save config as json file
-    # with open(f"{filename}.json", "w") as f:
-    #     f.write(str(config))
 
     return output_url, thumbnail_url
