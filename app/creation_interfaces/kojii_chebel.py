@@ -37,27 +37,17 @@ def kojii_chebel(request: KojiiChebelRequest, callback=None):
     else:
         color_mode = "black and white"
         negative_prompt = "color, colors, yellow, orange, red, pink, purple, blue, green"
-    print("----")
-    print(request)
-    print(request.number)
-    print(request.number == Number.one)
-    print(request.number == Number.many)
-    print("done")
-
-
+    
     if request.number == Number.one:
-        print("n1")
         prompt = f"in the style of <concept>, oil paint, {color_mode}, woman, dance, brush strokes"
     elif request.number == Number.many:
-        print("n2")
         prompt = f"in the style of <concept>, oil paint, {color_mode}, women, dance, brush strokes"
     
     if request.aspect_ratio == AspectRatio.portrait:
         w, h = 1024, 1536
     elif request.aspect_ratio == AspectRatio.landscape:
         w, h = 1536, 1024
-    print("n3")
-    print(prompt)
+    
     control_image = random.choice(
         control_images[request.number.value][request.aspect_ratio.value]
     )
@@ -83,16 +73,11 @@ def kojii_chebel(request: KojiiChebelRequest, callback=None):
         "steps": 42,
         "seed": random.randint(0, 1000000),
     }
-    print(config)
-
-    print("0-00")
-    print("n5")
     
     image_url, thumbnail_url = replicate.sdxl(
         config,
         model_version="abraham-ai/eden-sd-pipelines-sdxl:a541eb2e611fc66ccd0faac634a7f7c0c7684977b7b54d0eb599ff352f343884"
     )
-    print("n6")
 
     return image_url, thumbnail_url
 

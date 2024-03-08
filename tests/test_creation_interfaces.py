@@ -80,8 +80,15 @@ def test_kojii_huemin():
     """
 
     request = {
-        "prompt": "Hello World"
+        "climate": random.choice(["arid", "temperate", "tropical", "alpine", "cold", "warm", "humid", "dry", "mediterranean", "oceanic", "continental", "polar", "subtropical", "desert", "savanna", "rainforest", "tundra", "monsoon", "steppe"]),
+        "landform": random.choice(["mountains", "valleys", "plateaus", "hills", "plains", "dunes", "canyons", "cliffs", "caves", "volcanoes", "rivers", "lakes", "glaciers", "fjords", "deltas", "estuaries", "wetlands", "deserts", "craters", "atolls", "peninsula", "islands", "basins", "gorges", "waterfalls", "rift valleys"]),
+        "body_of_water": random.choice(["oceans", "seas", "rivers", "lakes", "ponds", "streams", "creeks", "estuaries", "fjords", "bays", "gulfs", "lagoons", "marshes", "swamps", "reservoirs", "waterfalls", "glacial lakes", "wetlands", "springs", "brooks"]),
+        # "structure": random.choice(["bridges", "tunnels", "dams", "skyscrapers", "castles", "temples", "churches", "mosques", "fortresses", "monuments", "statues", "towers", "silos", "industrial factories", "piers", "harbors"]),
+        # "season": random.choice(["spring", "summer", "autumn", "winter", "rainy", "sunny", "cloudy", "stormy clouds", "foggy mist", "snowy", "windy", "humid", "dry", "hot", "cold", "mild", "freezing", "thunderstorms", "hail", "sleet", "blizzard", "heatwave", "drought"]),
+        # "time_of_day": random.choice(["", "dawn", "morning", "noon", "afternoon", "dusk", "evening", "sunset"]),
+        # "color": random.choice(["monochromatic", "analogous", "complementary", "split-complementary", "triadic", "tetradic", "square", "neutral", "pastel", "warm", "cool", "vibrant", "muted", "earth tones", "jewel tones", "metallic"])
     }
+
     response = client.post("/kojii/huemin", json=request)
     print(response.json())
 
