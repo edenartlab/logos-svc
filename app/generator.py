@@ -217,7 +217,7 @@ def process_task(task_id: str, request: TaskRequest):
             )
 
         elif task_type == "kojii/huemin":
-            climate = request.config.get("color")
+            climate = request.config.get("climate")
             landform = request.config.get("landform")
             body_of_water = request.config.get("body_of_water")
             prompt = f"{climate} {landform} {body_of_water}"
