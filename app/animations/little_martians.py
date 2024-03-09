@@ -18,7 +18,7 @@ from ..prompt_templates.little_martians import (
 def random_interval(min, max):
     return random.random() * (max - min) + min
 
-def little_martian_poster(request: LittleMartianRequest):
+def little_martian_poster(request: LittleMartianRequest, callback=None):
     params = {"temperature": 1.0, "max_tokens": 2000, **request.params}
 
     data = littlemartians_data[request.martian.value][request.setting.value][request.genre.value]
