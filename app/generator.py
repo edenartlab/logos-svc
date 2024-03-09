@@ -216,6 +216,21 @@ def process_task(task_id: str, request: TaskRequest):
                 callback=send_progress_update
             )
 
+        elif task_type == "kojii/huemin":
+            climate = request.config.get("color")
+            landform = request.config.get("landform")
+            body_of_water = request.config.get("body_of_water")
+            prompt = f"{climate} {landform} {body_of_water}"
+            task_req = KojiiHueminRequest(
+                climate=climate,
+                landform=landform,
+                body_of_water=body_of_water,
+            )
+            output_url, thumbnail_url = kojii_huemin(
+                task_req,
+                callback=send_progress_update
+            )
+
 
         output = TaskResult(
             files=[output_url],
