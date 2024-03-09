@@ -9,7 +9,6 @@ from ..scenarios import story
 from ..models import StoryRequest
 from .animation import screenplay_clip
 
-MAX_PIXELS = 1024 * 1024
 MAX_WORKERS = 3
 
 

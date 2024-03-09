@@ -82,10 +82,14 @@ def wav2lip(
     return output_url, thumbnail_url
 
 
-def sdxl(config: dict[any]):
+def sdxl(
+    config: dict[any],
+    model_version: str = None,
+):
     output = run_task(
         config, 
-        model_name="abraham-ai/eden-sd-pipelines-sdxl"
+        model_name="abraham-ai/eden-sd-pipelines-sdxl",
+        model_version=model_version
     )
     
     output = list(output)

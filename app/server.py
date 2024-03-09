@@ -9,7 +9,7 @@ from .scenarios import (
     story, 
     chat, 
     livecode,
-    tasks
+    tasks,
 )
 from .animations import (
     animated_monologue, 
@@ -17,7 +17,14 @@ from .animations import (
     animated_story,
     animated_reel,
     illustrated_comic,
-    little_martian_poster
+    little_martian_poster,
+)
+from .creation_interfaces import (
+    kojii_makeitrad, 
+    kojii_chebel,
+    kojii_untitledxyz, 
+    kojii_violetforest, 
+    kojii_huemin,
 )
 from .generator import generate_task
 
@@ -44,7 +51,13 @@ router.add_api_route(path="/animation/dialogue", endpoint=animated_dialogue, met
 router.add_api_route(path="/animation/story", endpoint=animated_story, methods=["POST"])
 router.add_api_route(path="/animation/reel", endpoint=animated_reel, methods=["POST"])
 router.add_api_route(path="/animation/comic", endpoint=illustrated_comic, methods=["POST"])
-router.add_api_route(path="/animation/little_martian", endpoint=little_martian_poster, methods=["POST"])
+
+router.add_api_route(path="/kojii/makeitrad", endpoint=kojii_makeitrad, methods=["POST"])
+router.add_api_route(path="/kojii/va2rosa", endpoint=little_martian_poster, methods=["POST"])
+router.add_api_route(path="/kojii/chebel", endpoint=kojii_chebel, methods=["POST"])
+router.add_api_route(path="/kojii/untitledxyz", endpoint=kojii_untitledxyz, methods=["POST"])
+router.add_api_route(path="/kojii/violetforest", endpoint=kojii_violetforest, methods=["POST"])
+router.add_api_route(path="/kojii/huemin", endpoint=kojii_huemin, methods=["POST"])
 
 # Chat
 router.add_api_route(path="/chat/test", endpoint=chat.test, methods=["POST"])

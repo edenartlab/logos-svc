@@ -6,7 +6,7 @@ from fastapi import BackgroundTasks
 from .models import (
     MonologueRequest,
     DialogueRequest, DialogueResult, StoryRequest, ReelRequest,
-    TaskRequest, TaskUpdate, TaskResult, LittleMartianRequest
+    TaskRequest, TaskUpdate, TaskResult, LittleMartianRequest,
 )
 from .animations import (
     animated_monologue, 
@@ -16,10 +16,20 @@ from .animations import (
     illustrated_comic,
     little_martian_poster
 )
+from .creation_interfaces import (
+    kojii_makeitrad, KojiiMakeitradRequest,
+    kojii_chebel, KojiiChebelRequest,
+    kojii_untitledxyz, KojiiUntitledxyzRequest,
+    kojii_violetforest, KojiiVioletforestRequest,
+    kojii_huemin, KojiiHueminRequest
+)
 
 NARRATOR_CHARACTER_ID = os.getenv("NARRATOR_CHARACTER_ID")
 
-logosGenerators = ["monologue", "dialogue", "story", "reel", "comic", "littlemartians"]
+logosGenerators = [
+    "monologue", "dialogue", "story", "reel", 
+    "kojii/makeitrad", "kojii/va2rosa", "kojii/chebel", "kojii/untitledxyz", "kojii/violetforest", "kojii/huemin"
+]
 
 
 def process_task(task_id: str, request: TaskRequest):
@@ -119,19 +129,33 @@ def process_task(task_id: str, request: TaskRequest):
                 callback=send_progress_update
             )
 
-        elif task_type == "comic":
-            character_id = request.config.get("characterId")
-            prompt = request.config.get("prompt")
-            task_req = ComicRequest(
-                character_id=character_id,
-                prompt=prompt,
+
+
+
+        elif task_type == "kojii/makeitrad":
+            setting = request.config.get("setting")
+            location = request.config.get("location")
+            time = request.config.get("time")
+            color = request.config.get("color")
+            clouds = request.config.get("clouds")
+            pool = request.config.get("pool")
+            aspect_ratio = request.config.get("aspect_ratio")
+            prompt = f"{setting} {location} {time} {color} {clouds} {pool} {aspect_ratio}"
+            task_req = KojiiMakeitradRequest(
+                setting=setting,
+                location=location,
+                time=time,
+                color=color,
+                clouds=clouds,
+                pool=pool,
+                aspect_ratio=aspect_ratio,
             )
-            output_url, thumbnail_url = illustrated_comic(
+            output_url, thumbnail_url = kojii_makeitrad(
                 task_req,
                 callback=send_progress_update
             )
 
-        elif task_type == "littlemartians":
+        elif task_type == "kojii/va2rosa":
             martian = request.config.get("martian")
             prompt = request.config.get("prompt")
             setting = request.config.get("setting")
@@ -148,6 +172,50 @@ def process_task(task_id: str, request: TaskRequest):
                 task_req,
                 callback=send_progress_update
             )
+
+        elif task_type == "kojii/chebel":
+            number = request.config.get("number")
+            aspect_ratio = request.config.get("aspect_ratio")
+            abstract = request.config.get("abstract")
+            color = request.config.get("color")
+            prompt = f"{number} {aspect_ratio} {abstract} {color}"
+            task_req = KojiiChebelRequest(
+                number=number,
+                aspect_ratio=aspect_ratio,
+                abstract=abstract,
+                color=color,
+            )
+            output_url, thumbnail_url = kojii_chebel(
+                task_req,
+                callback=send_progress_update
+            )
+
+        elif task_type == "kojii/untitledxyz":
+            type = request.config.get("type")
+            human_machine_nature = request.config.get("human_machine_nature")
+            prompt = f"{type} {human_machine_nature}"
+            task_req = KojiiUntitledxyzRequest(
+                type=type,
+                human_machine_nature=human_machine_nature,
+            )
+            output_url, thumbnail_url = kojii_untitledxyz(
+                task_req,
+                callback=send_progress_update
+            )
+
+        elif task_type == "kojii/violetforest":
+            cybertwee_cyberpunk = request.config.get("cybertwee_cyberpunk")
+            style = request.config.get("style")
+            prompt = f"{cybertwee_cyberpunk} {style}"
+            task_req = KojiiVioletforestRequest(
+                cybertwee_cyberpunk=cybertwee_cyberpunk,
+                style=style,
+            )
+            output_url, thumbnail_url = kojii_violetforest(
+                task_req,
+                callback=send_progress_update
+            )
+
 
         output = TaskResult(
             files=[output_url],
