@@ -30,7 +30,8 @@ def kojii_untitledxyz(request: KojiiUntitledxyzRequest, callback=None):
                 "close up of a single column fragment, dense wires and thick electrical cables, computer circuits, corrosion, pen and ink, wires drawn with pale yellow, red, blue, green, solid white background, sharpness, noise."
             ]
             text_inputs_to_interpolate_weights = [
-                2 * request.human_machine_nature
+                2 * request.human_machine_nature,
+                2 * (1 - request.human_machine_nature)
             ]
 
         else:
@@ -39,7 +40,8 @@ def kojii_untitledxyz(request: KojiiUntitledxyzRequest, callback=None):
                 "close up of a single column fragment, pen and ink, dense vegetation, wrapped in vines emerging from cracks, large leaves, dense lichen, diverse plants drawn with bright green, red, orange, blue, cyan, magenta, yellow, oversaturated, neons, solid white background, sharpness, noise."
             ]
             text_inputs_to_interpolate_weights = [
-                2 * (request.human_machine_nature - 0.5)
+                2 * (request.human_machine_nature - 0.5),
+                2 * (1 - (request.human_machine_nature - 0.5))
             ]
 
     elif request.type == Type.context:
