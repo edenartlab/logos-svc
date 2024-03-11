@@ -179,8 +179,10 @@ def generate_prompt(selected_climate, selected_landform, selected_body_of_water)
 
 
 def kojii_huemin(request: KojiiHueminRequest, callback=None):
+    print("HUMIN REQUEST")
+    print(request)
     prompt = generate_prompt(request.climate, request.landform, request.body_of_water)
-    
+    print(prompt)
     config = {
         "mode": "kojii/huemin",
         "text_input": prompt
