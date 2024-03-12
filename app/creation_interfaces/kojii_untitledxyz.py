@@ -52,7 +52,8 @@ def kojii_untitledxyz(request: KojiiUntitledxyzRequest, callback=None):
                 "an isometric architectural drawing, displaying an ultra close up of a modernist building made of computer parts, dodecahedrons, textural details, emphasizing entangled wires with intense precision, the intricate web of wires are seen up close, accentuating the fusion of modern and ancient, the image depicts wires illustrated with vibrant colors, sharpness, noise."
             ]
             text_inputs_to_interpolate_weights = [
-                2 * request.human_machine_nature
+                2 * request.human_machine_nature,
+                2 * (1 - request.human_machine_nature)
             ]
 
         else:
@@ -61,7 +62,8 @@ def kojii_untitledxyz(request: KojiiUntitledxyzRequest, callback=None):
                 "an isometric architectural drawing, displaying an ultra close up of a modern superstructure, geometric stone blocks, emphasis on dense overwhelming vines with intense precision, plants are shot up close, accentuating the fusion of nature and columns, the image depicts giant leaves illustrated with vibrant colors, solid white background, sharpness, noise."
             ]
             text_inputs_to_interpolate_weights = [
-                2 * (request.human_machine_nature - 0.5)
+                2 * (request.human_machine_nature - 0.5),
+                2 * (1 - (request.human_machine_nature - 0.5))
             ]
     
     config = {
