@@ -46,7 +46,7 @@ def animated_reel(request: ReelRequest, callback=None):
     else:
         width, height = 1600, 1600
         
-    min_duration = 20
+    min_duration = 25
     speech_audio = None
     duration = min_duration
 
