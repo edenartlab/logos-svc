@@ -1,5 +1,7 @@
 import time
 import os
+from io import BytesIO
+import base64
 from pydantic import BaseModel, SecretStr, HttpUrl, Field
 from uuid import uuid4, UUID
 from httpx import Client, AsyncClient
@@ -8,12 +10,13 @@ import orjson
 import datetime
 
 from ..models import ChatMessage
-from ..utils import remove_a_key, now_tz
+from ..utils import remove_a_key, now_tz, url_to_image_data
 
 
 ALLOWED_MODELS = [
     "gpt-3.5-turbo",
     "gpt-4-1106-preview",
+    "gpt-4-vision-preview",
     "gryphe/mythomax-l2-13b-8k",
     "mistralai/mistral-medium",
     "mistralai/mixtral-8x7b-instruct",
@@ -80,6 +83,7 @@ class ChatSession(BaseModel):
             if self.recent_messages
             else self.messages
         )
+        # Todo: include images in previous messages
         messages = (
             [system_message.model_dump(include=self.input_fields, exclude_none=True)]
             + [
@@ -88,7 +92,20 @@ class ChatSession(BaseModel):
             ]
         )
         if user_message:
-            messages += [user_message.model_dump(include=self.input_fields, exclude_none=True)]
+            new_message = user_message.model_dump(include=self.input_fields, exclude_none=True)
+            if user_message.image:
+                img_data_url = url_to_image_data(user_message.image)
+                new_message["content"] = [
+                    {
+                        "type": "text",
+                        "text": user_message.content
+                    },
+                    {
+                        "type": "image_url",
+                        "image_url": img_data_url
+                    }
+                ]
+            messages += [new_message]
         return messages
 
     def add_messages(
@@ -114,6 +131,7 @@ class ChatSession(BaseModel):
         self,
         model: str = "gpt-3.5-turbo",
         prompt: str = None,
+        image: Optional[str] = None,
         system: str = None,
         params: Dict[str, Any] = None,
         stream: bool = False,
@@ -127,6 +145,9 @@ class ChatSession(BaseModel):
 
         if model not in ALLOWED_MODELS:
             raise ValueError(f"Invalid model: {model}. Available models: {ALLOWED_MODELS}")
+        
+        if image:
+            model = "gpt-4-vision-preview"
 
         provider = "openai" if "gpt-" in model else "openrouter"
 
@@ -146,7 +167,7 @@ class ChatSession(BaseModel):
 
         if prompt:
             if not input_schema:
-                user_message = ChatMessage(role="user", content=prompt)
+                user_message = ChatMessage(role="user", content=prompt, image=image)
             else:
                 assert isinstance(
                     prompt, input_schema
@@ -154,6 +175,7 @@ class ChatSession(BaseModel):
                 user_message = ChatMessage(
                     role="function",
                     content=prompt.model_dump_json(),
+                    image=image,
                     name=input_schema.__name__,
                 )
 
@@ -203,6 +225,7 @@ class ChatSession(BaseModel):
         self,
         model: str,
         prompt: str,
+        image: Optional[str],
         client: Union[Client, AsyncClient],
         system: str = None,
         save_messages: bool = None,
@@ -218,7 +241,7 @@ class ChatSession(BaseModel):
 
         while not finished:
             api_url, headers, data, user_message = self.prepare_request(
-                model, prompt, system, params, False, input_schema, output_schema
+                model, prompt, image, system, params, False, input_schema, output_schema
             )
 
             resp = client.post(
@@ -269,7 +292,9 @@ class ChatSession(BaseModel):
 
     def stream(
         self,
+        model: str,
         prompt: str,
+        image: Optional[str],
         client: Union[Client, AsyncClient],
         system: str = None,
         save_messages: bool = None,
@@ -277,7 +302,7 @@ class ChatSession(BaseModel):
         input_schema: Any = None,
     ):
         api_url, headers, data, user_message = self.prepare_request(
-            prompt, system, params, True, input_schema
+            model, prompt, image, system, params, True, input_schema
         )
 
         with client.stream(
@@ -311,6 +336,7 @@ class ChatSession(BaseModel):
     def gen_with_tools(
         self,
         prompt: str,
+        image: Optional[str],
         tools: List[Any],
         client: Union[Client, AsyncClient],
         system: str = None,
@@ -328,6 +354,7 @@ class ChatSession(BaseModel):
         tool_idx = int(
             self.gen(
                 prompt,
+                image,
                 client=client,
                 system=tool_prompt_format,
                 save_messages=False,
@@ -344,6 +371,7 @@ class ChatSession(BaseModel):
             return {
                 "response": self.gen(
                     prompt,
+                    image,
                     client=client,
                     system=system,
                     save_messages=save_messages,
@@ -371,7 +399,7 @@ class ChatSession(BaseModel):
         )
 
         # manually append the nonmodified user message + normal AI response
-        user_message = ChatMessage(role="user", content=prompt)
+        user_message = ChatMessage(role="user", content=prompt, image=image)
         assistant_message = ChatMessage(
             role="assistant", content=context_dict["response"]
         )
@@ -383,6 +411,7 @@ class ChatSession(BaseModel):
         self,
         model: str,
         prompt: str,
+        image: Optional[str],
         client: Union[Client, AsyncClient],
         system: str = None,
         save_messages: bool = None,
@@ -391,7 +420,7 @@ class ChatSession(BaseModel):
         output_schema: Any = None,
     ):
         api_url, headers, data, user_message = self.prepare_request(
-            model, prompt, system, params, False, input_schema, output_schema
+            model, prompt, image, system, params, False, input_schema, output_schema
         )
 
         r = await client.post(
@@ -430,6 +459,7 @@ class ChatSession(BaseModel):
         self,
         model: str,
         prompt: str,
+        image: Optional[str],
         client: Union[Client, AsyncClient],
         system: str = None,
         save_messages: bool = None,
@@ -437,7 +467,7 @@ class ChatSession(BaseModel):
         input_schema: Any = None,
     ):
         api_url, headers, data, user_message = self.prepare_request(
-            model, prompt, system, params, True, input_schema
+            model, prompt, image, system, params, True, input_schema
         )
 
         async with client.stream(
@@ -469,6 +499,7 @@ class ChatSession(BaseModel):
     async def gen_with_tools_async(
         self,
         prompt: str,
+        image: Optional[str],
         tools: List[Any],
         client: Union[Client, AsyncClient],
         system: str = None,
@@ -486,6 +517,7 @@ class ChatSession(BaseModel):
         tool_idx = int(
             await self.gen_async(
                 prompt,
+                image,
                 client=client,
                 system=tool_prompt_format,
                 save_messages=False,
@@ -522,6 +554,7 @@ class ChatSession(BaseModel):
 
         context_dict["response"] = await self.gen_async(
             new_prompt,
+            image,
             client=client,
             system=new_system,
             save_messages=False,
@@ -529,7 +562,7 @@ class ChatSession(BaseModel):
         )
 
         # manually append the nonmodified user message + normal AI response
-        user_message = ChatMessage(role="user", content=prompt)
+        user_message = ChatMessage(role="user", content=prompt, image=image)
         assistant_message = ChatMessage(
             role="assistant", content=context_dict["response"]
         )

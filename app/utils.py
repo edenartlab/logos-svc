@@ -2,6 +2,7 @@ import tempfile
 import time
 import os
 import re
+import base64
 import traceback
 import requests
 import math
@@ -78,6 +79,14 @@ def PIL_to_bytes(image, ext="JPEG", quality=95):
     img_byte_arr = BytesIO()
     image.save(img_byte_arr, format=ext, quality=quality)
     return img_byte_arr.getvalue()
+
+
+def url_to_image_data(url):
+    img = download_image(url)
+    img_bytes = PIL_to_bytes(img)
+    data = base64.b64encode(img_bytes).decode("utf-8")
+    data = "data:image/jpeg;base64," + data
+    return data
 
 
 def calculate_target_dimensions(images, max_pixels):

@@ -46,6 +46,7 @@ class ChatMessage(BaseModel):
 
     role: str
     content: str
+    image: Optional[str] = Field(None)
     name: Optional[str] = None
     function_call: Optional[str] = None
     received_at: datetime.datetime = Field(default_factory=now_tz)

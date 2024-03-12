@@ -145,6 +145,7 @@ class LLM(BaseModel):
     def __call__(
         self,
         prompt: Union[str, Any],
+        image: Optional[str] = None,
         id: Union[str, UUID] = None,
         system: str = None,
         save_messages: bool = None,
@@ -162,6 +163,7 @@ class LLM(BaseModel):
             return sess.gen_with_tools(
                 model,
                 prompt,
+                image,
                 tools,
                 client=self.client,
                 system=system,
@@ -172,6 +174,7 @@ class LLM(BaseModel):
             return sess.gen(
                 model,
                 prompt,
+                image,
                 client=self.client,
                 system=system,
                 save_messages=save_messages,
@@ -182,7 +185,9 @@ class LLM(BaseModel):
 
     def stream(
         self,
+        model: str,
         prompt: str,
+        image: Optional[str] = None,
         id: Union[str, UUID] = None,
         system: str = None,
         save_messages: bool = None,
@@ -191,7 +196,9 @@ class LLM(BaseModel):
     ) -> str:
         sess = self.get_session(id)
         return sess.stream(
+            model,
             prompt,
+            image,
             client=self.client,
             system=system,
             save_messages=save_messages,
@@ -235,7 +242,10 @@ class LLM(BaseModel):
         session = self.get_session(id) if id else self.default_session
         if session:
             for msg in session.messages:
-                print(f"{msg.role} : {msg.content}")
+                message_str = f"{msg.role} : {msg.content}"
+                if msg.image:
+                    message_str += f" : ((image))"
+                print(message_str)
 
     def __repr__(self) -> str:
         return ""
@@ -343,6 +353,7 @@ class AsyncLLM(LLM):
         self,
         model: str,
         prompt: str,
+        image: Optional[str] = None,
         id: Union[str, UUID] = None,
         system: str = None,
         save_messages: bool = None,
@@ -362,6 +373,7 @@ class AsyncLLM(LLM):
             return await sess.gen_with_tools_async(
                 model,
                 prompt,
+                image,
                 tools,
                 client=self.client,
                 system=system,
@@ -372,6 +384,7 @@ class AsyncLLM(LLM):
             return await sess.gen_async(
                 model,
                 prompt,
+                image,
                 client=self.client,
                 system=system,
                 save_messages=save_messages,
@@ -382,7 +395,9 @@ class AsyncLLM(LLM):
 
     async def stream(
         self,
+        model: str,
         prompt: str,
+        image: Optional[str] = None,
         id: Union[str, UUID] = None,
         system: str = None,
         save_messages: bool = None,
@@ -394,7 +409,9 @@ class AsyncLLM(LLM):
             self.client = AsyncClient(proxies=os.getenv("https_proxy"))
         sess = self.get_session(id)
         return sess.stream_async(
+            model,
             prompt,
+            image,
             client=self.client,
             system=system,
             save_messages=save_messages,
