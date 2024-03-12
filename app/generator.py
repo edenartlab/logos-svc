@@ -63,12 +63,10 @@ def process_task(task_id: str, request: TaskRequest):
             character_id = request.config.get("characterId")
             prompt = request.config.get("prompt")
             gfpgan = request.config.get("gfpgan")
-            dual_view = request.config.get("dual_view")
             task_req = MonologueRequest(
                 character_id=character_id,
                 prompt=prompt,
                 gfpgan=gfpgan,
-                dual_view=dual_view,
             )
             output_url, thumbnail_url = animated_monologue(
                 task_req,
