@@ -8,6 +8,7 @@ from .. import utils
 from ..plugins import replicate, elevenlabs, s3
 from ..character import Character, EdenCharacter
 from ..scenarios import reel
+from ..animations.animation import select_random_voice
 from ..models import ReelRequest
 
 
