@@ -42,7 +42,7 @@ def animated_reel(request: ReelRequest, callback=None):
     if request.aspect_ratio == "portrait":
         width, height = 1280, 1920
     elif request.aspect_ratio == "landscape":
-        width, height = 1920, 1280
+        width, height = 1920, 1088
     else:
         width, height = 1600, 1600
         
