@@ -56,9 +56,10 @@ def test_reel():
     """
     request = {
         "character_ids": [],
-        "prompt": "A jazz woman dancing to some saxophone jazzy show tunes, instrumental",
+        #"prompt": "A jazz woman dancing to some saxophone jazzy show tunes, instrumental",
+        "prompt": "A long commercial about a drug called Paradisium. explain its benefits and side effects, and go on and on and on.",
         "intro_screen": True,
-        "narration": "off",
+        #"narration": "off",
         #"music_prompt": "death metal heavy rock, incomprehensible, gore, screen"
     }
     
