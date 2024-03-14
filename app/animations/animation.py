@@ -41,6 +41,7 @@ def talking_head(
     gfpgan: bool = False,
     gfpgan_upscale: int = 1
 ) -> str:
+    print("* talking head: {character.name} says {text}")
     if character.voice:
         voice_id = character.voice
     else:
@@ -52,6 +53,9 @@ def talking_head(
     )
 
     audio_url = s3.upload(audio_bytes, "mp3")
+
+    print(f"run wav2lip on {character.image} and {audio_url}")
+
     output_url, thumbnail_url = replicate.wav2lip(
         face_url=character.image,
         speech_url=audio_url,
@@ -60,6 +64,9 @@ def talking_head(
         width=width,
         height=height,
     )
+    
+    print(f"output: {output_url}")
+
     return output_url, thumbnail_url
 
 

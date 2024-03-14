@@ -8,6 +8,7 @@ from .. import utils
 from ..plugins import replicate, elevenlabs, s3
 from ..character import Character, EdenCharacter
 from ..scenarios import reel
+from ..animations.animation import select_random_voice
 from ..models import ReelRequest
 
 
@@ -41,11 +42,11 @@ def animated_reel(request: ReelRequest, callback=None):
     if request.aspect_ratio == "portrait":
         width, height = 1280, 1920
     elif request.aspect_ratio == "landscape":
-        width, height = 1920, 1280
+        width, height = 1920, 1088
     else:
         width, height = 1600, 1600
         
-    min_duration = 20
+    min_duration = 25
     speech_audio = None
     duration = min_duration
 

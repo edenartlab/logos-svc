@@ -2,7 +2,8 @@ import io
 import os
 import random
 import wave
-from elevenlabs import generate, set_api_key
+from elevenlabs import generate, set_api_key, Voice, VoiceSettings, play
+
 from ..utils import exponential_backoff
 
 ELEVENLABS_API_KEY = os.environ.get("ELEVENLABS_API_KEY")
@@ -19,9 +20,24 @@ def tts(
     voice: str,
     max_attempts: int = 6,
     initial_delay: int = 5,
+    stability: float = 0.5,
+    similarity_boost: float = 0.75,
+    style: float = 0.35,
+    use_speaker_boost: bool = True
 ):
     def generate_with_params():
-        return generate(text, voice=voice)
+        return generate(
+            text=text, 
+            voice=Voice(
+                voice_id=voice,
+                settings=VoiceSettings(
+                    stability=stability, 
+                    similarity_boost=similarity_boost, 
+                    style=style, 
+                    use_speaker_boost=use_speaker_boost
+                )
+            )
+        )
 
     audio_bytes = exponential_backoff(
         generate_with_params, 

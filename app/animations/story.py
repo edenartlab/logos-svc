@@ -1,6 +1,7 @@
 import os
 import requests
 import tempfile
+from pydub import AudioSegment
 
 from .. import utils
 from ..plugins import replicate, elevenlabs, s3
@@ -10,10 +11,15 @@ from ..models import StoryRequest
 from .animation import screenplay_clip
 
 MAX_WORKERS = 3
+INTRO_SCREEN_DURATION = 10
 
 
 def animated_story(request: StoryRequest, callback=None):
     screenplay = story(request)
+    
+    # screenplay["clips"] = screenplay["clips"][:3]
+    music_prompt = screenplay.get("music_prompt")
+    
     if callback:
         callback(progress=0.1)
 
@@ -66,6 +72,10 @@ def animated_story(request: StoryRequest, callback=None):
         screenplay["clips"], run_story_segment, max_workers=MAX_WORKERS
     )
 
+
+    print(":TH RESULTS")
+    print(results)
+
     video_files = [video_file for video_file, thumbnail in results]
     thumbnail_url = results[0][1]
 
@@ -80,22 +90,62 @@ def animated_story(request: StoryRequest, callback=None):
             paragraphs, 
             width, 
             height, 
-            duration = 10,
+            duration = INTRO_SCREEN_DURATION,
             fade_in = 2,
             margin_left = 25,
             margin_right = 25
         )
         video_files = [intro_screen] + video_files
 
+
+    print("T?he VIDEO FILES")
+    print(video_files)
+
+    audio_file = None
+    if music_prompt:
+        print("get audio")
+        duration = sum([utils.get_video_duration(video_file) for video_file in video_files])
+            
+        print("full dur", duration)
+        print("the music prompt", music_prompt)
+        music_url, _ = replicate.audiocraft(
+            prompt=music_prompt,
+            seconds=duration
+        )
+        print(music_url)
+
+        response = requests.get(music_url)
+        response.raise_for_status()
+        audio_file = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3")
+        audio_file.write(response.content)
+        audio_file.flush()
+
+        if request.intro_screen:
+            print("intro screen silence")
+            silence = AudioSegment.silent(duration=INTRO_SCREEN_DURATION * 1000)
+            music = AudioSegment.from_mp3(audio_file.name)
+            music = music - 8
+            music_with_silence = silence + music
+            music_with_silence.export(audio_file.name, format="mp3")
+
     with tempfile.NamedTemporaryFile(delete=True, suffix=".mp4") as temp_output_file:
         utils.concatenate_videos(video_files, temp_output_file.name)
-        with open(temp_output_file.name, "rb") as f:
-            video_bytes = f.read()
+        if audio_file:
+            with tempfile.NamedTemporaryFile(delete=True, suffix=".mp4") as temp_output_file2:
+                utils.mix_video_audio(temp_output_file.name, audio_file.name, temp_output_file2.name)                
+                with open(temp_output_file2.name, "rb") as f:
+                    video_bytes = f.read()
+        else:
+            with open(temp_output_file.name, "rb") as f:
+                video_bytes = f.read()
         output_url = s3.upload(video_bytes, "mp4")
 
     # clean up clips
     for video_file in video_files:
         os.remove(video_file)
+
+    if audio_file:
+        os.remove(audio_file.name)
 
     if callback:
         callback(progress=0.99)

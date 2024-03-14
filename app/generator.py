@@ -62,13 +62,13 @@ def process_task(task_id: str, request: TaskRequest):
         if task_type == "monologue":
             character_id = request.config.get("characterId")
             prompt = request.config.get("prompt")
+            init_image = request.config.get("init_image")
             gfpgan = request.config.get("gfpgan")
-            dual_view = request.config.get("dual_view")
             task_req = MonologueRequest(
                 character_id=character_id,
                 prompt=prompt,
+                init_image=init_image,
                 gfpgan=gfpgan,
-                dual_view=dual_view,
             )
             output_url, thumbnail_url = animated_monologue(
                 task_req,
@@ -97,10 +97,14 @@ def process_task(task_id: str, request: TaskRequest):
             character_ids = request.config.get("characterIds")
             prompt = request.config.get("prompt")
             intro_screen = request.config.get("intro_screen")
+            music_prompt = request.config.get("music_prompt")
+            music = request.config.get("music")
             task_req = StoryRequest(
                 character_ids=character_ids,
                 prompt=prompt,
                 narrator_id=NARRATOR_CHARACTER_ID,
+                music_prompt=music_prompt,
+                music=music,
                 intro_screen=intro_screen,
             )
             output_url, thumbnail_url = animated_story(
