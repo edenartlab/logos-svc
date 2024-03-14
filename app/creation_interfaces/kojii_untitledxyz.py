@@ -70,7 +70,7 @@ def kojii_untitledxyz(request: KojiiUntitledxyzRequest, callback=None):
         "mode": "create",
         "text_input": " to ".join(text_inputs_to_interpolate),
         "text_inputs_to_interpolate": "|".join(text_inputs_to_interpolate),
-        "text_inputs_to_interpolate_weights": " | ".join([str(t) for t in text_inputs_to_interpolate_weights]),
+        "text_inputs_to_interpolate_weights": "|".join([str(t) for t in text_inputs_to_interpolate_weights]),
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/d2e6d1f8ccfca428ba42fa56a0384a4261d32bf1ee8b0dc952d99da9011daf39.tar",
         "lora_scale": 0.8,
     }
@@ -80,9 +80,5 @@ def kojii_untitledxyz(request: KojiiUntitledxyzRequest, callback=None):
     print("=======")
     
     image_url, thumbnail_url = replicate.sdxl(config)
-
-    #     sudo cog predict -i mode=create -i text_inputs_to_interpolate="prompt1|prompt2" -i text_inputs_to_interpolate_weights="0.3|0.7"
-    # add the loraurl for this concept: https://app.eden.art/creators/untitledxyz?conceptId=65b927bcc69501b06686d68d
-    
     
     return image_url, thumbnail_url

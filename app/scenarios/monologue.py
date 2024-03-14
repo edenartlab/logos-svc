@@ -15,9 +15,8 @@ def monologue(request: MonologueRequest) -> MonologueResult:
         name=name,
         description=description
     )
-
     llm = LLM(model=request.model, system_message=system_message, params=params)
-    monologue_text = llm(request.prompt)
+    monologue_text = llm(request.prompt, image=request.init_image)
 
     result = MonologueResult(monologue=monologue_text)
 

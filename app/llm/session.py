@@ -1,7 +1,6 @@
 import time
 import os
 from io import BytesIO
-import base64
 from pydantic import BaseModel, SecretStr, HttpUrl, Field
 from uuid import uuid4, UUID
 from httpx import Client, AsyncClient

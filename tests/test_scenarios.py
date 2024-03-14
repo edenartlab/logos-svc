@@ -10,7 +10,8 @@ def test_monologue():
     """
     request = {
         "character_id": "6596129023f1c4b471dbb94a", 
-        "prompt": "Tell me a story about pizza"
+        "prompt": "What does the image say",
+        #"init_image": "https://images.squarespace-cdn.com/content/v1/6213c340453c3f502425776e/c24904d4-f0f0-4a26-9470-fec227dde15c/image-90.png"
     }
 
     response = client.post("/scenarios/monologue", json=request)
@@ -25,7 +26,7 @@ def test_dialogue():
     """
     request = {
         "character_ids": ["6596129023f1c4b471dbb94a", "6598e117dd06d165264f2277"],
-        "prompt": "Debate whether or not pizza is a vegetable"
+        "prompt": "Debate whether or not pizza is a vegetable once and for all"
     }
 
     response = client.post("/scenarios/dialogue", json=request)
@@ -34,14 +35,14 @@ def test_dialogue():
     assert response.status_code == 200
 
 
-
 def test_story():
     """
     Test dialogue function on static characters and prompt
     """
     request = {
         "character_ids": ["6596129023f1c4b471dbb94a", "6598e117dd06d165264f2277"],
-        "prompt": "Debate whether or not pizza is a vegetable"
+        "prompt": "Debate whether or not pizza is a vegetable",
+        "music": True
     }
 
     response = client.post("/scenarios/story", json=request)

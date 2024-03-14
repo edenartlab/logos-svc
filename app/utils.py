@@ -21,14 +21,17 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pydantic import BaseModel, Field, create_model
 
 
+def get_video_duration(video_file):
+    cmd = ['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'default=noprint_wrappers=1:nokey=1', video_file]
+    duration = subprocess.check_output(cmd).decode().strip()
+    return float(duration)
+
+
 def orjson_dumps(v, *, default, **kwargs):
-    # orjson.dumps returns bytes, to match standard json.dumps we need to decode
     return orjson.dumps(v, default=default, **kwargs).decode()
 
 
 def now_tz():
-    # Need datetime w/ timezone for cleanliness
-    # https://stackoverflow.com/a/24666683
     return datetime.datetime.now(datetime.timezone.utc)
 
 
@@ -81,11 +84,12 @@ def PIL_to_bytes(image, ext="JPEG", quality=95):
     return img_byte_arr.getvalue()
 
 
-def url_to_image_data(url):
+def url_to_image_data(url, max_size=(512, 512)):
     img = download_image(url)
-    img_bytes = PIL_to_bytes(img)
+    img.thumbnail(max_size, Image.Resampling.LANCZOS)
+    img_bytes = PIL_to_bytes(img, ext="JPEG", quality=95)
     data = base64.b64encode(img_bytes).decode("utf-8")
-    data = "data:image/jpeg;base64," + data
+    data = f"data:image/jpeg;base64,{data}"
     return data
 
 
@@ -167,32 +171,38 @@ def create_dialogue_thumbnail(image1_url, image2_url, width, height, ext="WEBP")
     return img_byte_arr.getvalue()
 
 
-def concatenate_videos(video_files, output_file):
-    standard_fps = "30"  # Target frame rate
-
-    # Step 1: Convert all videos to the same frame rate
+def concatenate_videos(video_files, output_file, fps=30):
     converted_videos = []
     for i, video in enumerate(video_files):
         with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as temp:
             output_video = temp.name
-            convert_command = ['ffmpeg', '-y', '-loglevel', 'panic', '-i', video, '-r', standard_fps, '-c:a', 'copy', output_video]
+            convert_command = ['ffmpeg', '-y', '-loglevel', 'panic', '-i', video, '-r', str(fps), '-c:a', 'copy', output_video]
             subprocess.run(convert_command)
             converted_videos.append(output_video)
-    
-    # create the filter_complex string
     filter_complex = "".join([f"[{i}:v] [{i}:a] " for i in range(len(converted_videos))])
     filter_complex += f"concat=n={len(converted_videos)}:v=1:a=1 [v] [a]"
-
-    # concatenate videos
     concat_command = ['ffmpeg']
     for video in converted_videos:
         concat_command.extend(['-i', video])
     concat_command.extend(['-y', '-loglevel', 'panic', '-filter_complex', filter_complex, '-map', '[v]', '-map', '[a]', output_file])
     subprocess.run(concat_command)
-
-    # delete temporary files
     for video in converted_videos:
         os.remove(video)
+
+
+def mix_video_audio(video_path, audio_path, output_path):
+    cmd = [
+        'ffmpeg',
+        '-i', video_path,
+        '-i', audio_path,
+        '-filter_complex', '[1:a]volume=1.0[a1];[0:a][a1]amerge=inputs=2[a]',
+        '-map', '0:v',
+        '-map', '[a]',
+        '-c:v', 'copy',
+        '-ac', '2',
+        output_path
+    ]
+    subprocess.run(cmd, check=True)
 
 
 def combine_audio_video(audio_url: str, video_url: str):
@@ -282,15 +292,17 @@ def handle_error(e):
 
 
 def wrap_text(draw, text, font, max_width):
-    lines = []
     words = text.split()
-
-    while words:
-        line = ''
-        while words and draw.textlength(line + words[0], font=font) <= max_width:
-            line += (words.pop(0) + ' ')
-        lines.append(line)
-    
+    lines = []
+    current_line = []
+    for word in words:
+        if draw.textlength(' '.join(current_line + [word]), font=font) > max_width:
+            lines.append(' '.join(current_line))
+            current_line = [word]
+        else:
+            current_line.append(word)
+    if current_line:
+        lines.append(' '.join(current_line))
     return lines
 
 

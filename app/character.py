@@ -113,12 +113,12 @@ class Character:
         self.creation_enabled = creation_enabled
         self.story_creation_enabled = story_creation_enabled
         self.concept = concept
-        self.smart_reply = smart_reply
+        self.smart_reply = False # smart_reply  # disabled until ready
         self.chat_model = chat_model
         self.image = image
         self.voice = voice
         self.function_map = {"1": self._chat_}
-        options = ["Regular conversation, chat, humor, or small talk"]
+        options = ["Regular conversation, chat, humor, small talk, or a asking for a question or comment about an attached image"]
 
         if knowledge:
             if not self.knowledge_summary.strip():
@@ -264,11 +264,12 @@ class Character:
         session_id=None,
     ) -> dict:
         response = self.chat(
-            prompt=message.message, 
+            prompt=message.message,
+            image=message.attachments[0] if message.attachments else None,
             id=session_id, 
             save_messages=False,
             model=self.chat_model,
-        )
+        )        
         user_message = ChatMessage(role="user", content=message.message)
         assistant_message = ChatMessage(role="assistant", content=response)
         output = {"message": response, "config": None}
@@ -490,6 +491,7 @@ class Character:
                     system=self.chat_prompt,
                     params=self.chat_params,
                 )
+        
         function = None
         if self.router_prompt:
             index = self._route_(message, session_id=session_id)
@@ -497,15 +499,18 @@ class Character:
         
         if not function:
             function = self.function_map.get("1")
+
         output, user_message, assistant_message = function(
             message, session_id=session_id
         )
+
         self.router.add_messages(user_message, assistant_message, id=session_id)
         self.creator.add_messages(user_message, assistant_message, id=session_id)
         self.story_editor.add_messages(user_message, assistant_message, id=session_id)
         self.story_context.add_messages(user_message, assistant_message, id=session_id)
         self.qa.add_messages(user_message, assistant_message, id=session_id)
         self.chat.add_messages(user_message, assistant_message, id=session_id)
+        
         return output
 
 

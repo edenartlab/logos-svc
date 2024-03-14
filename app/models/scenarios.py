@@ -11,6 +11,7 @@ NARRATOR_CHARACTER_ID = os.getenv("NARRATOR_CHARACTER_ID")
 class MonologueRequest(BaseModel):
     character_id: str
     prompt: str
+    init_image: Optional[str] = None
     model: str = "gpt-4-1106-preview"
     params: dict = {}
     gfpgan: bool = False
@@ -40,6 +41,8 @@ class StoryRequest(BaseModel):
     prompt: str
     narrator_id: str = NARRATOR_CHARACTER_ID
     num_clips: int = 5
+    music: Optional[bool] = False
+    music_prompt: Optional[str] = None
     model: str = "gpt-4-1106-preview"
     params: dict = {}
     intro_screen: bool = False
@@ -69,6 +72,7 @@ class StoryResult(BaseModel):
     A screenplay consisting of a sequence of clips
     """
     clips: List[StoryClip] = Field(description="Clips in the sequence")
+    music_prompt: Optional[str] = Field(description="Backing music content for sequence")
 
 
 class ReelNarrationMode(Enum):

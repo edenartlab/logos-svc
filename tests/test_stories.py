@@ -28,8 +28,9 @@ def test_story():
 
     request = {
         "character_ids": [],
-        "prompt": "A family of Dragons lives in a mystical layer underneath a volcano. The dragons are beautiful, ornately decorated, fire-breathing, creatures. They are brave and wise. The story should just be about them journeying to a bunch of beautiful far away places in nature, and then coming back to their volcano lair. Make at least 10 clips.",
-        "intro_screen": True
+        "prompt": "A family of Dragons lives in a mystical layer underneath a volcano. The dragons are beautiful, ornately decorated, fire-breathing, creatures. They are brave and wise. The story should just be about them journeying to a bunch of beautiful far away places in nature, and then coming back to their volcano lair.",
+        "intro_screen": True,
+        "music": True, 
     }
 
     response = client.post("/animation/story", json=request)
