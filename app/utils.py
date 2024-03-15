@@ -193,6 +193,7 @@ def concatenate_videos(video_files, output_file, fps=30):
 def mix_video_audio(video_path, audio_path, output_path):
     cmd = [
         'ffmpeg',
+        '-y',
         '-i', video_path,
         '-i', audio_path,
         '-filter_complex', '[1:a]volume=1.0[a1];[0:a][a1]amerge=inputs=2[a]',
@@ -202,6 +203,7 @@ def mix_video_audio(video_path, audio_path, output_path):
         '-ac', '2',
         output_path
     ]
+    print(cmd)
     subprocess.run(cmd, check=True)
 
 

@@ -71,8 +71,7 @@ def animated_story(request: StoryRequest, callback=None):
         screenplay["clips"], run_story_segment, max_workers=MAX_WORKERS
     )
 
-
-    print(":TH RESULTS")
+    print("results...")
     print(results)
 
     video_files = [video_file for video_file, thumbnail in results]
@@ -96,17 +95,13 @@ def animated_story(request: StoryRequest, callback=None):
         )
         video_files = [intro_screen] + video_files
 
-
-    print("T?he VIDEO FILES")
+    print("video files final")
     print(video_files)
 
     audio_file = None
     if music_prompt:
-        print("get audio")
         duration = sum([utils.get_video_duration(video_file) for video_file in video_files])
             
-        print("full dur", duration)
-        print("the music prompt", music_prompt)
         music_url, _ = replicate.audiocraft(
             prompt=music_prompt,
             seconds=duration
@@ -118,13 +113,19 @@ def animated_story(request: StoryRequest, callback=None):
         audio_file = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3")
         audio_file.write(response.content)
         audio_file.flush()
+        print("audio file 1", audio_file.name)
 
         if request.intro_screen:
+            audio_file2 = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3")
+            print("audio file 2", audio_file2.name)
             silence = AudioSegment.silent(duration=INTRO_SCREEN_DURATION * 1000)
             music = AudioSegment.from_mp3(audio_file.name)
             music = music - 6
             music_with_silence = silence + music.fade_out(5000)
-            music_with_silence.export(audio_file.name, format="mp3")
+            music_with_silence.export(audio_file2.name, format="mp3")
+            print("delete 2", audio_file.name)
+            os.remove(audio_file.name)
+            audio_file = audio_file2
 
     with tempfile.NamedTemporaryFile(delete=True, suffix=".mp4") as temp_output_file:
         utils.concatenate_videos(video_files, temp_output_file.name)
@@ -143,6 +144,7 @@ def animated_story(request: StoryRequest, callback=None):
         os.remove(video_file)
 
     if audio_file:
+        print("remove", audio_file.name)
         os.remove(audio_file.name)
 
     if callback:
