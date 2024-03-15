@@ -17,9 +17,8 @@ INTRO_SCREEN_DURATION = 10
 def animated_story(request: StoryRequest, callback=None):
     screenplay = story(request)
     
-    # screenplay["clips"] = screenplay["clips"][:3]
     music_prompt = screenplay.get("music_prompt")
-    
+
     if callback:
         callback(progress=0.1)
 
