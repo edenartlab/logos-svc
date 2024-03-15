@@ -120,11 +120,10 @@ def animated_story(request: StoryRequest, callback=None):
         audio_file.flush()
 
         if request.intro_screen:
-            print("intro screen silence")
             silence = AudioSegment.silent(duration=INTRO_SCREEN_DURATION * 1000)
             music = AudioSegment.from_mp3(audio_file.name)
-            music = music - 8
-            music_with_silence = silence + music
+            music = music - 6
+            music_with_silence = silence + music.fade_out(5000)
             music_with_silence.export(audio_file.name, format="mp3")
 
     with tempfile.NamedTemporaryFile(delete=True, suffix=".mp4") as temp_output_file:
