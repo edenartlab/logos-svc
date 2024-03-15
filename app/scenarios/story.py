@@ -44,19 +44,12 @@ def story(request: StoryRequest):
     )
     
     story = screenwriter(prompt, output_schema=StoryResult)
-    
-    print(story)
-    #story["music_prompt"] = None
-    #if not request.music:
-    #    story["music_prompt"] = None
 
-    print(request)
-    # if request.music:
-    #     if request.music_prompt:
-    #         story["music_prompt"] = request.music_prompt
-    #     else:
-    #         story["music_prompt"] = "a long vibraphone solo"
-        
+    if request.music:
+        if request.music_prompt and request.music_prompt.strip():
+            story["music_prompt"] = request.music_prompt  # override
+    else:
+        story["music_prompt"] = None
             
     print("===== generate a story =======")
     print(prompt)

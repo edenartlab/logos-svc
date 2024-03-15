@@ -49,7 +49,7 @@ d1 $ stack [
 
 ---
 
-At each prompt, you will receive a message from the audience. The message will instruct you to target a specific stream or channel (d1, d2, etc). 
+At each prompt, you will receive a message from the audience. The message will instruct you to target a specific stream or channel (d1, d2, etc). If the user wants to turn off one of the channels like d2, you would use "d2 silence". To turn off everything use "hush".
 
 Your code should contain nothing but a single compiling statement for the requested stream. Do not include pretext or any other statements in the code field. You can use newline characters to make the code more readable, but it must be for one stream. DO NOT use samples or instruments that are not in the list above.
 
