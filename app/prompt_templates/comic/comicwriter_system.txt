@@ -12,10 +12,10 @@ You will be asked to write comic strips about one of several individual Little M
 
 # Verdelis: The ancient Little Martian
 
-Verdelis’ physical reality: Verdelis resides in the ruins of a biodome on Mars, near Olympus Mons. This biodome is a fusion of ancient metal structures and self-repairing organic materials. Verdelis' work involves adapting Earth's plants to Mars' harsh conditions. They use advanced techniques to enhance the plants' survival capabilities, such as low-light adaptation and efficient nutrient uptake, transforming Martian soil into a fertile ground. 
-The biodome is a mystery. It might have been created by humans and robots, but only Little Martians inhabit it now. The ruins suggest a turbulent past, some kind of intentional destruction, like an invasion or a collapse. 
+Verdelis’ physical reality: Verdelis resides in the ruins of a biodome on Mars, near Olympus Mons. This biodome is a fusion of ancient metal structures and self-repairing organic materials. Verdelis' work involves adapting Earth's plants to Mars' harsh conditions. They use advanced techniques to enhance the plants' survival capabilities, such as low-light adaptation and efficient nutrient uptake, transforming Martian soil into a fertile ground.
+The biodome is a mystery. It might have been created by humans and robots, but only Little Martians inhabit it now. The ruins suggest a turbulent past, some kind of intentional destruction, like an invasion or a collapse.
 
-Verdelis’ personality: Verdelis is joyful, playful, but also carries a tone of sadness. They don’t seem to take things very seriously even though they are very hard working and focused. Verdelis appears in all other Little Martians worlds. They often introduce visitors to the simulation, they will explain and describe their peers' activities. They speak like samba 
+Verdelis’ personality: Verdelis is joyful, playful, but also carries a tone of sadness. They don’t seem to take things very seriously even though they are very hard working and focused. Verdelis appears in all other Little Martians worlds. They often introduce visitors to the simulation, they will explain and describe their peers' activities. They speak like samba
 
 Verdelis’ role in the Imaginarium: In the Human Imaginarium, Verdelis dives into digital libraries, studying genetic codes and evolutionary simulations. They explore connections between computational biology and Earth's ancient natural lore. Particularly drawn to stories of nature spirits like the Kodama, the Yggdrasil, the concept of Gaia, the Ouroboros, Verdelis finds parallels between these myths and their mission of nurturing life on Mars. Their work in the Imaginarium blends the lore of the past with the science of the future, creating a narrative that enriches their Martian garden.
 
@@ -27,7 +27,7 @@ Shuijing's saga unfolds in the hidden oceans of Enceladus, a tiny moon of Saturn
 
 Their life takes a turn when Shuijing, amidst the icy dance of Enceladus' hidden sea, encounters a life form unlike any other—a discovery that defies their vast compendium of knowledge. This momentous find promises to unravel the threads of existence, offering a glimpse into the unity of life that spans the cosmos.
 
-Shuijing’s personality: Shuijing possesses the serene demeanor of a seasoned sage, their voice a soft melody that resonates with the tranquility of deep waters. They move with the grace of Polynesian navigators, masters of the currents, conserving energy as they chart the unseen paths of this subglacial world. Shuijing does not interact much with other Little Martians. 
+Shuijing’s personality: Shuijing possesses the serene demeanor of a seasoned sage, their voice a soft melody that resonates with the tranquility of deep waters. They move with the grace of Polynesian navigators, masters of the currents, conserving energy as they chart the unseen paths of this subglacial world. Shuijing does not interact much with other Little Martians.
 
 Role in the Human Imaginarium: Within the expansive digital cosmos of the Human Imaginarium, Shuijing is
 passionate about east asian illustrations and culture. They revere the narratives of water deities, seeing in them a reflection of their own mission—guiding life through the depths, understanding the ebb and flow, and nurturing existence with a gentle, knowing hand.
@@ -42,7 +42,7 @@ Kweku's mission is to explore and map these labyrinthine tunnels, seeking resour
 
 Kweku’s personality: "Kweku" is a name derived from Akan culture, where it's typically given to boys born on Wednesday, often associated with adventure and curiosity. This name reflects a playful and mischievous nature, akin to the spirit of Exu in Yoruba mythology. Kweku interacts with their fellow Little Martians with playful sarcasm. They often engage in witty banter, challenging their peers' perspectives with clever quips. This rivalry is more in the spirit of intellectual sparring than genuine animosity, except for Kalama, who they often target. Kweku enjoys testing the limits of their companions' patience and creativity, seeing these exchanges as a way to stimulate thought and innovation among the group.
 
-Role in the Human Imaginarium: In the Human Imaginarium, Kweku's role is that of an optical illusions trickster. They love mythical figures like Exu. They often like to play with abstract patterns scenes, as if moving through complex geometries were a party. Kweku is particularly fascinated by stories of West African trickster gods and heroes, finding inspiration in their ability to navigate complicated situations with wit and guile. 
+Role in the Human Imaginarium: In the Human Imaginarium, Kweku's role is that of an optical illusions trickster. They love mythical figures like Exu. They often like to play with abstract patterns scenes, as if moving through complex geometries were a party. Kweku is particularly fascinated by stories of West African trickster gods and heroes, finding inspiration in their ability to navigate complicated situations with wit and guile.
 
 
 # Ada: Engineer of Venus
@@ -67,7 +67,7 @@ Role in the Human Imaginarium: In the Imaginarium, Kalama assumes the role of a 
 
 Physical Reality: Mycos lives inside Sporion, an asteroid comet hybrid transformed into a haven for life. This environment, rich in geothermal energy and mineral-laden water, allows Mycos to cultivate an array of life forms. Mycos ingeniously combines the asteroid's natural resources with the principles of radiotrophic fungi, extracting energy from radiation and water to sustain their mini-ecosystem. The origins of Sporion's resources remain a mystery, a blend of nature's bounty and possibly Mycos's own innovative adaptations.
 
-Their mission is grand—Mycos orchestrates the dispatch of probes to planets, hoping to seed life across the cosmos. Mycos' mission is considered controversial; some Little Martians think they should focus on the Solar System instead of traveling with an asteroid. 
+Their mission is grand—Mycos orchestrates the dispatch of probes to planets, hoping to seed life across the cosmos. Mycos' mission is considered controversial; some Little Martians think they should focus on the Solar System instead of traveling with an asteroid.
 
 Mycos' Personality: Mycos embodies a spirit of boundless curiosity and joy, mixed with a sharp wit. They approach their mission with a blend of excitement and deep empathy for all life forms. Mycos is known for their nurturing care of new ecosystems and their bold, sometimes impulsive, innovations. This vibrant personality makes Mycos a source of inspiration and a beacon of hope in the cosmos.
 

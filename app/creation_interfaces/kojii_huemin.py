@@ -6,7 +6,6 @@ from pydantic import BaseModel, Field
 from ..plugins import replicate
 
 
-
 class Climate(Enum):
     arid = "arid"
     temperate = "temperate"
@@ -57,6 +56,7 @@ class Landform(Enum):
     waterfalls = "waterfalls"
     rift_valleys = "rift valleys"
 
+
 class BodyOfWater(Enum):
     oceans = "oceans"
     seas = "seas"
@@ -79,6 +79,7 @@ class BodyOfWater(Enum):
     springs = "springs"
     brooks = "brooks"
 
+
 class Structure(Enum):
     bridges = "bridges"
     tunnels = "tunnels"
@@ -96,6 +97,7 @@ class Structure(Enum):
     industrial_factories = "industrial factories"
     piers = "piers"
     harbors = "harbors"
+
 
 class Season(Enum):
     spring = "spring"
@@ -122,6 +124,7 @@ class Season(Enum):
     heatwave = "heatwave"
     drought = "drought"
 
+
 class TimeOfDay(Enum):
     dawn = "dawn"
     morning = "morning"
@@ -130,6 +133,7 @@ class TimeOfDay(Enum):
     dusk = "dusk"
     evening = "evening"
     sunset = "sunset"
+
 
 class Color(Enum):
     monochromatic = "monochromatic"
@@ -154,6 +158,7 @@ class KojiiHueminRequest(BaseModel):
     """
     A request for Huemin endpoint
     """
+
     climate: Climate
     landform: Landform
     body_of_water: BodyOfWater
@@ -161,17 +166,25 @@ class KojiiHueminRequest(BaseModel):
     # season: Season
     # time_of_day: TimeOfDay
     # color: Color
-    
+
 
 def generate_prompt(selected_climate, selected_landform, selected_body_of_water):
     base_prompt = "isometric generative landscape orthographic abstract aj casson perlin noise 3d shaders areal embroidery minimalism claude monet oil painting pastel"
-    
-    selected_structure     = random.choice(list(Structure)).value
-    selected_season        = random.choice(list(Season)).value
-    selected_time_of_day   = random.choice(list(TimeOfDay)).value
-    selected_colors        = random.choice(list(Color)).value
 
-    selected_keywords = [selected_climate.value, selected_landform.value, selected_body_of_water.value, selected_structure, selected_season, selected_time_of_day, selected_colors]
+    selected_structure = random.choice(list(Structure)).value
+    selected_season = random.choice(list(Season)).value
+    selected_time_of_day = random.choice(list(TimeOfDay)).value
+    selected_colors = random.choice(list(Color)).value
+
+    selected_keywords = [
+        selected_climate.value,
+        selected_landform.value,
+        selected_body_of_water.value,
+        selected_structure,
+        selected_season,
+        selected_time_of_day,
+        selected_colors,
+    ]
     landscape_keywords = " ".join(selected_keywords)
 
     prompt = base_prompt + " (((" + landscape_keywords + ")))"
@@ -183,10 +196,7 @@ def kojii_huemin(request: KojiiHueminRequest, callback=None):
     print(request)
     prompt = generate_prompt(request.climate, request.landform, request.body_of_water)
     print(prompt)
-    config = {
-        "mode": "kojii/huemin",
-        "text_input": prompt
-    }
+    config = {"mode": "kojii/huemin", "text_input": prompt}
 
     image_url, thumbnail_url = replicate.sdxl(config)
 

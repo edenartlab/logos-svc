@@ -25,8 +25,8 @@ def test_comic():
     Test comic book story
     """
     request = {
-        "character_id": "658b44b36104b05b266ca3c6", 
-        "prompt": "Tell me a story about pizza. Have exactly 3 panels."
+        "character_id": "658b44b36104b05b266ca3c6",
+        "prompt": "Tell me a story about pizza. Have exactly 3 panels.",
     }
 
     response = client.post("/scenarios/comic", json=request)

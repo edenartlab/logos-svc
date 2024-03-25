@@ -31,7 +31,7 @@ def test_character_chat():
         "message": "Who are you?",
         "attachments": None,
         "knowledge_summary": None,
-        "knowledge": None
+        "knowledge": None,
     }
 
     response = client.post("/chat/test", json=request)

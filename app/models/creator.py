@@ -9,7 +9,7 @@ class Thought(BaseModel):
     """
 
     probability: str = Field(
-        description="A percentage chance that the character will respond to the conversation"
+        description="A percentage chance that the character will respond to the conversation",
     )
 
 
@@ -24,7 +24,7 @@ class GeneratorMode(Enum):
     txt2vid = "txt2vid"
     img2vid = "img2vid"
     vid2vid = "vid2vid"
-    
+
 
 class Config(BaseModel):
     """
@@ -35,28 +35,26 @@ class Config(BaseModel):
     text_input: Optional[str] = Field(description="Text prompt that describes image")
     seed: Optional[int] = Field(description="Seed for random number generator")
     init_image: Optional[str] = Field(
-        description="Path to image file for create, remix, upscale, controlnet, img2vid, or vid2vid"
+        description="Path to image file for create, remix, upscale, controlnet, img2vid, or vid2vid",
     )
-    init_video: Optional[str] = Field(
-        description="Path to video file for vid2vid"
-    )
+    init_video: Optional[str] = Field(description="Path to video file for vid2vid")
     init_image_strength: Optional[float] = Field(
-        description="Strength of init image, default 0.15"
+        description="Strength of init image, default 0.15",
     )
     control_image: Optional[str] = Field(
-        description="Path to image file for controlnet"
+        description="Path to image file for controlnet",
     )
     control_image_strength: Optional[float] = Field(
-        description="Strength of control image for controlnet, default 0.6"
+        description="Strength of control image for controlnet, default 0.6",
     )
     interpolation_init_images: Optional[List[str]] = Field(
-        description="List of paths to image files for real2real or blend"
+        description="List of paths to image files for real2real or blend",
     )
     interpolation_texts: Optional[List[str]] = Field(
-        description="List of text prompts for interpolate"
+        description="List of text prompts for interpolate",
     )
     interpolation_seeds: Optional[List[int]] = Field(
-        description="List of seeds for interpolation texts"
+        description="List of seeds for interpolation texts",
     )
     n_frames: Optional[int] = Field(description="Number of frames in output video")
 
@@ -84,7 +82,9 @@ class StoryCreatorOutput(BaseModel):
     """
 
     config: Optional[StoryConfig] = Field(description="Config for Eden generator")
-    named_characters: List[str] = Field(description="List of characters named by the user")
+    named_characters: List[str] = Field(
+        description="List of characters named by the user",
+    )
     message: str = Field(description="Message to user")
 
 
@@ -104,7 +104,8 @@ class CreatorInput(BaseModel):
 
     message: str = Field(description="Message to LLM")
     attachments: Optional[List[str]] = Field(
-        default_factory=list, description="List of file paths to attachments"
+        default_factory=list,
+        description="List of file paths to attachments",
     )
 
 
@@ -124,5 +125,6 @@ class StoryCreatorInput(BaseModel):
 
     message: str = Field(description="Message to LLM")
     attachments: Optional[List[str]] = Field(
-        default_factory=list, description="List of file paths to attachments"
+        default_factory=list,
+        description="List of file paths to attachments",
     )

@@ -10,6 +10,7 @@ class Setting(Enum):
     inside = "inside"
     outside = "outside"
 
+
 class Location(Enum):
     jungle = "jungle"
     cliff_front = "cliff front"
@@ -19,11 +20,13 @@ class Location(Enum):
     montana_mountains = "montana mountains"
     green_hills = "green hills"
 
+
 class Time(Enum):
     noon = "noon"
     dawn = "dawn"
     red_sunset = "red sunset"
     night = "night"
+
 
 class Color(Enum):
     default = "default"
@@ -32,15 +35,18 @@ class Color(Enum):
     light_blue = "light blue"
     light_pink = "light pink"
 
+
 class AspectRatio(Enum):
     portrait = "portrait"
     landscape = "landscape"
     square = "square"
 
+
 class KojiiMakeitradRequest(BaseModel):
     """
     A request for Makeitrad endpoint
     """
+
     setting: Setting
     location: Location
     time: Time
@@ -50,10 +56,7 @@ class KojiiMakeitradRequest(BaseModel):
     aspect_ratio: AspectRatio
 
 
-settings = {
-    "inside": "interior",
-    "outside": "exterior"
-}
+settings = {"inside": "interior", "outside": "exterior"}
 
 locations = {
     "jungle": "surrounded by overgrown plants, in the lush jungle, large leaves",
@@ -62,14 +65,14 @@ locations = {
     "redwood forest": "in the lush redwood forest with a running river",
     "city suburbia": "urban city suburbia, (house plants) and (outdoor topiaries:1.5)",
     "montana mountains": "dramatic winter snow capped rustic Montana mountains, trees",
-    "green hills": "rolling green grass hills and colorful wild flowers"
+    "green hills": "rolling green grass hills and colorful wild flowers",
 }
 
 times = {
     "noon": "high noon",
     "dawn": "dawn light with hazy fog",
     "red sunset": "night red sunset",
-    "night": "dark black night with large moon and stars"
+    "night": "dark black night with large moon and stars",
 }
 
 colors = {
@@ -77,14 +80,15 @@ colors = {
     "orange": "orange accents",
     "yellow/green": "yellow and green accents",
     "light blue": "light blue accents",
-    "light pink": "light pink accents"
+    "light pink": "light pink accents",
 }
 
 resolutions = {
     "portrait": (768, 1344),
     "landscape": (1344, 768),
-    "square": (1024, 1024)
+    "square": (1024, 1024),
 }
+
 
 def kojii_makeitrad(request: KojiiMakeitradRequest, callback=None):
     setting = settings[request.setting.value]
@@ -115,14 +119,10 @@ def kojii_makeitrad(request: KojiiMakeitradRequest, callback=None):
         "seed": random.randint(0, 1000000),
     }
 
-    output = replicate.run_task(
-        config, 
-        model_name="abraham-ai/eden-comfyui"
-    )
-    
+    output = replicate.run_task(config, model_name="abraham-ai/eden-comfyui")
+
     output = list(output)
     image_url = output[0]["files"][0]
     thumbnail_url = output[0]["thumbnails"][0]
 
     return image_url, thumbnail_url
-    

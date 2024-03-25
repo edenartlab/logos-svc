@@ -60,5 +60,5 @@ class ChatMessage(BaseModel):
             self.model_dump(
                 exclude_none=True,
                 # option=orjson.OPT_INDENT_2
-            )
+            ),
         )

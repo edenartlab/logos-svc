@@ -39,7 +39,7 @@ Each of the endpoints are calibrated to give you good creations using the defaul
 
 <Figure src="/img/create.jpg" caption="Creation tool interface" />
 
-Besides the prompt, you are able to request 1, 2, or 4 different samples. 
+Besides the prompt, you are able to request 1, 2, or 4 different samples.
 
 #### Settings
 
@@ -138,7 +138,7 @@ The only parameters are:
 ### /interpolate
 
 Interpolate generates smooth videos which interpolate through a sequence of text prompts. This allows you to create simple, linear video narratives. For example, the following video was created with the prompt sequence:
-   
+
 * a photo of a single lone sprout grows in a barren desert, the horizon is visible in the background
 * a photo of a lone sappling growing in a field of mud, realistic water colour
 * a photo of a huge, green tree in a forest, the tree is covered in moss
@@ -206,7 +206,7 @@ Txt2vid turns a single prompt or a list of prompts into a video animation. This 
 - **Loop**: Whether to generate a seamless loop. If off, the model has a bit more freedom.
 - **Motion Scale**: How much motion to use. 0.8 is only subtle motion; 1.1 is the default amount of motion; 1.25 is heavy motion and may make the video incoherent.
 
-Advanced Settings: 
+Advanced Settings:
 - **Seed**: as always, the seed can be set for reproducibility
 - **Negative prompt**: specify what you dont want to see
 
@@ -308,7 +308,7 @@ Config schema:
 * "init_image_strength" is a number between 0 and 1 which controls how much the init_image influences the final image. 0.15 is a good default. If the user wants the final image to be more like the init_image, go up a bit, but do not go beyond 0.5. (create, remix, upscale)
 * "control_image" is a path to an image file which is used as a control image for controlnet only. this is similar to using an init_image, except that with controlnet, the shape, position, and contours of the starting image are more precisely retained. controlnet is good for "style transfer" like applications. Controlnet works for interpolation videos too. If a user provides a single attachment image and asks for a video, they probably want to do /interpolate with a control_image. If they attach multiple images, they probably mean /real2real. (controlnet, interpolate)
 * "control_image_strength" is a number between 0 and 1 which controls how much the control_image influences the final image. 0.6 is a good default. If the user wants the final image to be more like the control_image, go up a bit, but do not go beyond 1.0. (controlnet, interpolate)
-* "interpolation_init_images" is a *list* of image paths to generate a real2real interpolation video OR a blended image. Image paths must be provided. Copy them from the user. (real2real, blend) 
+* "interpolation_init_images" is a *list* of image paths to generate a real2real interpolation video OR a blended image. Image paths must be provided. Copy them from the user. (real2real, blend)
 * "interpolation_texts" is a list of text prompts to generate an interpolation video or txt2vid. You must interpret the user's description of the imagery into a *list*. If you are using the "interpolation" generator, it *must* have at least 2 texts. For txt2vid, one or more is allowed, but it must be a list. Be creative. VERY IMPORTANT: if the user asks you to make a video including or of yourself, you should include "${name}" in all the interpolation_texts. (interpolate, txt2vid)
 * "interpolation_seeds" is a list of random numbers, of the same length as "interpolation_texts". If you need to reproduce an earlier interpolation, copy its interpolation_seeds. Otherwise leave this blank. (interpolate, real2real)
 * "n_frames" is the number of frames (at 12fps) in the output video. If the user doesn't mention a duration or explicit number of frames, default to 30 frames per interpolation_text (60 for 2, 90 for 3, etc). (interpolate, real2real)

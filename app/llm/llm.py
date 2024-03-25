@@ -44,14 +44,19 @@ class LLM(BaseModel):
         new_default_session = None
         if default_session:
             new_session = self.new_session(
-                return_session=True, system=system_message, id=id, **kwargs
+                return_session=True,
+                system=system_message,
+                id=id,
+                **kwargs,
             )
 
             new_default_session = new_session
             sessions = {new_session.id: new_session}
 
         super().__init__(
-            client=client, default_session=new_default_session, sessions=sessions
+            client=client,
+            default_session=new_default_session,
+            sessions=sessions,
         )
 
         if not system_message and console:
@@ -63,12 +68,12 @@ class LLM(BaseModel):
         system_message: str = None,
         **kwargs,
     ) -> None:
-        
+
         for sess in self.sessions.values():
             sess.system = system_message
             for arg in kwargs:
                 setattr(sess, arg, kwargs[arg])
-            
+
         if self.default_session:
             self.default_session.system = system_message
             for arg in kwargs:
@@ -135,10 +140,7 @@ class LLM(BaseModel):
         sess = self.get_session(id)
         sess.add_messages(user_message, assistant_message, True)
 
-    def get_messages(
-        self, 
-        id: Union[str, UUID] = None
-    ) -> List[ChatMessage]:
+    def get_messages(self, id: Union[str, UUID] = None) -> List[ChatMessage]:
         sess = self.get_session(id)
         return sess.messages
 
@@ -153,7 +155,7 @@ class LLM(BaseModel):
         tools: List[Any] = None,
         input_schema: Any = None,
         output_schema: Any = None,
-        model: str = "gpt-4-1106-preview"
+        model: str = "gpt-4-1106-preview",
     ) -> str:
         sess = self.get_session(id)
         if tools:
@@ -281,21 +283,22 @@ class LLM(BaseModel):
                     # for human-readability, the timezone is set to local machine
                     local_datetime = message["received_at"].astimezone()
                     message["received_at"] = local_datetime.strftime(
-                        "%Y-%m-%d %H:%M:%S"
+                        "%Y-%m-%d %H:%M:%S",
                     )
                     w.writerow(message)
         elif format == "json":
             with open(output_path, "wb") as f:
                 f.write(
                     orjson.dumps(
-                        sess_dict, option=orjson.OPT_INDENT_2 if not minify else None
-                    )
+                        sess_dict,
+                        option=orjson.OPT_INDENT_2 if not minify else None,
+                    ),
                 )
 
     def load_session(self, input_path: str, id: Union[str, UUID] = uuid4(), **kwargs):
 
         assert input_path.endswith(".csv") or input_path.endswith(
-            ".json"
+            ".json",
         ), "Only CSV and JSON imports are accepted."
 
         if input_path.endswith(".csv"):
@@ -305,10 +308,11 @@ class LLM(BaseModel):
                 for row in r:
                     # need to convert the datetime back to UTC
                     local_datetime = datetime.datetime.strptime(
-                        row["received_at"], "%Y-%m-%d %H:%M:%S"
+                        row["received_at"],
+                        "%Y-%m-%d %H:%M:%S",
                     ).replace(tzinfo=dateutil.tz.tzlocal())
                     row["received_at"] = local_datetime.astimezone(
-                        datetime.timezone.utc
+                        datetime.timezone.utc,
                     )
                     # https://stackoverflow.com/a/68305271
                     row = {k: (None if v == "" else v) for k, v in row.items()}

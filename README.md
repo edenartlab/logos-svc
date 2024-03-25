@@ -1,5 +1,12 @@
 # logos-svc
 
+Install
+
+```
+rye sync
+rye run pre-commit install
+```
+
 Run
 
     `rye run uvicorn app.server:app --reload`
@@ -24,4 +31,3 @@ Send a command to the server
 Tests
 
     `rye run pytest -s tests`
-

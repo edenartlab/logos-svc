@@ -13,13 +13,9 @@ def get_version(replicate_client, model_name: str):
     return model.latest_version.id
 
 
-def run_task(
-    config: dict[any], 
-    model_name: str = None, 
-    model_version: str = None
-):
+def run_task(config: dict[any], model_name: str = None, model_version: str = None):
     r = replicate.Client(api_token=REPLICATE_API_KEY)
-    
+
     if not model_version:
         version = get_version(r, model_name)
         model_version = f"{model_name}:{version}"
@@ -49,6 +45,7 @@ def submit_task(
     )
     return prediction
 
+
 # config:dict?
 def wav2lip(
     face_url: str,
@@ -62,7 +59,7 @@ def wav2lip(
         "face_url": face_url,
         "speech_url": speech_url,
         "gfpgan": gfpgan,
-        "gfpgan_upscale": gfpgan_upscale
+        "gfpgan_upscale": gfpgan_upscale,
     }
 
     if width:
@@ -70,11 +67,8 @@ def wav2lip(
     if height:
         config["height"] = height
 
-    output = run_task(
-        config, 
-        model_name="abraham-ai/character"
-    )
-    
+    output = run_task(config, model_name="abraham-ai/character")
+
     output = list(output)
     output_url = output[0]["files"][0]
     thumbnail_url = output[0]["thumbnails"][0]
@@ -87,15 +81,15 @@ def sdxl(
     model_version: str = None,
 ):
     output = run_task(
-        config, 
+        config,
         model_name="abraham-ai/eden-sd-pipelines-sdxl",
-        model_version=model_version
+        model_version=model_version,
     )
-    
+
     output = list(output)
     output_url = output[0]["files"][0]
     thumbnail_url = output[0]["thumbnails"][0]
-    
+
     return output_url, thumbnail_url
 
 
@@ -114,15 +108,12 @@ def txt2vid(
         "n_frames": 100,
     }
 
-    output = run_task(
-        config, 
-        model_name="abraham-ai/eden-comfyui"
-    )
-    
+    output = run_task(config, model_name="abraham-ai/eden-comfyui")
+
     output = list(output)
     output_url = output[0]["files"][0]
     thumbnail_url = output[0]["thumbnails"][0]
-    
+
     return output_url, thumbnail_url
 
 
@@ -136,13 +127,10 @@ def audiocraft(
         "duration_seconds": seconds,
     }
 
-    output = run_task(
-        config, 
-        model_name="abraham-ai/audiocraft"
-    )
-    
+    output = run_task(config, model_name="abraham-ai/audiocraft")
+
     output = list(output)
     output_url = output[0]["files"][0]
     thumbnail_url = output[0]["thumbnails"][0]
-    
+
     return output_url, thumbnail_url

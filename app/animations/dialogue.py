@@ -25,16 +25,13 @@ def animated_dialogue(request: DialogueRequest, callback=None):
 
     if callback:
         callback(progress=0.1)
-    
+
     characters = {
-        character_id: EdenCharacter(character_id) 
+        character_id: EdenCharacter(character_id)
         for character_id in request.character_ids
     }
-    images = [
-        characters[character_id].image 
-        for character_id in request.character_ids
-    ]
-    
+    images = [characters[character_id].image for character_id in request.character_ids]
+
     width, height = utils.calculate_target_dimensions(list(set(images)), MAX_PIXELS)
 
     progress = 0.1
@@ -45,13 +42,13 @@ def animated_dialogue(request: DialogueRequest, callback=None):
         character = characters[message["character_id"]]
         print(f'run talking head: {message["message"]}')
         output, _ = talking_head(
-            character, 
-            message["message"], 
-            width, 
+            character,
+            message["message"],
+            width,
             height,
-            gfpgan=request.gfpgan
+            gfpgan=request.gfpgan,
         )
-        print(f'output: {output}')
+        print(f"output: {output}")
         with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as temp_file:
             print("download:", output)
             response = requests.get(output, stream=True)
@@ -70,7 +67,7 @@ def animated_dialogue(request: DialogueRequest, callback=None):
     video_files = utils.process_in_parallel(
         result.dialogue,
         run_talking_head_segment,
-        max_workers=MAX_WORKERS
+        max_workers=MAX_WORKERS,
     )
 
     print("--- end video file tasks ----")
@@ -78,7 +75,7 @@ def animated_dialogue(request: DialogueRequest, callback=None):
 
     if request.dual_view:
         print(" -> dual view")
-        cropped_images = {}       
+        cropped_images = {}
         for character in characters:
             temp_file = tempfile.NamedTemporaryFile(suffix=".webp", delete=False)
             image = utils.download_image(characters[character].image)
@@ -86,9 +83,10 @@ def animated_dialogue(request: DialogueRequest, callback=None):
             image.save(temp_file, format="png")
             cropped_images[character] = temp_file.name
         dual_video_files = []
-        for idx, (message, video_file) in enumerate(zip(result.dialogue, video_files)):     
+        for idx, (message, video_file) in enumerate(zip(result.dialogue, video_files)):
             opposing_character_id = next(
-                c for c in characters 
+                c
+                for c in characters
                 if characters[c].character_id != message["character_id"]
             )
             image = cropped_images[opposing_character_id]
@@ -103,20 +101,19 @@ def animated_dialogue(request: DialogueRequest, callback=None):
 
     if request.intro_screen:
         print(" -> intro screen")
-        character_names = [characters[character_id].name for character_id in request.character_ids]
-        character_name_str = " and ".join(character_names)
-        paragraphs = [
-            request.prompt,
-            f"Dialogue between {character_name_str}"
+        character_names = [
+            characters[character_id].name for character_id in request.character_ids
         ]
+        character_name_str = " and ".join(character_names)
+        paragraphs = [request.prompt, f"Dialogue between {character_name_str}"]
         intro_screen = utils.video_textbox(
-            paragraphs, 
-            width * 2 if request.dual_view else width, 
-            height, 
-            duration = 8,
-            fade_in = 1.5,
-            margin_left = 25,
-            margin_right = 25 #width + 25
+            paragraphs,
+            width * 2 if request.dual_view else width,
+            height,
+            duration=8,
+            fade_in=1.5,
+            margin_left=25,
+            margin_right=25,  # width + 25
         )
         video_files = [intro_screen] + video_files
 
@@ -126,7 +123,7 @@ def animated_dialogue(request: DialogueRequest, callback=None):
     with tempfile.NamedTemporaryFile(delete=True, suffix=".mp4") as temp_output_file:
         print("concatenate videos")
         utils.concatenate_videos(video_files, temp_output_file.name)
-        with open(temp_output_file.name, 'rb') as f:
+        with open(temp_output_file.name, "rb") as f:
             video_bytes = f.read()
         output_url = s3.upload(video_bytes, "mp4")
 
@@ -136,7 +133,7 @@ def animated_dialogue(request: DialogueRequest, callback=None):
 
     # generate thumbnail
     print("make thumbnail")
-    thumbnail = utils.create_dialogue_thumbnail(*images, 2*width, height)
+    thumbnail = utils.create_dialogue_thumbnail(*images, 2 * width, height)
     thumbnail_url = s3.upload(thumbnail, "webp")
     print("finished thumbnail", thumbnail_url)
 

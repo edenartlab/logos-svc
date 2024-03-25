@@ -61,7 +61,7 @@ class StoryClip(BaseModel):
 
     voiceover: StoryVoiceoverMode = Field(description="Voiceover mode for clip")
     character: Optional[str] = Field(
-        description="Character name if voiceover mode is character, otherwise null"
+        description="Character name if voiceover mode is character, otherwise null",
     )
     speech: str = Field(description="Spoken text for clip")
     image_prompt: str = Field(description="Image content for clip")
@@ -71,8 +71,11 @@ class StoryResult(BaseModel):
     """
     A screenplay consisting of a sequence of clips
     """
+
     clips: List[StoryClip] = Field(description="Clips in the sequence")
-    music_prompt: Optional[str] = Field(description="Backing music content for sequence")
+    music_prompt: Optional[str] = Field(
+        description="Backing music content for sequence",
+    )
 
 
 class ReelNarrationMode(Enum):
@@ -103,14 +106,16 @@ class ReelResult(BaseModel):
     """
     A screenplay consisting of a sequence of clips
     """
+
     voiceover: ReelVoiceoverMode = Field(description="Voiceover mode for reel")
     character: Optional[str] = Field(
-        description="Character name if voiceover mode is character, otherwise null"
+        description="Character name if voiceover mode is character, otherwise null",
     )
-    speech: Optional[str] = Field(description="Spoken text for clip if voiceover mode is not none, otherwise null")
+    speech: Optional[str] = Field(
+        description="Spoken text for clip if voiceover mode is not none, otherwise null",
+    )
     music_prompt: str = Field(description="Music content for reel")
     image_prompt: str = Field(description="Image content for clip")
-
 
 
 class ComicRequest(BaseModel):
@@ -125,7 +130,9 @@ class Poster(BaseModel):
     A single panel or poster in a comic book sequence or other
     """
 
-    image: str = Field(description="Literal description of image content for [poster or panel]")
+    image: str = Field(
+        description="Literal description of image content for [poster or panel]",
+    )
     caption: str = Field(description="Creative caption of poster or panel")
 
 
@@ -135,4 +142,3 @@ class ComicResult(BaseModel):
     """
 
     panels: List[Poster] = Field(description="Comic Book panels")
-

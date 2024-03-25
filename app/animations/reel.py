@@ -29,8 +29,8 @@ def animated_reel(request: ReelRequest, callback=None):
     }
 
     # if voice is new, assign a random voice
-    if result['character']:        
-        character_name = result['character']
+    if result["character"]:
+        character_name = result["character"]
         if character_name not in character_name_lookup:
             characters[character_name] = Character(name=character_name)
             character_name_lookup[character_name] = character_name
@@ -45,18 +45,18 @@ def animated_reel(request: ReelRequest, callback=None):
         width, height = 1920, 1088
     else:
         width, height = 1600, 1600
-        
+
     min_duration = 25
     speech_audio = None
     duration = min_duration
 
     if result["speech"]:
         if result["voiceover"] == "character":
-            character_id = character_name_lookup[result['character']]
+            character_id = character_name_lookup[result["character"]]
             character = characters.get(character_id)
         else:
             character = characters[request.narrator_id]
-        
+
         if not character:
             voice_id = select_random_voice()
         else:
@@ -64,11 +64,8 @@ def animated_reel(request: ReelRequest, callback=None):
                 voice_id = character.voice
             else:
                 voice_id = select_random_voice(character)
-        
-        speech_bytes = elevenlabs.tts(
-            result["speech"], 
-            voice=voice_id
-        )
+
+        speech_bytes = elevenlabs.tts(result["speech"], voice=voice_id)
 
         speech_file = BytesIO(speech_bytes)
         speech_audio = AudioSegment.from_mp3(speech_file)
@@ -79,12 +76,9 @@ def animated_reel(request: ReelRequest, callback=None):
 
         duration = max(min_duration, len(speech_audio) / 1000)
 
-    music_url, _ = replicate.audiocraft(
-        prompt=result["music_prompt"],
-        seconds=duration
-    )
+    music_url, _ = replicate.audiocraft(prompt=result["music_prompt"], seconds=duration)
     music_bytes = requests.get(music_url).content
-    
+
     if speech_audio:
         buffer = BytesIO()
         music_audio = AudioSegment.from_mp3(BytesIO(music_bytes))
@@ -120,24 +114,29 @@ def animated_reel(request: ReelRequest, callback=None):
         callback(progress=0.9)
 
     if request.intro_screen:
-        character_names = [characters[character_id].name for character_id in request.character_ids]
+        character_names = [
+            characters[character_id].name for character_id in request.character_ids
+        ]
         character_name_str = ", ".join(character_names)
         paragraphs = [
             request.prompt,
             f"Characters: {character_name_str}" if character_names else "",
         ]
         intro_screen = utils.video_textbox(
-            paragraphs, 
-            width, 
-            height, 
-            duration = 6,
-            fade_in = 1,
-            margin_left = 25,
-            margin_right = 25
+            paragraphs,
+            width,
+            height,
+            duration=6,
+            fade_in=1,
+            margin_left=25,
+            margin_right=25,
         )
         video_files = [intro_screen, output_filename]
 
-        with tempfile.NamedTemporaryFile(delete=True, suffix=".mp4") as temp_output_file:
+        with tempfile.NamedTemporaryFile(
+            delete=True,
+            suffix=".mp4",
+        ) as temp_output_file:
             utils.concatenate_videos(video_files, temp_output_file.name)
             with open(temp_output_file.name, "rb") as f:
                 video_bytes = f.read()

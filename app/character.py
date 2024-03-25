@@ -75,7 +75,7 @@ class Character:
         self.chat = LLM(params=self.chat_params)
 
         self.knowledge_summary = ""
-        
+
         self.update(
             name=name,
             identity=identity,
@@ -89,7 +89,6 @@ class Character:
             image=image,
             voice=voice,
         )
-        
 
     def update(
         self,
@@ -113,30 +112,34 @@ class Character:
         self.creation_enabled = creation_enabled
         self.story_creation_enabled = story_creation_enabled
         self.concept = concept
-        self.smart_reply = False # smart_reply  # disabled until ready
+        self.smart_reply = False  # smart_reply  # disabled until ready
         self.chat_model = chat_model
         self.image = image
         self.voice = voice
         self.function_map = {"1": self._chat_}
-        options = ["Regular conversation, chat, humor, small talk, or a asking for a question or comment about an attached image"]
+        options = [
+            "Regular conversation, chat, humor, small talk, or a asking for a question or comment about an attached image",
+        ]
 
         if knowledge:
             if not self.knowledge_summary.strip():
-                self.knowledge_summary = summary(
-                    SummaryRequest(text=self.knowledge)
-                )
+                self.knowledge_summary = summary(SummaryRequest(text=self.knowledge))
             options.append("A question about or reference to your knowledge")
             knowledge_summary = (
                 f"You have the following knowledge: {self.knowledge_summary}"
             )
             self.function_map[str(len(options))] = self._qa_
-        
+
         if creation_enabled:
-            options.append("A request for an image or simple video creation that isn't a story")
+            options.append(
+                "A request for an image or simple video creation that isn't a story",
+            )
             self.function_map[str(len(options))] = self._create_
 
         if story_creation_enabled:
-            options.append("A request to help write or draft a story, or to animate a finished story or turn it into a movie or film.")
+            options.append(
+                "A request to help write or draft a story, or to animate a finished story or turn it into a movie or film.",
+            )
             self.function_map[str(len(options))] = self._story_create_
 
         if len(options) == 1:
@@ -146,7 +149,8 @@ class Character:
             for i, option in enumerate(options):
                 options_prompt += f"{i+1}. {option}\n"
             self.router_prompt = router_template.substitute(
-                knowledge_summary=knowledge_summary or "", options=options_prompt
+                knowledge_summary=knowledge_summary or "",
+                options=options_prompt,
             )
 
         self.identity_prompt = identity_template.substitute(
@@ -185,7 +189,6 @@ class Character:
         self.chat.update(system_message=self.chat_prompt)
         self.reply.update(system_message=self.identity_prompt)
 
-
     def __str__(self):
         def truncate(s):
             return (s[:47] + "...") if len(s) > 50 else s
@@ -204,10 +207,7 @@ class Character:
         )
 
     def card(self):
-        return character_card.format(
-            name=self.name, 
-            identity=self.identity
-        )
+        return character_card.format(name=self.name, identity=self.identity)
 
     def think(
         self,
@@ -220,8 +220,8 @@ class Character:
             chat=message,
         )
         result = self.reply(
-            prompt=user_message, 
-            output_schema=Thought, 
+            prompt=user_message,
+            output_schema=Thought,
             save_messages=False,
             model="gpt-4-1106-preview",
         )
@@ -231,7 +231,6 @@ class Character:
         R = random.random()
 
         return R < probability
-
 
     def _route_(
         self,
@@ -244,9 +243,9 @@ class Character:
             role = "Eden" if msg.role == "assistant" else "Me"
             router_prompt += f"{role}: {msg.content}\n"
         router_prompt += f"Me: {message.message}"
-        router_prompt = router_prompt[-5000:] # limit to 5000 characters
+        router_prompt = router_prompt[-5000:]  # limit to 5000 characters
         index = self.router(
-            prompt=router_prompt, 
+            prompt=router_prompt,
             save_messages=False,
             model="gpt-4-1106-preview",
         )
@@ -257,7 +256,6 @@ class Character:
         else:
             return None
 
-
     def _chat_(
         self,
         message,
@@ -266,20 +264,7 @@ class Character:
         response = self.chat(
             prompt=message.message,
             image=message.attachments[0] if message.attachments else None,
-            id=session_id, 
-            save_messages=False,
-            model=self.chat_model,
-        )        
-        user_message = ChatMessage(role="user", content=message.message)
-        assistant_message = ChatMessage(role="assistant", content=response)
-        output = {"message": response, "config": None}
-        return output, user_message, assistant_message
-
-
-    def _qa_(self, message, session_id=None) -> dict:
-        response = self.qa(
-            prompt=message.message, 
-            id=session_id, 
+            id=session_id,
             save_messages=False,
             model=self.chat_model,
         )
@@ -288,13 +273,24 @@ class Character:
         output = {"message": response, "config": None}
         return output, user_message, assistant_message
 
+    def _qa_(self, message, session_id=None) -> dict:
+        response = self.qa(
+            prompt=message.message,
+            id=session_id,
+            save_messages=False,
+            model=self.chat_model,
+        )
+        user_message = ChatMessage(role="user", content=message.message)
+        assistant_message = ChatMessage(role="assistant", content=response)
+        output = {"message": response, "config": None}
+        return output, user_message, assistant_message
 
     def _create_(
         self,
         message,
         session_id=None,
     ) -> dict:
-        response = self.creator(            
+        response = self.creator(
             prompt=message,
             id=session_id,
             input_schema=CreatorInput,
@@ -333,29 +329,32 @@ class Character:
 
         return output, user_message, assistant_message
 
-
     def _story_create_(
         self,
         message,
         session_id=None,
     ) -> dict:
 
-        characters = self.story_context.memory(
-            "characters",
-            session_id=session_id,
-        ) or {}
+        characters = (
+            self.story_context.memory(
+                "characters",
+                session_id=session_id,
+            )
+            or {}
+        )
 
         character_names = [c.lower() for c in characters]
 
         story_context_prompt = story_context_prompt_template.substitute(
             character_names=", ".join(character_names),
-            message=message.message
+            message=message.message,
         )
 
         class ContextOutput(BaseModel):
             """
             Any new names listed by the user
             """
+
             new_names: List[str] = []
 
         response = self.story_context(
@@ -366,14 +365,15 @@ class Character:
         )
 
         new_names = [
-            name for name in response["new_names"] 
+            name
+            for name in response["new_names"]
             if name.lower() not in character_names
         ]
 
         for name in new_names:
             character = search_character(name)
             if character:
-                characters[name] = EdenCharacter(str(character['_id']))
+                characters[name] = EdenCharacter(str(character["_id"]))
 
         self.story_context.memory(
             "characters",
@@ -385,10 +385,13 @@ class Character:
         for name, character in characters.items():
             additional_context += f"\n---\n{name}: {character.identity}\n"
 
-        draft = self.story_context.memory(
-            "draft",
-            session_id=session_id,
-        ) or "none"
+        draft = (
+            self.story_context.memory(
+                "draft",
+                session_id=session_id,
+            )
+            or "none"
+        )
 
         story_editor_prompt = story_editor_prompt_template.substitute(
             draft=draft,
@@ -400,6 +403,7 @@ class Character:
             """
             Response from the story editor
             """
+
             new_draft: str
             message: str
             request_animation: bool
@@ -407,10 +411,10 @@ class Character:
         response = self.story_editor(
             prompt=story_editor_prompt,
             id=session_id,
-            #input_schema=CreatorInput,
+            # input_schema=CreatorInput,
             output_schema=StoryEditorOutput,
             model="gpt-4-1106-preview",
-            #model="gpt-3.5-turbo",
+            # model="gpt-3.5-turbo",
         )
 
         draft = self.story_context.memory(
@@ -418,11 +422,11 @@ class Character:
             session_id=session_id,
             value=response.get("new_draft"),
         )
-        
+
         request_animation = response.get("request_animation", False)
 
         message_out = response.get("message")
-        
+
         if request_animation:
             characterIds = [characters[c].character_id for c in characters]
 
@@ -434,7 +438,7 @@ class Character:
             }
 
         else:
-            message_out += "\n\nHere is the current working draft:\n\n"+draft
+            message_out += "\n\nHere is the current working draft:\n\n" + draft
             config = None
 
         message_in = message.message
@@ -444,13 +448,9 @@ class Character:
         user_message = ChatMessage(role="user", content=message_in)
         assistant_message = ChatMessage(role="assistant", content=message_out)
 
-        output = {
-            "message": message_out, 
-            "config": config
-        }
+        output = {"message": message_out, "config": config}
 
         return output, user_message, assistant_message
-
 
     def __call__(
         self,
@@ -491,17 +491,18 @@ class Character:
                     system=self.chat_prompt,
                     params=self.chat_params,
                 )
-        
+
         function = None
         if self.router_prompt:
             index = self._route_(message, session_id=session_id)
             function = self.function_map.get(index)
-        
+
         if not function:
             function = self.function_map.get("1")
 
         output, user_message, assistant_message = function(
-            message, session_id=session_id
+            message,
+            session_id=session_id,
         )
 
         self.router.add_messages(user_message, assistant_message, id=session_id)
@@ -510,7 +511,7 @@ class Character:
         self.story_context.add_messages(user_message, assistant_message, id=session_id)
         self.qa.add_messages(user_message, assistant_message, id=session_id)
         self.chat.add_messages(user_message, assistant_message, id=session_id)
-        
+
         return output
 
 
@@ -527,7 +528,7 @@ class EdenCharacter(Character):
         """
         Sync the character data from the database
         """
-        
+
         character_data = get_character_data(self.character_id)
         logos_data = character_data.get("logosData")
         name = character_data.get("name")
@@ -537,7 +538,9 @@ class EdenCharacter(Character):
         concept = logos_data.get("concept")
         abilities = logos_data.get("abilities")
         creation_enabled = abilities.get("creations", False) if abilities else False
-        story_creation_enabled = abilities.get("story_creations", False) if abilities else False
+        story_creation_enabled = (
+            abilities.get("story_creations", False) if abilities else False
+        )
         smart_reply = abilities.get("smart_reply", False) if abilities else False
         chat_model = logos_data.get("chatModel", "gpt-4-1106-preview")
         image = character_data.get("image")

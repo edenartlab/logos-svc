@@ -1,6 +1,7 @@
 import sys
 import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 import os
 import pymongo
@@ -24,7 +25,7 @@ db = mongo[MONGO_DB_NAME]
 
 def iterate_collection(collection_name, callback, batch_size=100):
     docs = db[collection_name].find().batch_size(batch_size)
-    try:        
+    try:
         for doc in docs:
             callback(doc)
     finally:
@@ -32,30 +33,20 @@ def iterate_collection(collection_name, callback, batch_size=100):
 
 
 def moderation():
-
     def process_creation(creation):
-        if 'task' not in creation:
-            return        
-        task = db["tasks"].find_one({
-            "_id": ObjectId(creation['task'])
-        })        
-        if 'text_input' not in task['config']:
+        if "task" not in creation:
             return
-        text_input = task['config']['text_input']
+        task = db["tasks"].find_one({"_id": ObjectId(creation["task"])})
+        if "text_input" not in task["config"]:
+            return
+        text_input = task["config"]["text_input"]
         print(text_input)
-        request = {
-            "text": text_input
-        }
+        request = {"text": text_input}
         response = client.post("/tasks/moderation", json=request)
         print(response.json())
         print("-----")
 
-
-    iterate_collection(
-        "creations", 
-        process_creation
-    )
-
+    iterate_collection("creations", process_creation)
 
 
 moderation()

@@ -5,30 +5,49 @@ from fastapi import BackgroundTasks
 
 from .models import (
     MonologueRequest,
-    DialogueRequest, DialogueResult, StoryRequest, ReelRequest,
-    TaskRequest, TaskUpdate, TaskResult, LittleMartianRequest,
+    DialogueRequest,
+    DialogueResult,
+    StoryRequest,
+    ReelRequest,
+    TaskRequest,
+    TaskUpdate,
+    TaskResult,
+    LittleMartianRequest,
 )
 from .animations import (
-    animated_monologue, 
-    animated_dialogue, 
+    animated_monologue,
+    animated_dialogue,
     animated_story,
-    animated_reel, 
+    animated_reel,
     illustrated_comic,
-    little_martian_poster
+    little_martian_poster,
 )
 from .creation_interfaces import (
-    kojii_makeitrad, KojiiMakeitradRequest,
-    kojii_chebel, KojiiChebelRequest,
-    kojii_untitledxyz, KojiiUntitledxyzRequest,
-    kojii_violetforest, KojiiVioletforestRequest,
-    kojii_huemin, KojiiHueminRequest
+    kojii_makeitrad,
+    KojiiMakeitradRequest,
+    kojii_chebel,
+    KojiiChebelRequest,
+    kojii_untitledxyz,
+    KojiiUntitledxyzRequest,
+    kojii_violetforest,
+    KojiiVioletforestRequest,
+    kojii_huemin,
+    KojiiHueminRequest,
 )
 
 NARRATOR_CHARACTER_ID = os.getenv("NARRATOR_CHARACTER_ID")
 
 logosGenerators = [
-    "monologue", "dialogue", "story", "reel", 
-    "kojii/makeitrad", "kojii/va2rosa", "kojii/chebel", "kojii/untitledxyz", "kojii/violetforest", "kojii/huemin"
+    "monologue",
+    "dialogue",
+    "story",
+    "reel",
+    "kojii/makeitrad",
+    "kojii/va2rosa",
+    "kojii/chebel",
+    "kojii/untitledxyz",
+    "kojii/violetforest",
+    "kojii/huemin",
 ]
 
 
@@ -47,7 +66,6 @@ def process_task(task_id: str, request: TaskRequest):
                 error=None,
             )
             requests.post(webhook_url, json=update.dict())
-    
 
     if webhook_url:
         update = TaskUpdate(
@@ -72,7 +90,7 @@ def process_task(task_id: str, request: TaskRequest):
             )
             output_url, thumbnail_url = animated_monologue(
                 task_req,
-                callback=send_progress_update
+                callback=send_progress_update,
             )
 
         elif task_type == "dialogue":
@@ -86,11 +104,11 @@ def process_task(task_id: str, request: TaskRequest):
                 prompt=prompt,
                 gfpgan=gfpgan,
                 dual_view=dual_view,
-                intro_screen=intro_screen
+                intro_screen=intro_screen,
             )
             output_url, thumbnail_url = animated_dialogue(
                 task_req,
-                callback=send_progress_update
+                callback=send_progress_update,
             )
 
         elif task_type == "story":
@@ -109,7 +127,7 @@ def process_task(task_id: str, request: TaskRequest):
             )
             output_url, thumbnail_url = animated_story(
                 task_req,
-                callback=send_progress_update
+                callback=send_progress_update,
             )
 
         elif task_type == "reel":
@@ -130,11 +148,8 @@ def process_task(task_id: str, request: TaskRequest):
             )
             output_url, thumbnail_url = animated_reel(
                 task_req,
-                callback=send_progress_update
+                callback=send_progress_update,
             )
-
-
-
 
         elif task_type == "kojii/makeitrad":
             setting = request.config.get("setting")
@@ -144,7 +159,9 @@ def process_task(task_id: str, request: TaskRequest):
             clouds = request.config.get("clouds")
             pool = request.config.get("pool")
             aspect_ratio = request.config.get("aspect_ratio")
-            prompt = f"{setting} {location} {time} {color} {clouds} {pool} {aspect_ratio}"
+            prompt = (
+                f"{setting} {location} {time} {color} {clouds} {pool} {aspect_ratio}"
+            )
             task_req = KojiiMakeitradRequest(
                 setting=setting,
                 location=location,
@@ -156,7 +173,7 @@ def process_task(task_id: str, request: TaskRequest):
             )
             output_url, thumbnail_url = kojii_makeitrad(
                 task_req,
-                callback=send_progress_update
+                callback=send_progress_update,
             )
 
         elif task_type == "kojii/va2rosa":
@@ -174,7 +191,7 @@ def process_task(task_id: str, request: TaskRequest):
             )
             output_url, thumbnail_url = little_martian_poster(
                 task_req,
-                callback=send_progress_update
+                callback=send_progress_update,
             )
 
         elif task_type == "kojii/chebel":
@@ -191,7 +208,7 @@ def process_task(task_id: str, request: TaskRequest):
             )
             output_url, thumbnail_url = kojii_chebel(
                 task_req,
-                callback=send_progress_update
+                callback=send_progress_update,
             )
 
         elif task_type == "kojii/untitledxyz":
@@ -204,7 +221,7 @@ def process_task(task_id: str, request: TaskRequest):
             )
             output_url, thumbnail_url = kojii_untitledxyz(
                 task_req,
-                callback=send_progress_update
+                callback=send_progress_update,
             )
 
         elif task_type == "kojii/violetforest":
@@ -217,7 +234,7 @@ def process_task(task_id: str, request: TaskRequest):
             )
             output_url, thumbnail_url = kojii_violetforest(
                 task_req,
-                callback=send_progress_update
+                callback=send_progress_update,
             )
 
         elif task_type == "kojii/huemin":
@@ -232,9 +249,8 @@ def process_task(task_id: str, request: TaskRequest):
             )
             output_url, thumbnail_url = kojii_huemin(
                 task_req,
-                callback=send_progress_update
+                callback=send_progress_update,
             )
-
 
         output = TaskResult(
             files=[output_url],

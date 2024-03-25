@@ -10,15 +10,11 @@ def monologue(request: MonologueRequest) -> MonologueResult:
     character_data = get_character_data(request.character_id)
     name = character_data.get("name")
     description = character_data.get("logosData").get("identity")
-    
-    system_message = monologue_template.substitute(
-        name=name,
-        description=description
-    )
+
+    system_message = monologue_template.substitute(name=name, description=description)
     llm = LLM(model=request.model, system_message=system_message, params=params)
     monologue_text = llm(request.prompt, image=request.init_image)
 
     result = MonologueResult(monologue=monologue_text)
 
     return result
-

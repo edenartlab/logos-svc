@@ -8,7 +8,7 @@ client = TestClient(app)
 #     """
 #     Test making a generator request for a monologue
 #     """
-    
+
 #     request = {
 #         "generatorName": "monologue",
 #         "config": {
@@ -27,7 +27,7 @@ client = TestClient(app)
 #     """
 #     Test making a generator request for a monologue
 #     """
-    
+
 #     request = {
 #         "generatorName": "dialogue",
 #         "config": {
@@ -46,7 +46,7 @@ client = TestClient(app)
 #     """
 #     Test making a generator request for stories
 #     """
-    
+
 #     request = {
 #         "generatorName": "story",
 #         "config": {
@@ -61,12 +61,11 @@ client = TestClient(app)
 #     assert response.status_code == 200
 
 
-
 def test_littlemartians():
     """
     Test making a generator request for Little Martians posters
     """
-    
+
     request = {
         "generatorName": "littlemartians",
         "config": {
@@ -75,7 +74,7 @@ def test_littlemartians():
             "setting": "Human Imaginarium",
             "aspect_ratio": "portrait",
             "prompt": "Verdelis won the lottery",
-        }
+        },
     }
 
     response = client.post("/tasks/create", json=request)
