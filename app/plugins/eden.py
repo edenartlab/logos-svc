@@ -20,7 +20,7 @@ eden = EdenClient(
 create = eden.create
 
 # def run_task(
-#     config: dict[any], 
+#     config: dict[any],
 # ):
 #     config = {
 #         "text_input": "someone here",
@@ -34,4 +34,3 @@ create = eden.create
 #     print("ok 4")
 
 #     return urls[0]
-

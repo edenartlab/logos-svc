@@ -35,21 +35,19 @@ client = TestClient(app)
 #     print(voice_id)
 
 
-
-
-
 class Country(Enum):
     france = "France"
     germany = "Germany"
     switzerland = "Switzerland"
     usa = "USA"
     japanasia = "Japan Asia"
-    
+
 
 class CountrySelection(BaseModel):
     """
     Country
     """
+
     country: Country = Field(description="Country")
 
 
@@ -59,19 +57,19 @@ def test_func2():
     """
 
     prompt = "What country is this city in? Tokyo"
-    country = create_dynamic_model("country", ["France", "Germany", "Switzerland", "USA", "Japan Asia ok yay"])
+    country = create_dynamic_model(
+        "country",
+        ["France", "Germany", "Switzerland", "USA", "Japan Asia ok yay"],
+    )
 
     request = SimpleAssistantRequest(
         prompt=prompt,
         model="gpt-3.5-turbo",
         params={"temperature": 0.0, "max_tokens": 10},
-        output_schema=country
+        output_schema=country,
     )
 
     result = general_assistant(request)
     print(type(result))
 
-
     print(result)
-
-

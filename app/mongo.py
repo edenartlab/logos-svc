@@ -12,26 +12,24 @@ db = client[MONGO_DB_NAME]
 
 
 def search_character(name: str):
-    character = db["characters"].find_one({
-        "$text": {"$search": name},
-        "logosData": {"$exists": True}
-    }, sort=[("createdAt", DESCENDING)])
-    
+    character = db["characters"].find_one(
+        {"$text": {"$search": name}, "logosData": {"$exists": True}},
+        sort=[("createdAt", DESCENDING)],
+    )
+
     if character:
         return character
     else:
         print(f"No character found with name: {name}")
         return None
-    
+
 
 def get_character_data(character_id: str):
 
-    character = db["characters"].find_one({
-        "_id": ObjectId(character_id)
-    })
+    character = db["characters"].find_one({"_id": ObjectId(character_id)})
 
     if not character:
         print(f"---Character not found: {character_id}")
         raise Exception("Character not found")
-    
+
     return character

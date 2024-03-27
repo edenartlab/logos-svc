@@ -8,8 +8,7 @@ def dialogue(request: DialogueRequest):
     params = {"temperature": 1.0, "max_tokens": 1000, **request.params}
 
     characters = [
-        get_character_data(character_id) 
-        for character_id in request.character_ids
+        get_character_data(character_id) for character_id in request.character_ids
     ]
 
     llms = []
@@ -23,7 +22,7 @@ def dialogue(request: DialogueRequest):
             prompt=request.prompt,
         )
         llms.append(
-            LLM(model=request.model, system_message=system_message, params=params)
+            LLM(model=request.model, system_message=system_message, params=params),
         )
 
     message = "You are beginning the conversation. What is the first thing you say? Just the line. No quotes, no name markers."
@@ -37,10 +36,9 @@ def dialogue(request: DialogueRequest):
         if not message:
             raise Exception("No response from character")
 
-        conversation.append({
-            "character_id": request.character_ids[m % 2], 
-            "message": message
-        })
+        conversation.append(
+            {"character_id": request.character_ids[m % 2], "message": message},
+        )
 
     result = DialogueResult(dialogue=conversation)
 

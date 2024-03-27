@@ -4,6 +4,7 @@ from app.server import app
 
 client = TestClient(app)
 
+
 def test_little_martians():
     """
     Test Little Martian illustration on static character and prompt
@@ -16,8 +17,8 @@ def test_little_martians():
         genres = ["Drama", "Comedy", "Horror", "Action", "Mystery"]
         aspect_ratios = ["portrait", "landscape", "square"]
         prompts = [
-            "is feeling mischievous", 
-            "is doing high end machine learning research on finetuning multimodal diffusion models", 
+            "is feeling mischievous",
+            "is doing high end machine learning research on finetuning multimodal diffusion models",
             "feels lonely",
             "just won the lottery",
             "is feeling nostalgic",
@@ -61,11 +62,11 @@ def test_little_martians():
         import requests
         from io import BytesIO
         from PIL import Image
+
         uri, _ = response.json()
         response = requests.get(uri)
         img = Image.open(BytesIO(response.content))
-        filename = f'{martian} - {setting} - {genre} - {prompt[0:30]}'
-        img.save(f'tests/martians/{filename}.jpg')
-
+        filename = f"{martian} - {setting} - {genre} - {prompt[0:30]}"
+        img.save(f"tests/martians/{filename}.jpg")
 
     assert response.status_code == 200

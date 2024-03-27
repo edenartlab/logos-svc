@@ -4,10 +4,10 @@ from pydantic import BaseModel, Field
 from ..llm import LLM
 from ..prompt_templates import summary_template, moderation_template
 from ..models import (
-    SummaryRequest, 
-    ModerationRequest, 
+    SummaryRequest,
+    ModerationRequest,
     ModerationResult,
-    SimpleAssistantRequest
+    SimpleAssistantRequest,
 )
 
 
@@ -36,10 +36,10 @@ def moderation(request: ModerationRequest) -> ModerationResult:
 
 def general_assistant(request: SimpleAssistantRequest) -> str:
     params = {"temperature": 0.0, "max_tokens": 1000, **request.params}
-    
+
     llm = LLM(model=request.model, params=params)
     result = llm(request.prompt, output_schema=request.output_schema)
-    
+
     if request.output_schema is not None:
         return result[request.output_schema.__name__]
     else:

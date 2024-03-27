@@ -16,7 +16,7 @@ INTRO_SCREEN_DURATION = 10
 
 def animated_story(request: StoryRequest, callback=None):
     screenplay = story(request)
-    
+
     music_prompt = screenplay.get("music_prompt")
 
     if callback:
@@ -35,10 +35,10 @@ def animated_story(request: StoryRequest, callback=None):
     }
 
     # if any character is new, assign a random voice
-    for clip in screenplay['clips']:
-        if not clip['character']:
+    for clip in screenplay["clips"]:
+        if not clip["character"]:
             continue
-        character_name = clip['character']
+        character_name = clip["character"]
         if character_name not in character_name_lookup:
             characters[character_name] = Character(name=character_name)
             character_name_lookup[character_name] = character_name
@@ -55,12 +55,16 @@ def animated_story(request: StoryRequest, callback=None):
     def run_story_segment(clip, idx):
         nonlocal progress, progress_increment
         if clip["voiceover"] == "character":
-            character_id = character_name_lookup[clip['character']]
+            character_id = character_name_lookup[clip["character"]]
             character = characters.get(character_id)
         else:
             character = characters[request.narrator_id]
         output_filename, thumbnail_url = screenplay_clip(
-            character, clip["speech"], clip["image_prompt"], width, height
+            character,
+            clip["speech"],
+            clip["image_prompt"],
+            width,
+            height,
         )
         progress += progress_increment
         if callback:
@@ -68,7 +72,9 @@ def animated_story(request: StoryRequest, callback=None):
         return output_filename, thumbnail_url
 
     results = utils.process_in_parallel(
-        screenplay["clips"], run_story_segment, max_workers=MAX_WORKERS
+        screenplay["clips"],
+        run_story_segment,
+        max_workers=MAX_WORKERS,
     )
 
     print("results...")
@@ -78,20 +84,22 @@ def animated_story(request: StoryRequest, callback=None):
     thumbnail_url = results[0][1]
 
     if request.intro_screen:
-        character_names = [characters[character_id].name for character_id in request.character_ids]
+        character_names = [
+            characters[character_id].name for character_id in request.character_ids
+        ]
         character_name_str = ", ".join(character_names)
         paragraphs = [
             request.prompt,
             f"Characters: {character_name_str}" if character_names else "",
         ]
         intro_screen = utils.video_textbox(
-            paragraphs, 
-            width, 
-            height, 
-            duration = INTRO_SCREEN_DURATION,
-            fade_in = 2,
-            margin_left = 25,
-            margin_right = 25
+            paragraphs,
+            width,
+            height,
+            duration=INTRO_SCREEN_DURATION,
+            fade_in=2,
+            margin_left=25,
+            margin_right=25,
         )
         video_files = [intro_screen] + video_files
 
@@ -100,12 +108,11 @@ def animated_story(request: StoryRequest, callback=None):
 
     audio_file = None
     if music_prompt:
-        duration = sum([utils.get_video_duration(video_file) for video_file in video_files])
-            
-        music_url, _ = replicate.audiocraft(
-            prompt=music_prompt,
-            seconds=duration
+        duration = sum(
+            [utils.get_video_duration(video_file) for video_file in video_files],
         )
+
+        music_url, _ = replicate.audiocraft(prompt=music_prompt, seconds=duration)
         print(music_url)
 
         response = requests.get(music_url)
@@ -130,8 +137,15 @@ def animated_story(request: StoryRequest, callback=None):
     with tempfile.NamedTemporaryFile(delete=True, suffix=".mp4") as temp_output_file:
         utils.concatenate_videos(video_files, temp_output_file.name)
         if audio_file:
-            with tempfile.NamedTemporaryFile(delete=True, suffix=".mp4") as temp_output_file2:
-                utils.mix_video_audio(temp_output_file.name, audio_file.name, temp_output_file2.name)                
+            with tempfile.NamedTemporaryFile(
+                delete=True,
+                suffix=".mp4",
+            ) as temp_output_file2:
+                utils.mix_video_audio(
+                    temp_output_file.name,
+                    audio_file.name,
+                    temp_output_file2.name,
+                )
                 with open(temp_output_file2.name, "rb") as f:
                     video_bytes = f.read()
         else:

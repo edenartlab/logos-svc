@@ -22,7 +22,16 @@ from pydantic import BaseModel, Field, create_model
 
 
 def get_video_duration(video_file):
-    cmd = ['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'default=noprint_wrappers=1:nokey=1', video_file]
+    cmd = [
+        "ffprobe",
+        "-v",
+        "error",
+        "-show_entries",
+        "format=duration",
+        "-of",
+        "default=noprint_wrappers=1:nokey=1",
+        video_file,
+    ]
     duration = subprocess.check_output(cmd).decode().strip()
     return float(duration)
 
@@ -39,7 +48,7 @@ def create_dynamic_model(model_name: str, model_values: list):
     ModelEnum = Enum(model_name, {value: value for value in model_values})
     DynamicModel = create_model(
         model_name,
-        **{model_name.lower(): (ModelEnum, Field(description=model_name))}
+        **{model_name.lower(): (ModelEnum, Field(description=model_name))},
     )
     DynamicModel.__doc__ = model_name
     return DynamicModel
@@ -94,8 +103,8 @@ def url_to_image_data(url, max_size=(512, 512)):
 
 
 def calculate_target_dimensions(images, max_pixels):
-    min_w = float('inf')
-    min_h = float('inf')
+    min_w = float("inf")
+    min_h = float("inf")
 
     total_aspect_ratio = 0.0
 
@@ -114,7 +123,7 @@ def calculate_target_dimensions(images, max_pixels):
     else:
         target_width = min_w
         target_height = round(target_width / avg_aspect_ratio)
-    
+
     if target_width * target_height > max_pixels:
         ratio = (target_width * target_height) / max_pixels
         ratio = math.sqrt((target_width * target_height) / max_pixels)
@@ -123,7 +132,7 @@ def calculate_target_dimensions(images, max_pixels):
 
     target_width -= target_width % 2
     target_height -= target_height % 2
-    
+
     return target_width, target_height
 
 
@@ -160,14 +169,14 @@ def create_dialogue_thumbnail(image1_url, image2_url, width, height, ext="WEBP")
     image1 = resize_and_crop(image1, half_width, height)
     image2 = resize_and_crop(image2, half_width, height)
 
-    combined_image = Image.new('RGB', (width, height))
+    combined_image = Image.new("RGB", (width, height))
 
     combined_image.paste(image1, (0, 0))
     combined_image.paste(image2, (half_width, 0))
 
     img_byte_arr = BytesIO()
     combined_image.save(img_byte_arr, format=ext)
-    
+
     return img_byte_arr.getvalue()
 
 
@@ -176,15 +185,42 @@ def concatenate_videos(video_files, output_file, fps=30):
     for i, video in enumerate(video_files):
         with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as temp:
             output_video = temp.name
-            convert_command = ['ffmpeg', '-y', '-loglevel', 'panic', '-i', video, '-r', str(fps), '-c:a', 'copy', output_video]
+            convert_command = [
+                "ffmpeg",
+                "-y",
+                "-loglevel",
+                "panic",
+                "-i",
+                video,
+                "-r",
+                str(fps),
+                "-c:a",
+                "copy",
+                output_video,
+            ]
             subprocess.run(convert_command)
             converted_videos.append(output_video)
-    filter_complex = "".join([f"[{i}:v] [{i}:a] " for i in range(len(converted_videos))])
+    filter_complex = "".join(
+        [f"[{i}:v] [{i}:a] " for i in range(len(converted_videos))],
+    )
     filter_complex += f"concat=n={len(converted_videos)}:v=1:a=1 [v] [a]"
-    concat_command = ['ffmpeg']
+    concat_command = ["ffmpeg"]
     for video in converted_videos:
-        concat_command.extend(['-i', video])
-    concat_command.extend(['-y', '-loglevel', 'panic', '-filter_complex', filter_complex, '-map', '[v]', '-map', '[a]', output_file])
+        concat_command.extend(["-i", video])
+    concat_command.extend(
+        [
+            "-y",
+            "-loglevel",
+            "panic",
+            "-filter_complex",
+            filter_complex,
+            "-map",
+            "[v]",
+            "-map",
+            "[a]",
+            output_file,
+        ],
+    )
     subprocess.run(concat_command)
     for video in converted_videos:
         os.remove(video)
@@ -192,16 +228,23 @@ def concatenate_videos(video_files, output_file, fps=30):
 
 def mix_video_audio(video_path, audio_path, output_path):
     cmd = [
-        'ffmpeg',
-        '-y',
-        '-i', video_path,
-        '-i', audio_path,
-        '-filter_complex', '[1:a]volume=1.0[a1];[0:a][a1]amerge=inputs=2[a]',
-        '-map', '0:v',
-        '-map', '[a]',
-        '-c:v', 'copy',
-        '-ac', '2',
-        output_path
+        "ffmpeg",
+        "-y",
+        "-i",
+        video_path,
+        "-i",
+        audio_path,
+        "-filter_complex",
+        "[1:a]volume=1.0[a1];[0:a][a1]amerge=inputs=2[a]",
+        "-map",
+        "0:v",
+        "-map",
+        "[a]",
+        "-c:v",
+        "copy",
+        "-ac",
+        "2",
+        output_path,
     ]
     print(cmd)
     subprocess.run(cmd, check=True)
@@ -212,20 +255,60 @@ def combine_audio_video(audio_url: str, video_url: str):
     video_file = tempfile.NamedTemporaryFile(suffix=".mp4", delete=True)
     output_file = tempfile.NamedTemporaryFile(suffix=".mp4", delete=False)
 
-    subprocess.run(['wget', '-nv', '-O', audio_file.name, audio_url])
-    subprocess.run(['wget', '-nv', '-O', video_file.name, video_url])
+    subprocess.run(["wget", "-nv", "-O", audio_file.name, audio_url])
+    subprocess.run(["wget", "-nv", "-O", video_file.name, video_url])
 
     # get the duration of the audio file
-    cmd = ['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'default=noprint_wrappers=1:nokey=1', audio_file.name]
+    cmd = [
+        "ffprobe",
+        "-v",
+        "error",
+        "-show_entries",
+        "format=duration",
+        "-of",
+        "default=noprint_wrappers=1:nokey=1",
+        audio_file.name,
+    ]
     audio_duration = subprocess.check_output(cmd).decode().strip()
 
     # loop the video
     looped_video = tempfile.NamedTemporaryFile(suffix=".mp4", delete=True)
-    cmd = ['ffmpeg', '-y', '-loglevel', 'panic', '-stream_loop', '-1', '-i', video_file.name, '-c', 'copy', '-t', audio_duration, looped_video.name]
+    cmd = [
+        "ffmpeg",
+        "-y",
+        "-loglevel",
+        "panic",
+        "-stream_loop",
+        "-1",
+        "-i",
+        video_file.name,
+        "-c",
+        "copy",
+        "-t",
+        audio_duration,
+        looped_video.name,
+    ]
     subprocess.run(cmd)
 
     # merge the audio and the looped video
-    cmd = ['ffmpeg', '-y', '-loglevel', 'panic', '-i', looped_video.name, '-i', audio_file.name, '-c:v', 'copy', '-c:a', 'aac', '-strict', 'experimental', '-shortest', output_file.name]
+    cmd = [
+        "ffmpeg",
+        "-y",
+        "-loglevel",
+        "panic",
+        "-i",
+        looped_video.name,
+        "-i",
+        audio_file.name,
+        "-c:v",
+        "copy",
+        "-c:a",
+        "aac",
+        "-strict",
+        "experimental",
+        "-shortest",
+        output_file.name,
+    ]
     subprocess.run(cmd)
 
     return output_file.name
@@ -238,19 +321,35 @@ def stitch_image_video(image_file: str, video_file: str, image_left: bool = Fals
         filter_complex = '"[1:v][0:v]scale2ref[img][vid];[img]setpts=PTS-STARTPTS[imgp];[vid]setpts=PTS-STARTPTS[vidp];[imgp][vidp]hstack"'
     else:
         filter_complex = '"[0:v][1:v]scale2ref[vid][img];[vid]setpts=PTS-STARTPTS[vidp];[img]setpts=PTS-STARTPTS[imgp];[vidp][imgp]hstack"'
-    
-    cmd = ['ffmpeg', '-y', '-loglevel', 'panic', '-i', video_file, '-i', image_file, '-filter_complex', filter_complex, '-c:v', 'libx264', '-pix_fmt', 'yuv420p', output_file.name]
 
-    #subprocess.run(cmd)
+    cmd = [
+        "ffmpeg",
+        "-y",
+        "-loglevel",
+        "panic",
+        "-i",
+        video_file,
+        "-i",
+        image_file,
+        "-filter_complex",
+        filter_complex,
+        "-c:v",
+        "libx264",
+        "-pix_fmt",
+        "yuv420p",
+        output_file.name,
+    ]
+
+    # subprocess.run(cmd)
     os.system(" ".join(cmd))
-    
+
     return output_file.name
 
 
 def exponential_backoff(
-    func, 
-    max_attempts=5, 
-    initial_delay=1, 
+    func,
+    max_attempts=5,
+    initial_delay=1,
 ):
     delay = initial_delay
     for attempt in range(1, max_attempts + 1):
@@ -264,13 +363,12 @@ def exponential_backoff(
             delay = delay * 2
 
 
-def process_in_parallel(
-    array, 
-    func, 
-    max_workers=3
-):
+def process_in_parallel(array, func, max_workers=3):
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        futures = {executor.submit(func, item, index): index for index, item in enumerate(array)}
+        futures = {
+            executor.submit(func, item, index): index
+            for index, item in enumerate(array)
+        }
         results = [None] * len(array)
         for future in as_completed(futures):
             try:
@@ -298,34 +396,34 @@ def wrap_text(draw, text, font, max_width):
     lines = []
     current_line = []
     for word in words:
-        if draw.textlength(' '.join(current_line + [word]), font=font) > max_width:
-            lines.append(' '.join(current_line))
+        if draw.textlength(" ".join(current_line + [word]), font=font) > max_width:
+            lines.append(" ".join(current_line))
             current_line = [word]
         else:
             current_line.append(word)
     if current_line:
-        lines.append(' '.join(current_line))
+        lines.append(" ".join(current_line))
     return lines
 
 
 def video_textbox(
     paragraphs: list[str],
-    width: int, 
-    height: int, 
+    width: int,
+    height: int,
     duration: float,
     fade_in: float,
-    font_size: int = 36, 
+    font_size: int = 36,
     font_ttf: str = "Arial.ttf",
     margin_left: int = 25,
     margin_right: int = 25,
-    line_spacing: float = 1.25
+    line_spacing: float = 1.25,
 ):
     font = get_font(font_ttf, font_size)
 
-    canvas = Image.new('RGB', (width, height))
+    canvas = Image.new("RGB", (width, height))
     draw = ImageDraw.Draw(canvas)
 
-    draw.rectangle([(0, 0), (width, height)], fill='black')
+    draw.rectangle([(0, 0), (width, height)], fill="black")
 
     y = 100
     for text in paragraphs:
@@ -344,6 +442,6 @@ def video_textbox(
     clip = clip.set_audio(silent_audio)
 
     output_file = tempfile.NamedTemporaryFile(suffix=".mp4", delete=False)
-    clip.write_videofile(output_file.name, fps=30, codec='libx264', audio_codec='aac')
+    clip.write_videofile(output_file.name, fps=30, codec="libx264", audio_codec="aac")
 
     return output_file.name

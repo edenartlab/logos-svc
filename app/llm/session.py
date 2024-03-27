@@ -24,7 +24,7 @@ ALLOWED_MODELS = [
     "teknium/openhermes-2-mistral-7b",
     "pygmalionai/mythalion-13b",
     "anthropic/claude-2",
-    "cognitivecomputations/dolphin-mixtral-8x7b"
+    "cognitivecomputations/dolphin-mixtral-8x7b",
 ]
 
 OPENAI_API_URL: HttpUrl = "https://api.openai.com/v1/chat/completions"
@@ -75,7 +75,9 @@ class ChatSession(BaseModel):
         - Last message sent at {last_message_str}"""
 
     def format_input_messages(
-        self, system_message: ChatMessage, user_message: ChatMessage
+        self,
+        system_message: ChatMessage,
+        user_message: ChatMessage,
     ) -> list:
         recent_messages = (
             self.messages[-self.recent_messages :]
@@ -83,26 +85,22 @@ class ChatSession(BaseModel):
             else self.messages
         )
         # Todo: include images in previous messages
-        messages = (
-            [system_message.model_dump(include=self.input_fields, exclude_none=True)]
-            + [
-                m.model_dump(include=self.input_fields, exclude_none=True)
-                for m in recent_messages
-            ]
-        )
+        messages = [
+            system_message.model_dump(include=self.input_fields, exclude_none=True),
+        ] + [
+            m.model_dump(include=self.input_fields, exclude_none=True)
+            for m in recent_messages
+        ]
         if user_message:
-            new_message = user_message.model_dump(include=self.input_fields, exclude_none=True)
+            new_message = user_message.model_dump(
+                include=self.input_fields,
+                exclude_none=True,
+            )
             if user_message.image:
                 img_data_url = url_to_image_data(user_message.image)
                 new_message["content"] = [
-                    {
-                        "type": "text",
-                        "text": user_message.content
-                    },
-                    {
-                        "type": "image_url",
-                        "image_url": img_data_url
-                    }
+                    {"type": "text", "text": user_message.content},
+                    {"type": "image_url", "image_url": img_data_url},
                 ]
             messages += [new_message]
         return messages
@@ -138,13 +136,13 @@ class ChatSession(BaseModel):
         output_schema: Any = None,
         is_function_calling_required: bool = True,
     ):
-        headers = {
-            "Content-Type": "application/json"
-        }
+        headers = {"Content-Type": "application/json"}
 
         if model not in ALLOWED_MODELS:
-            raise ValueError(f"Invalid model: {model}. Available models: {ALLOWED_MODELS}")
-        
+            raise ValueError(
+                f"Invalid model: {model}. Available models: {ALLOWED_MODELS}",
+            )
+
         if image:
             model = "gpt-4-vision-preview"
 
@@ -152,12 +150,16 @@ class ChatSession(BaseModel):
 
         if provider == "openai":
             api_url = OPENAI_API_URL
-            headers["Authorization"] = f"Bearer {self.auth['openai_api_key'].get_secret_value()}"
+            headers[
+                "Authorization"
+            ] = f"Bearer {self.auth['openai_api_key'].get_secret_value()}"
         elif provider == "openrouter":
             api_url = OPENROUTER_API_URL
             headers["HTTP-Referer"] = "https://eden.art"
             headers["X-Title"] = "Eden.art"
-            headers["Authorization"] = f"Bearer {self.auth['openrouter_api_key'].get_secret_value()}"
+            headers[
+                "Authorization"
+            ] = f"Bearer {self.auth['openrouter_api_key'].get_secret_value()}"
         else:
             raise ValueError(f"Unknown provider: {provider}")
 
@@ -169,7 +171,8 @@ class ChatSession(BaseModel):
                 user_message = ChatMessage(role="user", content=prompt, image=image)
             else:
                 assert isinstance(
-                    prompt, input_schema
+                    prompt,
+                    input_schema,
                 ), f"prompt must be an instance of {input_schema.__name__}"
                 user_message = ChatMessage(
                     role="function",
@@ -186,8 +189,8 @@ class ChatSession(BaseModel):
             **gen_params,
         }
 
-        #print("------------------------------------------")
-        #print(orjson.dumps(data, option=orjson.OPT_INDENT_2).decode())
+        # print("------------------------------------------")
+        # print(orjson.dumps(data, option=orjson.OPT_INDENT_2).decode())
 
         # Add function calling parameters if a schema is provided
         if input_schema or output_schema:
@@ -198,7 +201,7 @@ class ChatSession(BaseModel):
             if output_schema:
                 output_function = self.schema_to_function(output_schema)
                 functions.append(
-                    output_function
+                    output_function,
                 ) if output_function not in functions else None
                 if is_function_calling_required:
                     data["function_call"] = {"name": output_schema.__name__}
@@ -232,7 +235,7 @@ class ChatSession(BaseModel):
         input_schema: Any = None,
         output_schema: Any = None,
     ):
-        #zmodel = "gpt-3.5-turbo" 
+        # zmodel = "gpt-3.5-turbo"
 
         finished = False
         tries = 0
@@ -240,7 +243,14 @@ class ChatSession(BaseModel):
 
         while not finished:
             api_url, headers, data, user_message = self.prepare_request(
-                model, prompt, image, system, params, False, input_schema, output_schema
+                model,
+                prompt,
+                image,
+                system,
+                params,
+                False,
+                input_schema,
+                output_schema,
             )
 
             resp = client.post(
@@ -252,12 +262,12 @@ class ChatSession(BaseModel):
             resp = resp.json()
 
             if resp.get("error"):
-                error = resp.get("error").get('code', '')  
-                if error == 'context_length_exceeded':
+                error = resp.get("error").get("code", "")
+                if error == "context_length_exceeded":
                     print(resp.get("error"))
                     self.messages = self.messages[2:]
-                elif error == 'rate_limit_exceeded':
-                    time.sleep(5 * (2 ** tries))  # exp backoff
+                elif error == "rate_limit_exceeded":
+                    time.sleep(5 * (2**tries))  # exp backoff
             else:
                 finished = True
 
@@ -286,7 +296,7 @@ class ChatSession(BaseModel):
             # self.total_length += resp["usage"]["total_tokens"]
         except KeyError:
             raise KeyError(f"No AI generation: {resp}")
-        
+
         return content
 
     def stream(
@@ -301,7 +311,13 @@ class ChatSession(BaseModel):
         input_schema: Any = None,
     ):
         api_url, headers, data, user_message = self.prepare_request(
-            model, prompt, image, system, params, True, input_schema
+            model,
+            prompt,
+            image,
+            system,
+            params,
+            True,
+            input_schema,
         )
 
         with client.stream(
@@ -362,7 +378,7 @@ class ChatSession(BaseModel):
                     "max_tokens": 1,
                     "logit_bias": logit_bias,
                 },
-            )
+            ),
         )
 
         # if no tool is selected, do a standard generation instead.
@@ -400,7 +416,8 @@ class ChatSession(BaseModel):
         # manually append the nonmodified user message + normal AI response
         user_message = ChatMessage(role="user", content=prompt, image=image)
         assistant_message = ChatMessage(
-            role="assistant", content=context_dict["response"]
+            role="assistant",
+            content=context_dict["response"],
         )
         self.add_messages(user_message, assistant_message, save_messages)
 
@@ -419,7 +436,14 @@ class ChatSession(BaseModel):
         output_schema: Any = None,
     ):
         api_url, headers, data, user_message = self.prepare_request(
-            model, prompt, image, system, params, False, input_schema, output_schema
+            model,
+            prompt,
+            image,
+            system,
+            params,
+            False,
+            input_schema,
+            output_schema,
         )
 
         r = await client.post(
@@ -466,7 +490,13 @@ class ChatSession(BaseModel):
         input_schema: Any = None,
     ):
         api_url, headers, data, user_message = self.prepare_request(
-            model, prompt, image, system, params, True, input_schema
+            model,
+            prompt,
+            image,
+            system,
+            params,
+            True,
+            input_schema,
         )
 
         async with client.stream(
@@ -525,7 +555,7 @@ class ChatSession(BaseModel):
                     "max_tokens": 1,
                     "logit_bias": logit_bias,
                 },
-            )
+            ),
         )
 
         # if no tool is selected, do a standard generation instead.
@@ -563,7 +593,8 @@ class ChatSession(BaseModel):
         # manually append the nonmodified user message + normal AI response
         user_message = ChatMessage(role="user", content=prompt, image=image)
         assistant_message = ChatMessage(
-            role="assistant", content=context_dict["response"]
+            role="assistant",
+            content=context_dict["response"],
         )
         self.add_messages(user_message, assistant_message, save_messages)
 

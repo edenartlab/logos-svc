@@ -5,11 +5,7 @@ from pydantic import BaseModel, Field
 from ..mongo import get_character_data
 from ..llm import LLM
 from ..character import EdenCharacter
-from ..models import (
-    StoryRequest, 
-    StoryClip, 
-    StoryResult
-)
+from ..models import StoryRequest, StoryClip, StoryResult
 from ..prompt_templates.cinema import (
     screenwriter_system_template,
     screenwriter_prompt_template,
@@ -27,7 +23,7 @@ def story(request: StoryRequest):
         character = EdenCharacter(character_id)
         character_names.append(character.name)
         character_details += character.card()
-    
+
     story_prompt = request.prompt
     if character_details:
         character_details = f"Characters:\n{character_details}\n\nCharacter names (only use these for character field in each clip):\n{', '.join(character_names)}\n---\n\n"
@@ -42,7 +38,7 @@ def story(request: StoryRequest):
         system_message=screenwriter_system_template.template,
         params=params,
     )
-    
+
     story = screenwriter(prompt, output_schema=StoryResult)
 
     if request.music:
@@ -50,7 +46,7 @@ def story(request: StoryRequest):
             story["music_prompt"] = request.music_prompt  # override
     else:
         story["music_prompt"] = None
-            
+
     print("===== generate a story =======")
     print(prompt)
     print("-----")

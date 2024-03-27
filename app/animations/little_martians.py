@@ -10,25 +10,29 @@ from ..llm import LLM
 from ..models import LittleMartianRequest, Poster
 from .animation import poster
 from ..prompt_templates.little_martians import (
-    littlemartians_poster_system, 
-    littlemartians_poster_prompt, 
-    littlemartians_data
+    littlemartians_poster_system,
+    littlemartians_poster_prompt,
+    littlemartians_data,
 )
+
 
 def random_interval(min, max):
     return random.random() * (max - min) + min
 
+
 def little_martian_poster(request: LittleMartianRequest, callback=None):
     params = {"temperature": 1.0, "max_tokens": 2000, **request.params}
 
-    data = littlemartians_data[request.martian.value][request.setting.value][request.genre.value]
+    data = littlemartians_data[request.martian.value][request.setting.value][
+        request.genre.value
+    ]
 
-    lora = data['lora']
-    character_id = data['character_id']
-    modifier = data['modifier']
-    lora_scale = random_interval(*data['lora_scale'])
-    init_image = random.choice(data['init_images'])
-    init_image_strength = random_interval(*data['init_image_strength'])
+    lora = data["lora"]
+    character_id = data["character_id"]
+    modifier = data["modifier"]
+    lora_scale = random_interval(*data["lora_scale"])
+    init_image = random.choice(data["init_images"])
+    init_image_strength = random_interval(*data["init_image_strength"])
 
     character = EdenCharacter(character_id)
 
@@ -37,20 +41,20 @@ def little_martian_poster(request: LittleMartianRequest, callback=None):
         system_message=littlemartians_poster_system.template,
         params=params,
     )
-    
+
     prompt = littlemartians_poster_prompt.substitute(
-        martian = request.martian.value,
-        identity = character.identity,
-        setting = request.setting.value,
-        genre = request.genre.value,
-        premise = request.prompt,
+        martian=request.martian.value,
+        identity=character.identity,
+        setting=request.setting.value,
+        genre=request.genre.value,
+        premise=request.prompt,
     )
-    
+
     result = littlemartian_writer(prompt, output_schema=Poster)
 
-    prompt = result['image']
-    
-    text_input = f'{modifier}, {prompt}'
+    prompt = result["image"]
+
+    text_input = f"{modifier}, {prompt}"
 
     if request.aspect_ratio == "portrait":
         width, height = 1280, 1920
@@ -63,7 +67,7 @@ def little_martian_poster(request: LittleMartianRequest, callback=None):
         "text_input": text_input,
         "lora": lora,
         "lora_scale": lora_scale,
-        "init_image": f'https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/{init_image}',
+        "init_image": f"https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/{init_image}",
         "init_image_strength": init_image_strength,
         "width": width,
         "height": height,
@@ -73,7 +77,7 @@ def little_martian_poster(request: LittleMartianRequest, callback=None):
 
     image_url, thumbnail_url = replicate.sdxl(config)
 
-    caption = result['caption']
+    caption = result["caption"]
     print(caption)
 
     image = utils.download_image(image_url)
