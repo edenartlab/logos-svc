@@ -33,6 +33,7 @@ def little_martian_poster(request: LittleMartianRequest, callback=None):
     lora_scale = random_interval(*data["lora_scale"])
     init_image = random.choice(data["init_images"])
     init_image_strength = random_interval(*data["init_image_strength"])
+    seed = request.seed if request.seed else random.randint(0, 1000000)
 
     character = EdenCharacter(character_id)
 
@@ -73,6 +74,7 @@ def little_martian_poster(request: LittleMartianRequest, callback=None):
         "height": height,
         "adopt_aspect_from_init_img": False,
         "n_samples": 1,
+        "seed": seed,
     }
 
     image_url, thumbnail_url = replicate.sdxl(config)

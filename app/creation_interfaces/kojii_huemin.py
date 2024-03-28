@@ -166,6 +166,7 @@ class KojiiHueminRequest(BaseModel):
     # season: Season
     # time_of_day: TimeOfDay
     # color: Color
+    seed: Optional[int] = Field(default=None, description="Random seed")
 
 
 def generate_prompt(selected_climate, selected_landform, selected_body_of_water):
@@ -195,8 +196,14 @@ def kojii_huemin(request: KojiiHueminRequest, callback=None):
     print("HUMIN REQUEST")
     print(request)
     prompt = generate_prompt(request.climate, request.landform, request.body_of_water)
+    seed = request.seed if request.seed else random.randint(0, 1000000)
     print(prompt)
-    config = {"mode": "kojii/huemin", "text_input": prompt}
+
+    config = {
+        "mode": "kojii/huemin",
+        "text_input": prompt,
+        "seed": seed,
+    }
 
     image_url, thumbnail_url = replicate.sdxl(config)
 

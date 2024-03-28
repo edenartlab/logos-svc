@@ -54,6 +54,7 @@ class KojiiMakeitradRequest(BaseModel):
     clouds: bool
     pool: bool
     aspect_ratio: AspectRatio
+    seed: Optional[int] = Field(default=None, description="Random seed")
 
 
 settings = {"inside": "interior", "outside": "exterior"}
@@ -95,6 +96,7 @@ def kojii_makeitrad(request: KojiiMakeitradRequest, callback=None):
     location = locations[request.location.value]
     time = times[request.time.value]
     color = colors[request.color.value]
+    seed = request.seed if request.seed else random.randint(0, 1000000)
 
     clouds = "clouds, " if request.clouds else ""
     pool = "(pool:1.5)," if request.pool else ""
@@ -116,7 +118,7 @@ def kojii_makeitrad(request: KojiiMakeitradRequest, callback=None):
         "n_samples": 1,
         "negative_prompt": negative_prompt,
         "guidance_scale": 7,
-        "seed": random.randint(0, 1000000),
+        "seed": seed,
     }
 
     output = replicate.run_task(config, model_name="abraham-ai/eden-comfyui")
