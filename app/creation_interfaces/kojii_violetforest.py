@@ -25,9 +25,12 @@ class KojiiVioletforestRequest(BaseModel):
         le=1.0,
     )
     style: Style = Field(default=Style.Kawaii, description="Style")
+    seed: Optional[int] = Field(default=None, description="Random seed")
 
 
 def kojii_violetforest(request: KojiiVioletforestRequest, callback=None):
+    seed = request.seed if request.seed else random.randint(0, 1000000)
+
     if request.style == Style.Kawaii:
         modifiers = "kawaii, kawaii, kawaii, kawaii"
     elif request.style == Style.Stars:
@@ -55,10 +58,8 @@ def kojii_violetforest(request: KojiiVioletforestRequest, callback=None):
         ),
         "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/e3b036c0a9949de0a5433cb6c7e54b540c47535ce7ae252948177304542ca4da.tar",
         "lora_scale": 0.7,
+        "seed": seed,
     }
-
-    print("DO IT!")
-    print(config)
 
     image_url, thumbnail_url = replicate.sdxl(config)
 

@@ -30,10 +30,12 @@ class KojiiChebelRequest(BaseModel):
     aspect_ratio: AspectRatio
     abstract: float
     color: ColorType
+    seed: Optional[int] = Field(default=None, description="Random seed")
 
 
 def kojii_chebel(request: KojiiChebelRequest, callback=None):
     lora_scale = request.abstract
+    seed = request.seed if request.seed else random.randint(0, 1000000)
 
     if request.color == ColorType.color:
         color_mode = "soft pastel color tones"
@@ -79,8 +81,11 @@ def kojii_chebel(request: KojiiChebelRequest, callback=None):
         "guidance_scale": guidance_scale,
         "sampler": "euler",
         "steps": 42,
-        "seed": random.randint(0, 1000000),
+        "seed": seed,
     }
+
+    print("THE CONFIG")
+    print(config)
 
     image_url, thumbnail_url = replicate.sdxl(
         config,
