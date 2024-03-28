@@ -1,7 +1,11 @@
+import re
 import os
 import uuid
 import requests
 from fastapi import BackgroundTasks
+
+from .scenarios.tasks import general_assistant
+from .models.tasks import SimpleAssistantRequest
 
 from .models import (
     MonologueRequest,
@@ -49,6 +53,24 @@ logosGenerators = [
     "kojii/violetforest",
     "kojii/huemin",
 ]
+
+
+def name_interaction(prompt: str):
+    naming_prompt = f"Take the following text prompt and output a short phrase or sentence with 5-15 words which captures the essence of the text. It will be used to give a name to the interaction. If the text given is already a short phrase, just output that. Output *only* the short phrase. Do not include pretext, restatement, or other extraneous text.\n\n---\n\nText:\n {prompt}"
+    print("----")
+    print(naming_prompt)
+    request = SimpleAssistantRequest(
+        prompt=naming_prompt,
+        model="gpt-3.5-turbo",
+        params={"temperature": 0.0, "max_tokens": 100},
+    )
+    try:
+        name = general_assistant(request)
+    except Exception as e:
+        name = re.sub(r"\W+", " ", prompt).replace("\n", "").replace("\r", "")[:100]
+    print(name)
+    print("----")
+    return name
 
 
 def process_task(task_id: str, request: TaskRequest):
@@ -255,7 +277,7 @@ def process_task(task_id: str, request: TaskRequest):
         output = TaskResult(
             files=[output_url],
             thumbnails=[thumbnail_url],
-            name=prompt,
+            name=name_interaction(prompt),
             attributes={},
             progress=1,
             isFinal=True,
