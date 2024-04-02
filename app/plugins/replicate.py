@@ -128,7 +128,13 @@ def txt2vid(
         "n_frames": 100,
     }
 
-    output = run_task(config, model_name="abraham-ai/eden-comfyui")
+    # default all comfyui jobs to deployment
+    model_deployment = "abraham-ai/eden-comfyui-images"
+
+    output = run_task(
+        config,
+        model_deployment=model_deployment,
+    )
 
     output = list(output)
     output_url = output[0]["files"][0]
