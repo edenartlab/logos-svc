@@ -13,14 +13,30 @@ def get_version(replicate_client, model_name: str):
     return model.latest_version.id
 
 
-def run_task(config: dict[any], model_name: str = None, model_version: str = None):
+def get_deployment(replicate_client, deployment_name: str):
+    deployment = replicate_client.deployments.get(deployment_name)
+    return deployment
+
+
+def run_task(
+    config: dict[any],
+    model_name: str = None,
+    model_version: str = None,
+    model_deployment: str = None,
+):
     r = replicate.Client(api_token=REPLICATE_API_KEY)
 
-    if not model_version:
-        version = get_version(r, model_name)
-        model_version = f"{model_name}:{version}"
+    if model_deployment:
+        deployment = get_deployment(r, model_deployment)
+        prediction = deployment.predictions.create(input=config)
+        prediction.wait()
+        output = prediction.output
 
-    output = r.run(ref=model_version, input=config)
+    else:
+        if not model_version:
+            version = get_version(r, model_name)
+            model_version = f"{model_name}:{version}"
+        output = r.run(ref=deployment, input=config)
 
     return output
 
@@ -79,13 +95,17 @@ def wav2lip(
 def sdxl(
     config: dict[any],
     model_version: str = None,
+    model_deployment: str = None,
 ):
+    # default all sdxl jobs to deployment
+    model_deployment = "abraham-ai/eden-sd-pipelines-sdxl-images"
+
     output = run_task(
         config,
         model_name="abraham-ai/eden-sd-pipelines-sdxl",
         model_version=model_version,
+        model_deployment=model_deployment,
     )
-
     output = list(output)
     output_url = output[0]["files"][0]
     thumbnail_url = output[0]["thumbnails"][0]
