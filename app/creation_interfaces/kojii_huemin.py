@@ -41,7 +41,7 @@ class Landform(Enum):
     volcanoes = "volcanoes"
     rivers = "rivers"
     lakes = "lakes"
-    glaciers = "glaciers"
+    glaciers = "icebergs"
     fjords = "fjords"
     deltas = "deltas"
     estuaries = "estuaries"
@@ -50,11 +50,12 @@ class Landform(Enum):
     craters = "craters"
     atolls = "atolls"
     peninsula = "peninsula"
-    islands = "islands"
+    islands = "island surrounder by water"
     basins = "basins"
     gorges = "gorges"
     waterfalls = "waterfalls"
     rift_valleys = "rift valleys"
+    lava_flows = "obsidian lava flows steam"
 
 
 class BodyOfWater(Enum):
@@ -66,7 +67,6 @@ class BodyOfWater(Enum):
     streams = "streams"
     creeks = "creeks"
     estuaries = "estuaries"
-    fjords = "fjords"
     bays = "bays"
     gulfs = "gulfs"
     lagoons = "lagoons"
@@ -81,22 +81,22 @@ class BodyOfWater(Enum):
 
 
 class Structure(Enum):
-    bridges = "bridges"
-    tunnels = "tunnels"
-    dams = "dams"
-    skyscrapers = "skyscrapers"
-    castles = "castles"
-    temples = "temples"
-    churches = "churches"
-    mosques = "mosques"
-    fortresses = "fortresses"
-    monuments = "monuments"
-    statues = "statues"
-    towers = "towers"
-    silos = "silos"
-    industrial_factories = "industrial factories"
-    piers = "piers"
-    harbors = "harbors"
+    bridges = "small bridges"
+    tunnels = "small tunnels"
+    dams = "small dams"
+    skyscrapers = "small skyscrapers"
+    castles = "small castles"
+    temples = "small temples"
+    churches = "small churches"
+    mosques = "small mosques"
+    fortresses = "small fortresses"
+    monuments = "small monuments"
+    statues = "small statues"
+    towers = "small towers"
+    silos = "small silos"
+    industrial_factories = "small industrial factories"
+    piers = "small piers"
+    harbors = "small harbors"
 
 
 class Season(Enum):
@@ -106,8 +106,8 @@ class Season(Enum):
     winter = "winter"
     rainy = "rainy"
     sunny = "sunny"
-    cloudy = "cloudy"
-    stormy_clouds = "stormy clouds"
+    clouds_from_above = "clouds from above"
+    stormy_clouds_from_above = "stormy clouds from above"
     foggy_mist = "foggy mist"
     snowy = "snowy"
     windy = "windy"
@@ -117,7 +117,6 @@ class Season(Enum):
     cold = "cold"
     mild = "mild"
     freezing = "freezing"
-    thunderstorms = "thunderstorms"
     hail = "hail"
     sleet = "sleet"
     blizzard = "blizzard"
@@ -125,14 +124,14 @@ class Season(Enum):
     drought = "drought"
 
 
-class TimeOfDay(Enum):
-    dawn = "dawn"
-    morning = "morning"
-    noon = "noon"
-    afternoon = "afternoon"
-    dusk = "dusk"
-    evening = "evening"
-    sunset = "sunset"
+# class TimeOfDay(Enum):
+#     dawn = "dawn"
+#     morning = "morning"
+#     noon = "noon"
+#     afternoon = "afternoon"
+#     dusk = "dusk"
+#     evening = "evening"
+#     sunset = "sunset"
 
 
 class Color(Enum):
@@ -172,10 +171,12 @@ class KojiiHueminRequest(BaseModel):
 def generate_prompt(selected_climate, selected_landform, selected_body_of_water):
     base_prompt = "isometric generative landscape orthographic abstract aj casson perlin noise 3d shaders areal embroidery minimalism claude monet oil painting pastel"
 
-    selected_structure = random.choice(list(Structure)).value
-    selected_season = random.choice(list(Season)).value
-    selected_time_of_day = random.choice(list(TimeOfDay)).value
-    selected_colors = random.choice(list(Color)).value
+    selected_structure = (
+        random.choice(list(Structure)).value if random.random() < 0.20 else ""
+    )
+    selected_season = random.choice(list(Season)).value if random() < 0.95 else ""
+    # selected_time_of_day = random.choice(list(TimeOfDay)).value
+    selected_colors = random.choice(list(Color)).value if random() < 0.95 else ""
 
     selected_keywords = [
         selected_climate.value,
@@ -183,13 +184,34 @@ def generate_prompt(selected_climate, selected_landform, selected_body_of_water)
         selected_body_of_water.value,
         selected_structure,
         selected_season,
-        selected_time_of_day,
+        # selected_time_of_day,
         selected_colors,
     ]
     landscape_keywords = " ".join(selected_keywords)
 
     prompt = base_prompt + " (((" + landscape_keywords + ")))"
     return prompt
+
+
+def kojii_huemin(request: KojiiHueminRequest, callback=None):
+    prompt = generate_prompt(request.climate, request.landform, request.body_of_water)
+    seed = request.seed if request.seed else random.randint(0, 1000000)
+    uc_text = ["blurry bad dull green", "blurry bad dull"][random.randint(0, 1)]
+
+    print("HUEMIN REQUEST")
+    print(request)
+    print(prompt)
+
+    config = {
+        "mode": "kojii/huemin",
+        "text_input": prompt,
+        "uc_text": uc_text,
+        "seed": seed,
+    }
+
+    image_url, thumbnail_url = replicate.sdxl(config)
+
+    return image_url, thumbnail_url
 
 
 def kojii_huemin(request: KojiiHueminRequest, callback=None):
