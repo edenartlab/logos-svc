@@ -121,7 +121,10 @@ def kojii_makeitrad(request: KojiiMakeitradRequest, callback=None):
         "seed": seed,
     }
 
-    output = replicate.run_task(config, model_name="abraham-ai/eden-comfyui")
+    output = replicate.run_task(
+        config,
+        model_deployment="abraham-ai/eden-comfyui-images",
+    )
 
     output = list(output)
     image_url = output[0]["files"][0]
