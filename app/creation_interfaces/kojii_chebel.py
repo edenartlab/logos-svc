@@ -87,10 +87,7 @@ def kojii_chebel(request: KojiiChebelRequest, callback=None):
     print("THE CONFIG")
     print(config)
 
-    image_url, thumbnail_url = replicate.sdxl(
-        config,
-        model_version="abraham-ai/eden-sd-pipelines-sdxl:a541eb2e611fc66ccd0faac634a7f7c0c7684977b7b54d0eb599ff352f343884",
-    )
+    image_url, thumbnail_url = replicate.sdxl(config)
 
     return image_url, thumbnail_url
 

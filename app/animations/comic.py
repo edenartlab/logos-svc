@@ -27,17 +27,15 @@ def illustrated_comic(request: ComicRequest):
 
     def run_panel(panel, idx):
         # pick lora of character
-        # pick init image character x genre
-
-        return replicate.sdxl(
-            {
-                "text_input": panel["image"],
-                "lora": loras["Verdelis"],
-                "width": 512 if idx == 0 else 1024,
-                "height": 1024,
-                "n_samples": 1,
-            },
-        )
+        # todo: pick init image character x genre
+        config = {
+            "text_input": panel["image"],
+            "lora": loras["Verdelis"],
+            "width": 512 if idx == 0 else 1024,
+            "height": 1024,
+            "n_samples": 1,
+        }
+        return replicate.sdxl(config)
 
     results = utils.process_in_parallel(comic_book["panels"], run_panel, max_workers=4)
 
