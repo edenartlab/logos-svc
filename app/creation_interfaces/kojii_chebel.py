@@ -38,7 +38,7 @@ def kojii_chebel(request: KojiiChebelRequest, callback=None):
     seed = request.seed if request.seed else random.randint(0, 1000000)
 
     if request.color == ColorType.color:
-        color_mode = "soft pastel color tones"
+        color_mode = "soft pastel color palette"
         negative_prompt = "saturated"
     else:
         color_mode = "black and white"
@@ -60,8 +60,8 @@ def kojii_chebel(request: KojiiChebelRequest, callback=None):
         control_images[request.number.value][request.aspect_ratio.value],
     )
 
-    control_image_strength = 0.95
-    guidance_scale = 6.5
+    control_image_strength = 0.84
+    guidance_scale = 8
     negative_prompt += (
         ", ugly, watermark, text, tiling, blurred, grainy, signature, cut off, draft"
     )
