@@ -102,8 +102,8 @@ def sdxl(
 
     output = run_task(
         config,
-        model_name="abraham-ai/eden-sd-pipelines-sdxl",
-        model_version=model_version,
+        # model_name="abraham-ai/eden-sd-pipelines-sdxl",
+        # model_version=model_version,
         model_deployment=model_deployment,
     )
     output = list(output)
