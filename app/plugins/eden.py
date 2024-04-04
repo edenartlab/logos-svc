@@ -25,12 +25,6 @@ create = eden.create
 #     config = {
 #         "text_input": "someone here",
 #     }
-#     print("GO", config)
-#     print("ok 2")
 #     urls = eden.create(generator_name='create', config=config)
-#     print("ok 3")
-
 #     print(urls[0])
-#     print("ok 4")
-
 #     return urls[0]

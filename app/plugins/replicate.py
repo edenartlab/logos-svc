@@ -36,7 +36,7 @@ def run_task(
         if not model_version:
             version = get_version(r, model_name)
             model_version = f"{model_name}:{version}"
-        output = r.run(ref=deployment, input=config)
+        output = r.run(ref=model_version, input=config)
 
     return output
 
@@ -102,8 +102,8 @@ def sdxl(
 
     output = run_task(
         config,
-        model_name="abraham-ai/eden-sd-pipelines-sdxl",
-        model_version=model_version,
+        # model_name="abraham-ai/eden-sd-pipelines-sdxl",
+        # model_version=model_version,
         model_deployment=model_deployment,
     )
     output = list(output)
