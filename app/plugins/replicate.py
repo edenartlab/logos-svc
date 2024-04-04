@@ -36,7 +36,7 @@ def run_task(
         if not model_version:
             version = get_version(r, model_name)
             model_version = f"{model_name}:{version}"
-        output = r.run(ref=deployment, input=config)
+        output = r.run(ref=model_version, input=config)
 
     return output
 
