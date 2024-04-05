@@ -33,8 +33,8 @@ OPENROUTER_API_URL: HttpUrl = "https://openrouter.ai/api/v1/chat/completions"
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 
-assert OPENAI_API_KEY, f"An API key for OpenAI was not defined."
-assert OPENROUTER_API_KEY, f"An API key for OpenRouter was not defined."
+# assert OPENAI_API_KEY, f"An API key for OpenAI was not defined."
+# assert OPENROUTER_API_KEY, f"An API key for OpenRouter was not defined."
 
 
 tool_prompt = """From the list of tools below:
