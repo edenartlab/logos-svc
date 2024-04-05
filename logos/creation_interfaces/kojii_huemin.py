@@ -174,9 +174,11 @@ def generate_prompt(selected_climate, selected_landform, selected_body_of_water)
     selected_structure = (
         random.choice(list(Structure)).value if random.random() < 0.20 else ""
     )
-    selected_season = random.choice(list(Season)).value if random() < 0.95 else ""
+    selected_season = (
+        random.choice(list(Season)).value if random.random() < 0.95 else ""
+    )
     # selected_time_of_day = random.choice(list(TimeOfDay)).value
-    selected_colors = random.choice(list(Color)).value if random() < 0.95 else ""
+    selected_colors = random.choice(list(Color)).value if random.random() < 0.95 else ""
 
     selected_keywords = [
         selected_climate.value,
@@ -206,24 +208,6 @@ def kojii_huemin(request: KojiiHueminRequest, callback=None):
         "mode": "kojii/huemin",
         "text_input": prompt,
         "uc_text": uc_text,
-        "seed": seed,
-    }
-
-    image_url, thumbnail_url = replicate.sdxl(config)
-
-    return image_url, thumbnail_url
-
-
-def kojii_huemin(request: KojiiHueminRequest, callback=None):
-    print("HUMIN REQUEST")
-    print(request)
-    prompt = generate_prompt(request.climate, request.landform, request.body_of_water)
-    seed = request.seed if request.seed else random.randint(0, 1000000)
-    print(prompt)
-
-    config = {
-        "mode": "kojii/huemin",
-        "text_input": prompt,
         "seed": seed,
     }
 
