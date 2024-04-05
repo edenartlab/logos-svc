@@ -9,7 +9,7 @@ rye run pre-commit install
 
 Run
 
-    `rye run uvicorn app.server:app --reload`
+    `rye run uvicorn logos.server:app --reload`
 
 Send a command to the server
 
