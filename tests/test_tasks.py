@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from app.server import app
+from logos.server import app
 
 client = TestClient(app)
 
@@ -8,7 +8,7 @@ def test_summary():
     """
     Test summarization of a document
     """
-    from app.prompt_templates.assistant import creator_template
+    from logos.prompt_templates.assistant import creator_template
 
     text = creator_template.substitute(name="Eden", identity="")
 

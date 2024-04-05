@@ -1,4 +1,4 @@
-from app.plugins import replicate, elevenlabs, s3
+from logos.plugins import replicate, elevenlabs, s3
 
 
 def test_elevenlabs():

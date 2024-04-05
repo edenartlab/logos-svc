@@ -4,13 +4,13 @@ from typing import Optional, List
 from pydantic import BaseModel, Field
 
 from fastapi.testclient import TestClient
-from app.server import app
-from app import mongo
-from app.character import EdenCharacter
-from app.models.tasks import SimpleAssistantRequest
-from app.scenarios.tasks import general_assistant
-from app.utils import create_dynamic_model
-from app.plugins import elevenlabs
+from logos.server import app
+from logos import mongo
+from logos.character import EdenCharacter
+from logos.models.tasks import SimpleAssistantRequest
+from logos.scenarios.tasks import general_assistant
+from logos.utils import create_dynamic_model
+from logos.plugins import elevenlabs
 
 client = TestClient(app)
 
