@@ -1,9 +1,9 @@
 [project]
 name = "logos-svc"
 version = "0.1.0"
-description = "Add a short description here"
+description = "Logos"
 authors = [
-    { name = "Jonathan Miller", email = "jon@jmill.dev" }
+    { name = "Eden", email = "gene@eden.art" }
 ]
 dependencies = [
     "fastapi>=0.104.1",
