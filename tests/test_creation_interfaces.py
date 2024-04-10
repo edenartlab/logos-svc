@@ -64,8 +64,6 @@ def test_kojii_untitledxyz():
         "human_machine_nature": random.uniform(0, 1),
     }
 
-    request = {"type": "column", "human_machine_nature": 0.5}
-
     response = client.post("/kojii/untitledxyz", json=request)
     print(response.json())
 

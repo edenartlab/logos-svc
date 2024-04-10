@@ -29,6 +29,22 @@ class KojiiVioletforestRequest(BaseModel):
 
 
 def kojii_violetforest(request: KojiiVioletforestRequest, callback=None):
+    import requests
+    from ..creation_interfaces import KojiiVioletforestRequest
+
+    for c in [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
+        for s in [Style.Kawaii, Style.Stars, Style.Lace, Style.Flowers]:
+            req = KojiiVioletforestRequest(
+                cybertwee_cyberpunk=float(c),
+                style=s,
+                seed=5,
+            )
+            image_url, thumbnail_url = kojii_violetforest1(req)
+            with open(f"images/{s.value}_{c}.jpg", "wb") as f:
+                f.write(requests.get(image_url).content)
+
+
+def kojii_violetforest1(request: KojiiVioletforestRequest, callback=None):
     seed = request.seed if request.seed else random.randint(0, 1000000)
 
     if request.style == Style.Kawaii:
@@ -44,6 +60,7 @@ def kojii_violetforest(request: KojiiVioletforestRequest, callback=None):
         f"a stunning image of a cute cybertwee girl, {modifiers}",
         f"a stunning image of an Aston Martin sportscar, {modifiers}",
     ]
+    print(request)
     text_inputs_to_interpolate_weights = [
         request.cybertwee_cyberpunk,
         1 - request.cybertwee_cyberpunk,
@@ -56,11 +73,12 @@ def kojii_violetforest(request: KojiiVioletforestRequest, callback=None):
         "text_inputs_to_interpolate_weights": " | ".join(
             [str(t) for t in text_inputs_to_interpolate_weights],
         ),
-        "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/e3b036c0a9949de0a5433cb6c7e54b540c47535ce7ae252948177304542ca4da.tar",
-        "lora_scale": 0.7,
+        # "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/e3b036c0a9949de0a5433cb6c7e54b540c47535ce7ae252948177304542ca4da.tar",
+        # "lora_scale": 0.7,
         "seed": seed,
     }
-
+    print("CONFIG")
+    print(config)
     image_url, thumbnail_url = replicate.sdxl(config)
 
     return image_url, thumbnail_url
