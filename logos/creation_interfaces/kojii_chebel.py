@@ -34,7 +34,7 @@ class KojiiChebelRequest(BaseModel):
 
 
 def kojii_chebel(request: KojiiChebelRequest, callback=None):
-    lora_scale = request.abstract
+    lora_scale = 0.44 + 0.52 * request.abstract
     seed = request.seed if request.seed else random.randint(0, 1000000)
 
     if request.color == ColorType.color:
@@ -42,14 +42,12 @@ def kojii_chebel(request: KojiiChebelRequest, callback=None):
         negative_prompt = "saturated"
     else:
         color_mode = "black and white"
-        negative_prompt = (
-            "color, colors, yellow, orange, red, pink, purple, blue, green"
-        )
+        negative_prompt = "yellow, blue"
 
     if request.number == Number.one:
-        prompt = f"in the style of <concept>, oil paint, {color_mode}, woman, dance, brush strokes"
+        prompt = f"oil painting in the style of <concept>, oil paint, {color_mode}, woman, dance, expressive brushstrokes"
     elif request.number == Number.many:
-        prompt = f"in the style of <concept>, oil paint, {color_mode}, women, dance, brush strokes"
+        prompt = f"oil painting in the style of <concept>, oil paint, {color_mode}, many women, dance, expressive brushstrokes"
 
     if request.aspect_ratio == AspectRatio.portrait:
         w, h = 1024, 1536
@@ -62,16 +60,14 @@ def kojii_chebel(request: KojiiChebelRequest, callback=None):
 
     control_image_strength = 0.84
     guidance_scale = 8
-    negative_prompt += (
-        ", ugly, watermark, text, tiling, blurred, grainy, signature, cut off, draft"
-    )
+    negative_prompt += ", watermark, text, tiling, out of frame, blurry, blurred, grainy, signature, cut off, draft"
 
     config = {
         "mode": "controlnet",
         "controlnet_type": "canny-edge",
         "text_input": prompt,
         "uc_text": negative_prompt,
-        "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/431ff8fb8edf1fcf8d1bc1ddcc2662479ced491c6b98784cdb4b0aa6d70cd09c.tar",
+        "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/d93ba7c3b642816c3ab2f5c1755539e222e902d52c6a63064feb57a6cd2c5ba7.tar",
         "lora_scale": lora_scale,
         "control_image": f"https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/{control_image}",
         "control_image_strength": control_image_strength,
@@ -80,7 +76,7 @@ def kojii_chebel(request: KojiiChebelRequest, callback=None):
         "adopt_aspect_from_init_img": True,
         "guidance_scale": guidance_scale,
         "sampler": "euler",
-        "steps": 42,
+        "steps": 50,
         "seed": seed,
     }
 
