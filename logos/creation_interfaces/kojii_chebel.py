@@ -38,16 +38,11 @@ def kojii_chebel(request: KojiiChebelRequest, callback=None):
     seed = request.seed if request.seed else random.randint(0, 1000000)
 
     if request.color == ColorType.color:
-        color_mode = "soft pastel color palette"
-        negative_prompt = "saturated"
+        prompt = "oil painting, soft pastel colors, skin tones, woman, dance, expressive brushstrokes"
+        negative_prompt = "colorful, yellow, blue, watermark, text, tiling, out of frame, blurry, blurred, grainy, signature, cut off, draft"
     else:
-        color_mode = "black and white"
-        negative_prompt = "yellow, blue"
-
-    if request.number == Number.one:
-        prompt = f"oil painting in the style of <concept>, oil paint, {color_mode}, woman, dance, expressive brushstrokes"
-    elif request.number == Number.many:
-        prompt = f"oil painting in the style of <concept>, oil paint, {color_mode}, many women, dance, expressive brushstrokes"
+        prompt = "oil painting, black and white, woman, dance, expressive brushstrokes, charcoal drawing"
+        negative_prompt = "color, colors, red, pink, purple, green, orange, yellow, blue,  colorful, watermark, text, tiling, out of frame, blurry, blurred, grainy, signature, cut off, draft"
 
     if request.aspect_ratio == AspectRatio.portrait:
         w, h = 1024, 1536
@@ -60,7 +55,6 @@ def kojii_chebel(request: KojiiChebelRequest, callback=None):
 
     control_image_strength = 0.84
     guidance_scale = 8
-    negative_prompt += ", watermark, text, tiling, out of frame, blurry, blurred, grainy, signature, cut off, draft"
 
     config = {
         "mode": "controlnet",
