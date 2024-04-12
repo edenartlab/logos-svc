@@ -135,4 +135,4 @@ def kojii_untitledxyz(request: KojiiUntitledxyzRequest, callback=None):
 
     image_url, thumbnail_url = replicate.sdxl(config)
 
-    return image_url, thumbnail_url, config
+    return image_url, thumbnail_url
