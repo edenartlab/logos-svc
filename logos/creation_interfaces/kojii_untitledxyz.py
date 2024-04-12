@@ -87,7 +87,7 @@ def kojii_untitledxyz(request: KojiiUntitledxyzRequest, callback=None):
         if request.human_machine_nature < 1 / 3:
             text_inputs_to_interpolate = [
                 "isometric architectural drawing, displaying an ultra close up of distorted roman columns connected to a modern building, emphasizing stone corinthian capitals and white blocks, pen and ink, yellow, orange, light brown, solid white background, sharpness, noise",
-                "an isometric architectural drawing, displaying an ultra close up of a modernist building made of computer parts, dodecahedrons, textural details, emphasizing entangled wires with intense precision, the intricate web of wires are seen up close, accentuating the fusion of modern and ancient, the image depicts wires illustrated with vibrant colors, sharpness, noise.",
+                "architectural drawing, giant blocks, displaying an ultra close up of a modernist building made of computer parts, emphasizing entangled wires with intense precision, the intricate web of wires are seen up close, accentuating the fusion of modern and ancient, the image depicts wires illustrated with vibrant colors, sharpness, noise.",
             ]
             text_inputs_to_interpolate_weights = [
                 1 - 3 * request.human_machine_nature,
@@ -96,7 +96,7 @@ def kojii_untitledxyz(request: KojiiUntitledxyzRequest, callback=None):
 
         elif request.human_machine_nature < 2 / 3:
             text_inputs_to_interpolate = [
-                "an isometric architectural drawing, displaying an ultra close up of a modernist building made of computer parts, dodecahedrons, textural details, emphasizing entangled wires with intense precision, the intricate web of wires are seen up close, accentuating the fusion of modern and ancient, the image depicts wires illustrated with vibrant colors, sharpness, noise.",
+                "architectural drawing, giant blocks, displaying an ultra close up of a modernist building made of computer parts, emphasizing entangled wires with intense precision, the intricate web of wires are seen up close, accentuating the fusion of modern and ancient, the image depicts wires illustrated with vibrant colors, sharpness, noise.",
                 "an isometric architectural drawing, displaying an ultra close up of a modern superstructure, geometric stone blocks, emphasis on dense overwhelming vines with intense precision, plants are shot up close, accentuating the fusion of nature and columns, the image depicts giant leaves illustrated with vibrant colors, solid white background, sharpness, noise.",
             ]
             text_inputs_to_interpolate_weights = [
