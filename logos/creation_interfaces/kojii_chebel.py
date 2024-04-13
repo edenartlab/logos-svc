@@ -39,7 +39,7 @@ def kojii_chebel(request: KojiiChebelRequest, callback=None):
 
     if request.color == ColorType.color:
         prompt = "oil painting, soft pastel colors, skin tones, woman, dance, expressive brushstrokes"
-        negative_prompt = "colorful, yellow, blue, watermark, text, tiling, out of frame, blurry, blurred, grainy, signature, cut off, draft"
+        negative_prompt = "yellow, blue, watermark, text, tiling, out of frame, blurry, blurred, grainy, signature, cut off, draft"
     else:
         prompt = "oil painting, black and white, woman, dance, expressive brushstrokes, charcoal drawing"
         negative_prompt = "color, colors, red, pink, purple, green, orange, yellow, blue,  colorful, watermark, text, tiling, out of frame, blurry, blurred, grainy, signature, cut off, draft"
