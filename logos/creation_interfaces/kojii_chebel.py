@@ -44,10 +44,8 @@ def kojii_chebel(request: KojiiChebelRequest, callback=None):
         prompt = "oil painting, black and white, woman, dance, expressive brushstrokes, charcoal drawing"
         negative_prompt = "color, colors, red, pink, purple, green, orange, yellow, blue,  colorful, watermark, text, tiling, out of frame, blurry, blurred, grainy, signature, cut off, draft"
 
-    if request.aspect_ratio == AspectRatio.portrait:
-        w, h = 1024, 1536
-    elif request.aspect_ratio == AspectRatio.landscape:
-        w, h = 1536, 1024
+    # Hardcoded to 1024x1024 as per Chebel's request (aspect ratio of init_img will still get adopted)
+    w, h = 1024, 1024
 
     control_image = random.choice(
         control_images[request.number.value][request.aspect_ratio.value],
