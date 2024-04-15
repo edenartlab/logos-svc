@@ -34,7 +34,7 @@ class KojiiChebelRequest(BaseModel):
 
 
 def kojii_chebel(request: KojiiChebelRequest, callback=None):
-    lora_scale = 0.44 + 0.52 * request.abstract
+    lora_scale = max(0.0, min(1.0, 0.44 + 0.52 * request.abstract))
     seed = request.seed if request.seed else random.randint(0, 1000000)
 
     if request.color == ColorType.color:
