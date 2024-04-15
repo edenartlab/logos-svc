@@ -42,7 +42,7 @@ def kojii_chebel(request: KojiiChebelRequest, callback=None):
         negative_prompt = "colorful, yellow, blue, watermark, text, tiling, out of frame, blurry, blurred, grainy, signature, cut off, draft"
     else:
         prompt = "oil painting, black and white, woman, dance, expressive brushstrokes, charcoal drawing"
-        negative_prompt = "color, colors, red, pink, purple, green, orange, yellow, blue,  colorful, watermark, text, tiling, out of frame, blurry, blurred, grainy, signature, cut off, draft"
+        negative_prompt = "color, colors, red, pink, purple, green, orange, yellow, blue, colorful, watermark, text, tiling, out of frame, blurry, blurred, grainy, signature, cut off, draft"
 
     # Hardcoded to 1024x1024 as per Chebel's request (aspect ratio of init_img will still get adopted)
     w, h = 1024, 1024
