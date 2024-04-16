@@ -121,7 +121,7 @@ def kojii_untitledxyz(request: KojiiUntitledxyzRequest, callback=None):
         "text_inputs_to_interpolate_weights": "|".join(
             [str(t) for t in text_inputs_to_interpolate_weights],
         ),
-        "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/d2e6d1f8ccfca428ba42fa56a0384a4261d32bf1ee8b0dc952d99da9011daf39.tar",
+        "uc_text": "person, car, sky, clouds, city, urban, people",
         "lora_scale": 0.8,
         "seed": seed,
         "guidance_scale": 8.0,
