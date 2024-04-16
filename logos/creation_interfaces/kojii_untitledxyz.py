@@ -121,7 +121,6 @@ def kojii_untitledxyz(request: KojiiUntitledxyzRequest, callback=None):
         "text_inputs_to_interpolate_weights": "|".join(
             [str(t) for t in text_inputs_to_interpolate_weights],
         ),
-        "uc_text": "person, car, sky, clouds, city, urban, people",
         "lora_scale": 0.8,
         "seed": seed,
         "guidance_scale": 8.0,
