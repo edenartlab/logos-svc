@@ -83,7 +83,7 @@ def wav2lip(
     if height:
         config["height"] = height
 
-    output = run_task(config, model_name="abraham-ai/character")
+    output = run_task(config, model_name="edenartlab/character")
 
     output = list(output)
     output_url = output[0]["files"][0]
@@ -98,11 +98,11 @@ def sdxl(
     model_deployment: str = None,
 ):
     # default all sdxl jobs to deployment
-    model_deployment = "abraham-ai/eden-sd-pipelines-sdxl-images"
+    model_deployment = "edenartlab/eden-sd-pipelines-sdxl-images"
 
     output = run_task(
         config,
-        # model_name="abraham-ai/eden-sd-pipelines-sdxl",
+        # model_name="edenartlab/eden-sd-pipelines-sdxl",
         # model_version=model_version,
         model_deployment=model_deployment,
     )
@@ -129,7 +129,7 @@ def txt2vid(
     }
 
     # default all comfyui jobs to deployment
-    model_deployment = "abraham-ai/eden-comfyui-images"
+    model_deployment = "edenartlab/eden-comfyui-images"
 
     output = run_task(
         config,
@@ -153,7 +153,7 @@ def audiocraft(
         "duration_seconds": seconds,
     }
 
-    output = run_task(config, model_name="abraham-ai/audiocraft")
+    output = run_task(config, model_name="edenartlab/audiocraft")
 
     output = list(output)
     output_url = output[0]["files"][0]
