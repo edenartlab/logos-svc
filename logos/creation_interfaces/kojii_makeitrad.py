@@ -123,7 +123,7 @@ def kojii_makeitrad(request: KojiiMakeitradRequest, callback=None):
 
     output = replicate.run_task(
         config,
-        model_deployment="abraham-ai/eden-comfyui-images",
+        model_deployment="edenartlab/eden-comfyui-images",
     )
 
     output = list(output)
