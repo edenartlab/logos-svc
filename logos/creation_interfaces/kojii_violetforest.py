@@ -28,7 +28,7 @@ class KojiiVioletforestRequest(BaseModel):
     seed: Optional[int] = Field(default=None, description="Random seed")
 
 
-def kojii_violetforest(request: KojiiVioletforestRequest, callback=None):
+def kojii_violetforest2(request: KojiiVioletforestRequest, callback=None):
     import requests
     from ..creation_interfaces import KojiiVioletforestRequest
 
@@ -44,7 +44,7 @@ def kojii_violetforest(request: KojiiVioletforestRequest, callback=None):
                 f.write(requests.get(image_url).content)
 
 
-def kojii_violetforest1(request: KojiiVioletforestRequest, callback=None):
+def kojii_violetforest(request: KojiiVioletforestRequest, callback=None):
     seed = request.seed if request.seed else random.randint(0, 1000000)
 
     if request.style == Style.Kawaii:
@@ -73,8 +73,8 @@ def kojii_violetforest1(request: KojiiVioletforestRequest, callback=None):
         "text_inputs_to_interpolate_weights": " | ".join(
             [str(t) for t in text_inputs_to_interpolate_weights],
         ),
-        # "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/e3b036c0a9949de0a5433cb6c7e54b540c47535ce7ae252948177304542ca4da.tar",
-        # "lora_scale": 0.7,
+        "lora": "https://edenartlab-prod-data.s3.us-east-1.amazonaws.com/e3b036c0a9949de0a5433cb6c7e54b540c47535ce7ae252948177304542ca4da.tar",
+        "lora_scale": 0.7,
         "seed": seed,
     }
     print("CONFIG")
