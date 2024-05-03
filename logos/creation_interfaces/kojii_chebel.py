@@ -34,7 +34,7 @@ class KojiiChebelRequest(BaseModel):
 
 
 def kojii_chebel(request: KojiiChebelRequest, callback=None):
-    lora_scale = 0.44 + 0.52 * request.abstract
+    lora_scale = max(0.0, min(1.0, 0.44 + 0.52 * request.abstract))
     seed = request.seed if request.seed else random.randint(0, 1000000)
 
     if request.color == ColorType.color:
@@ -42,7 +42,7 @@ def kojii_chebel(request: KojiiChebelRequest, callback=None):
         negative_prompt = "colorful, yellow, blue, watermark, text, tiling, out of frame, blurry, blurred, grainy, signature, cut off, draft"
     else:
         prompt = "oil painting, black and white, woman, dance, expressive brushstrokes, charcoal drawing"
-        negative_prompt = "color, colors, red, pink, purple, green, orange, yellow, blue,  colorful, watermark, text, tiling, out of frame, blurry, blurred, grainy, signature, cut off, draft"
+        negative_prompt = "color, colors, red, pink, purple, green, orange, yellow, blue, colorful, watermark, text, tiling, out of frame, blurry, blurred, grainy, signature, cut off, draft"
 
     # Hardcoded to 1024x1024 as per Chebel's request (aspect ratio of init_img will still get adopted)
     w, h = 1024, 1024

@@ -152,7 +152,7 @@ def audiocraft(
         "text_input": prompt,
         "duration_seconds": seconds,
     }
-
+    print(config)
     output = run_task(config, model_name="edenartlab/audiocraft")
 
     output = list(output)
