@@ -34,12 +34,34 @@ def story(request: StoryRequest):
     ).strip()
 
     screenwriter = LLM(
-        model=request.model,
+        model="gpt-4o", #request.model,
         system_message=screenwriter_system_template.template,
         params=params,
     )
 
-    story = screenwriter(prompt, output_schema=StoryResult)
+    # hack to do story type validation, fixed in eden2
+    finished = False
+    tries = 0
+    max_tries = 5
+    while not finished:
+        try:
+            story = screenwriter(prompt, output_schema=StoryResult)
+            clip_keys = [c.keys() for c in story["clips"]]
+            required_keys = {'voiceover', 'character', 'speech', 'image_prompt'}
+            all_clips_valid = all(required_keys.issubset(set(clip)) for clip in clip_keys)
+            if not all_clips_valid:
+                print("Missing keys in clips")
+                print(clip_keys)
+                raise ValueError("One or more clips are missing required keys.")
+            finished = True
+            break
+        except Exception as e:
+            print("Error:", e)
+            tries += 1
+            if tries >= max_tries:
+                raise Exception("Max tries exceeded...")
+
+    #story = screenwriter(prompt, output_schema=StoryResult)
 
     if request.music:
         if request.music_prompt and request.music_prompt.strip():

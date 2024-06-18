@@ -54,7 +54,7 @@ class Character:
         story_creation_enabled=False,
         concept=None,
         smart_reply=False,
-        chat_model="gpt-3.5-turbo",
+        chat_model="gpt-4o", #"gpt-3.5-turbo",
         image=None,
         voice=None,
     ):
@@ -100,7 +100,7 @@ class Character:
         story_creation_enabled=False,
         concept=None,
         smart_reply=False,
-        chat_model="gpt-3.5-turbo",
+        chat_model="gpt-4o", #"gpt-3.5-turbo",
         image=None,
         voice=None,
     ):
@@ -223,7 +223,7 @@ class Character:
             prompt=user_message,
             output_schema=Thought,
             save_messages=False,
-            model="gpt-4-1106-preview",
+            model="gpt-4o", #"gpt-4-1106-preview",
         )
 
         probability = result["probability"]
@@ -247,7 +247,7 @@ class Character:
         index = self.router(
             prompt=router_prompt,
             save_messages=False,
-            model="gpt-4-1106-preview",
+            model="gpt-4o", #"gpt-4-1106-preview",
         )
         match = re.match(r"-?\d+", index)
         if match:
@@ -266,7 +266,8 @@ class Character:
             image=message.attachments[0] if message.attachments else None,
             id=session_id,
             save_messages=False,
-            model=self.chat_model,
+            #model=self.chat_model,
+            model="gpt-4o",
         )
         user_message = ChatMessage(role="user", content=message.message)
         assistant_message = ChatMessage(role="assistant", content=response)
@@ -278,7 +279,8 @@ class Character:
             prompt=message.message,
             id=session_id,
             save_messages=False,
-            model=self.chat_model,
+            #model=self.chat_model,
+            model="gpt-4o",
         )
         user_message = ChatMessage(role="user", content=message.message)
         assistant_message = ChatMessage(role="assistant", content=response)
@@ -295,7 +297,8 @@ class Character:
             id=session_id,
             input_schema=CreatorInput,
             output_schema=CreatorOutput,
-            model="gpt-4-1106-preview",
+            #model="gpt-4-1106-preview",
+            model="gpt-4o",
         )
 
         config = {k: v for k, v in response["config"].items() if v}
@@ -361,7 +364,8 @@ class Character:
             prompt=story_context_prompt,
             id=session_id,
             output_schema=ContextOutput,
-            model="gpt-3.5-turbo",
+            #model="gpt-3.5-turbo",
+            model="gpt-4o",
         )
 
         new_names = [
@@ -413,7 +417,7 @@ class Character:
             id=session_id,
             # input_schema=CreatorInput,
             output_schema=StoryEditorOutput,
-            model="gpt-4-1106-preview",
+            model="gpt-4o", #"gpt-4-1106-preview",
             # model="gpt-3.5-turbo",
         )
 
@@ -542,7 +546,8 @@ class EdenCharacter(Character):
             abilities.get("story_creations", False) if abilities else False
         )
         smart_reply = abilities.get("smart_reply", False) if abilities else False
-        chat_model = logos_data.get("chatModel", "gpt-4-1106-preview")
+        #chat_model = logos_data.get("chatModel", "gpt-4-1106-preview")
+        chat_model = logos_data.get("chatModel", "gpt-4o")
         image = character_data.get("image")
         voice = character_data.get("voice")
 

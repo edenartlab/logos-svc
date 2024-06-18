@@ -7,7 +7,6 @@ from ..utils import now_tz
 
 NARRATOR_CHARACTER_ID = os.getenv("NARRATOR_CHARACTER_ID")
 
-
 class MonologueRequest(BaseModel):
     character_id: str
     prompt: str

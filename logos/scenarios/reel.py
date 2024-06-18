@@ -43,7 +43,7 @@ def reel(request: ReelRequest):
     ).strip()
 
     reelwriter = LLM(
-        model=request.model,
+        model="gpt-4o", #request.model,
         system_message=reelwriter_system_template.template,
         params=params,
     )
