@@ -134,7 +134,7 @@ def animated_story(request: StoryRequest, callback=None):
             print("audio file 2", audio_file2.name)
             silence = AudioSegment.silent(duration=INTRO_SCREEN_DURATION * 1000)
             music = AudioSegment.from_mp3(audio_file.name)
-            music = music - 6
+            music = music - 12
             music_with_silence = silence + music.fade_out(5000)
             music_with_silence.export(audio_file2.name, format="mp3")
             print("delete 2", audio_file.name)
