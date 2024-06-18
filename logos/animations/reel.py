@@ -82,9 +82,9 @@ def animated_reel(request: ReelRequest, callback=None):
     if speech_audio:
         buffer = BytesIO()
         music_audio = AudioSegment.from_mp3(BytesIO(music_bytes))
-        music_audio = music_audio - 5  # reduce music
+        music_audio = music_audio - 9  # reduce music
         music_audio = music_audio.fade_out(2000)
-        speech_audio = speech_audio + 5  # boost speech
+        speech_audio = speech_audio + 9  # boost speech
 
         # combine speech and audio at max duration
         nm, na = len(music_audio), len(speech_audio)
