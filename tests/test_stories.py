@@ -42,3 +42,4 @@ def test_story():
     print(response.json())
 
     assert response.status_code == 200
+

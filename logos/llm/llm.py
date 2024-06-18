@@ -155,7 +155,7 @@ class LLM(BaseModel):
         tools: List[Any] = None,
         input_schema: Any = None,
         output_schema: Any = None,
-        model: str = "gpt-4-1106-preview",
+        model: str = "gpt-4o" #"gpt-4-1106-preview",
     ) -> str:
         sess = self.get_session(id)
         if tools:

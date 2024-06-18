@@ -13,6 +13,7 @@ from ..utils import remove_a_key, now_tz, url_to_image_data
 
 
 ALLOWED_MODELS = [
+    "gpt-4o",
     "gpt-3.5-turbo",
     "gpt-4-1106-preview",
     "gpt-4-vision-preview",

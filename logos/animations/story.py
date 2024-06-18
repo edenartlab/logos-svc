@@ -19,6 +19,13 @@ def animated_story(request: StoryRequest, callback=None):
 
     music_prompt = screenplay.get("music_prompt")
 
+    print("===== animated story =====")
+    for s in screenplay["clips"]:
+        print(s)
+    print("-----")
+    print(music_prompt)
+    print("-----")
+
     if callback:
         callback(progress=0.1)
 
